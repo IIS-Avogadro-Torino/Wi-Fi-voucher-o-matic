@@ -1,7 +1,7 @@
 <?php
 ######################################################################
 # Wi-Fi-voucher-o-matic - Wi-Fi voucher manager
-# Copyright (C) 2017 Valerio Bozzolan, Ivan Bertotto, ITIS AVogadro
+# Copyright (C) 2017 Valerio Bozzolan, Ivan Bertotto, ITIS Avogadro
 #
 # This program is free software: you can redistribute it and/or modify
 # it under the terms of the GNU General Public License as published by
