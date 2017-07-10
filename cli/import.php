@@ -47,15 +47,21 @@ $vouchers = json_decode($vouchers);
 
 $rows = [];
 foreach($vouchers as $voucher) {
+
+	$voucher_creation = DateTime::createFromFormat('U', $voucher->creation_time);
+	$voucher_creation = $voucher_creation->format('Y-m-d H:i:s');
+
 	$rows[] = [
 		$voucher->code,
-		$voucher->duration
+		$voucher->duration,
+		$voucher_creation
 	];
 }
 
-insert_values('voucher', [
-	'voucher_code' => 's',
-	'voucher_duration' => 'd'
+insert_values(Voucher::T, [
+	Voucher::CODE          => 's',
+	Voucher::DURATION      => 'd',
+	Voucher::CREATION_DATE => 's'
 ], $rows);
 
 printf( "Imported %d vouchers.\n", count($vouchers) );
