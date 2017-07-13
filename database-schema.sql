@@ -57,12 +57,27 @@ DROP TABLE IF EXISTS `registrazioni_voucher`;
 CREATE TABLE `registrazioni_voucher` (
   `voucher_ID` int(10) unsigned NOT NULL AUTO_INCREMENT,
   `voucher_code` varchar(51) NOT NULL,
-  `voucher_duration` int(11) NOT NULL,
   `voucher_type` enum('god','ata','menthor','student','alien') DEFAULT NULL,
-  `voucher_creation_date` datetime DEFAULT NULL,
+  `voucher_duration` int(11) DEFAULT NULL,
   PRIMARY KEY (`voucher_ID`),
   UNIQUE KEY `voucher_code` (`voucher_code`)
 ) ENGINE=InnoDB DEFAULT CHARSET=utf8 ROW_FORMAT=COMPACT;
+/*!40101 SET character_set_client = @saved_cs_client */;
+
+--
+-- Table structure for table `registrazioni_activationcode`
+--
+
+DROP TABLE IF EXISTS `registrazioni_activationcode`;
+/*!40101 SET @saved_cs_client     = @@character_set_client */;
+/*!40101 SET character_set_client = utf8 */;
+CREATE TABLE `registrazioni_activationcode` (
+  `activationcode_ID` int(10) unsigned NOT NULL AUTO_INCREMENT,
+  `activationcode_code` varchar(8) NOT NULL,
+  `activationcode_type` enum('god','ata','menthor','student','alien') NOT NULL,
+  PRIMARY KEY (`activationcode_ID`),
+  UNIQUE KEY `activationcode_code` (`activationcode_code`)
+) ENGINE=InnoDB DEFAULT CHARSET=utf8;
 /*!40101 SET character_set_client = @saved_cs_client */;
 /*!40103 SET TIME_ZONE=@OLD_TIME_ZONE */;
 
@@ -74,4 +89,4 @@ CREATE TABLE `registrazioni_voucher` (
 /*!40101 SET COLLATION_CONNECTION=@OLD_COLLATION_CONNECTION */;
 /*!40111 SET SQL_NOTES=@OLD_SQL_NOTES */;
 
--- Dump completed on 2017-07-10  6:38:45
+-- Dump completed on 2017-07-13  2:47:33
