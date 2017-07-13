@@ -35,6 +35,9 @@ spl_autoload_register( function($c) {
 	}
 } );
 
+defined('NET_SMTP_PATH')
+	or define('NET_SMTP_PATH', '/usr/share/php/Net/SMTP.php');
+
 defined('JQUERY')
 	or define('JQUERY', '/javascript/jquery/jquery.min.js');
 
