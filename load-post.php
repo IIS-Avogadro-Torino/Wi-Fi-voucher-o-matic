@@ -22,7 +22,7 @@ defined('DEFAULT_DURATION')
 
 // Images and other files. Because of "static" is a reserved word...
 defined('STITIC')
-	or define('STITIC, 'static');
+	or define('STITIC', 'static');
 
 // Classes folder
 define('INCLUDES', 'includes');
