@@ -34,3 +34,8 @@ spl_autoload_register( function($c) {
 		require $path;
 	}
 } );
+
+defined('JQUERY')
+	or define('JQUERY', '/javascript/jquery/jquery.min.js');
+
+register_js('jquery', JQUERY);
