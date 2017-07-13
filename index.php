@@ -18,6 +18,10 @@
 
 require 'load.php';
 
+enqueue_script('jquery');
+
+Header::spawn();
+
 $voucher = null;
 $done = false;
 
@@ -102,4 +106,7 @@ if( isset(
 			<button type="submit">Invia</button>
 		</p>
 	</form>
+
 <?php endif ?>
+
+<?php Footer::spawn();
