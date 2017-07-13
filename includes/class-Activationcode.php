@@ -1,6 +1,6 @@
 <?php
 ######################################################################
-# Wi-Fi-voucher-o-matic - Wi-Fi voucher manager
+# Wi-Fi-Activationcode-o-matic - Wi-Fi Activationcode manager
 # Copyright (C) 2017 Valerio Bozzolan, Ivan Bertotto, ITIS Avogadro
 #
 # This program is free software: you can redistribute it and/or modify
@@ -16,17 +16,16 @@
 # along with this program.If not, see <http://www.gnu.org/licenses/>.
 ######################################################################
 
-class Voucher extends Queried {
+class Activationcode extends Queried {
 
-	const T = 'voucher';
+	const T = 'activationcode';
 
-	const ID            = 'voucher_ID';
-	const CODE          = 'voucher_code';
-	const TYPE          = 'voucher_type';
-	const DURATION      = 'voucher_duration';
+	const ID            = 'activationcode_ID';
+	const CODE          = 'activationcode_code';
+	const TYPE          = 'activationcode_type';
 
 	/**
-	 * RelUserVoucher factory.
+	 * RelUserActivationcode factory.
 	 *
 	 * @return Query
 	 */
@@ -35,11 +34,10 @@ class Voucher extends Queried {
 			->from( self::T );
 	}
 
-	static function insert($code, $type, $duration) {
+	static function insert($code, $type) {
 		insert_row(self::T, [
-			new DBCol(self::CODE,     $code,     's'),
-			new DBCol(self::TYPE,     $type,     's'),
-			new DBCol(self::DURATION, $duration, 'd')
+			new DBCol(self::CODE, $code, 's'),
+			new DBCol(self::TYPE, $type, 's')
 		] );
 	}
 }

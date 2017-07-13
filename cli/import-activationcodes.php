@@ -16,30 +16,53 @@
 # along with this program.If not, see <http://www.gnu.org/licenses/>.
 ######################################################################
 
-class Voucher extends Queried {
+// Only CLI allowed
+empty( $argv )
+	and exit;
 
-	const T = 'voucher';
+empty( $argv[1] )
+	and die("RTFM");
 
-	const ID            = 'voucher_ID';
-	const CODE          = 'voucher_code';
-	const TYPE          = 'voucher_type';
-	const DURATION      = 'voucher_duration';
+require '..' . DIRECTORY_SEPARATOR . 'load.php';
 
-	/**
-	 * RelUserVoucher factory.
-	 *
-	 * @return Query
-	 */
-	static function factory() {
-		return Query::factory( __CLASS__ )
-			->from( self::T );
+$TIPO_2_TYPE = [
+	'God_AVO'          => 'god',
+	'Prof_AVO'         => 'menthor',
+	'Studenti_AVO'     => 'student',
+	'Guest_Access_AVO' => 'alien'
+];
+
+$handle = fopen( $argv[1] , 'r');
+
+$first = true;
+$rows = 1;
+while( $voucher = fgetcsv($handle) ) {
+	if( $first ) {
+		$first = false;
+		continue;
 	}
 
-	static function insert($code, $type, $duration) {
-		insert_row(self::T, [
-			new DBCol(self::CODE,     $code,     's'),
-			new DBCol(self::TYPE,     $type,     's'),
-			new DBCol(self::DURATION, $duration, 'd')
-		] );
+	list($id, $code, $tipo, $attivato) = $voucher;
+
+	$existing_voucher = Activationcode::factory()
+		->select(1)
+		->whereStr(Activationcode::CODE, $code)
+		->queryRow();
+
+	if( $existing_voucher ) {
+		printf("Skipped '%s'\n", $code);
+		continue;
 	}
+
+	if( ! isset( $TIPO_2_TYPE[ $tipo ] ) ) {
+		error_die( sprintf("Tipo '%s' non esiste", $tipo) );
+	}
+
+	$type = $TIPO_2_TYPE[ $tipo ];
+
+	Activationcode::insert($code, $type);
+
+	$rows++;
 }
+
+printf( "Imported %d vouchers.\n", $rows );

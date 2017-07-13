@@ -25,43 +25,52 @@ empty( $argv[1] )
 
 require '..' . DIRECTORY_SEPARATOR . 'load.php';
 
-$vouchers = file_get_contents( $argv[1] );
-
-$stupid_non_json_fields = [
-	'ObjectId',
-	'NumberLong',
-	'NumberInt',
-	')',
-	'('
+$NOTE_2_TYPE = [
+	'God_AVO'          => 'god',
+	'Prof_AVO'         => 'menthor',
+	'Studenti_AVO'     => 'student',
+	'Guest_Access_AVO' => 'alien'
 ];
 
-$vouchers = str_replace($stupid_non_json_fields, '', $vouchers);
+$handle = fopen( $argv[1] , 'r');
 
-$vouchers = rtrim($vouchers, ",\n ");
+$first = true;
+$i = 0;
+while( $voucher = fgetcsv($handle) ) {
 
-$vouchers = "[$vouchers]";
+	if( $first ) {
+		$first = false;
+		continue;
+	}
 
-file_put_contents('voucher.clean.json', $vouchers);
+	// "_id","admin_name","code","create_time","duration","for_hotspot","note"
+	list(   ,            ,$code ,             ,$duration,              , $note) = $voucher;
 
-$vouchers = json_decode($vouchers);
+	if( ! isset( $code, $duration ) ) {
+		echo "Error importing:\n";
+		var_dump($voucher);
+		sleep(1);
+	}
 
-$rows = [];
-foreach($vouchers as $voucher) {
+	if( ! $NOTE_2_TYPE[ $note ] ) {
+		error_die( sprintf("Wrong note '%s'", $note) );
+	}
 
-	$voucher_creation = DateTime::createFromFormat('U', $voucher->creation_time);
-	$voucher_creation = $voucher_creation->format('Y-m-d H:i:s');
+	$type = $NOTE_2_TYPE[ $note ];
 
-	$rows[] = [
-		$voucher->code,
-		$voucher->duration,
-		$voucher_creation
-	];
+	$voucher_exists = Voucher::factory()
+		->select(1)
+		->whereStr(Voucher::CODE, $code)
+		->queryRow();
+
+	if( $voucher_exists ) {
+		printf("Duplicated: '%s'\n", $code);
+	}
+
+	Voucher::insert($code, $type, $duration);
+
+	$i++;
 }
 
-insert_values(Voucher::T, [
-	Voucher::CODE          => 's',
-	Voucher::DURATION      => 'd',
-	Voucher::CREATION_DATE => 's'
-], $rows);
+printf( "Imported %d vouchers.\n", $i );
 
-printf( "Imported %d vouchers.\n", count($vouchers) );
