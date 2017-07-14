@@ -52,6 +52,7 @@ add_menu_entries( [
 	new MenuEntry('condizioni',      ROOT . '/#header3-b',          _("Condizioni")        ),
 	new MenuEntry('docente',         ROOT . '/docente.php',         _("Docente"),          'hidden'),
 	new MenuEntry('studente',        ROOT . '/studente.php',        _("Studente"),         'hidden'),
+	new MenuEntry('ospite',          ROOT . '/ospite.php',          _("Ospite"),           'hidden'),
 	new MenuEntry('dispositivo',     ROOT . '/dispositivo.php',     _("Dispositivo"),      'hidden'),
 	new MenuEntry('pannello',        ROOT . '/pannello.php',        _("Pannello"),         'hidden')
 ] );
