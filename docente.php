@@ -63,11 +63,11 @@ Header::spawn('docente');
     <div class="mbr-section mbr-section-nopadding">
         <div class="container">
             <div class="row">
-                <div class="col-xs-12 col-lg-10 col-lg-offset-1" data-form-type="formoid">
+                <div class="col-xs-12 col-lg-20 col-lg-offset-1" data-form-type="formoid">
 
 
                     <div data-form-alert="true">
-                        <div hidden="" data-form-alert-success="true" class="alert alert-form alert-success text-xs-center">TGrazie per aver compilato il form.</div>
+                        <div hidden="" data-form-alert-success="true" class="alert alert-form alert-success text-xs-center"> Grazie per aver compilato il form.</div>
                     </div>
 
 
@@ -77,65 +77,41 @@ Header::spawn('docente');
                       <div class="col-xs-12 col-md-4">
                                 <div class="form-group">
                                     <label class="form-control-label" for="form1-t-name"><?php _e("Nome") ?><span class="form-asterisk">*</span></label>
-                                </div>
-                        	    <div class="col-xs-12 col-md-4">
                                      <input type="text" class="form-control" name="user_name" required="required" data-form-field="Name" id="form1-t-name">
                                 </div>
                        </div>
-                 </div>      
-                          
-                <div class="row row-sm-offset">
+
                       <div class="col-xs-12 col-md-4">
                                 <div class="form-group">
                                     <label class="form-control-label" for="form1-t-surname"><?php _e("Cognome") ?><span class="form-asterisk">*</span></label>
-                                </div>
-                        	    <div class="col-xs-12 col-md-4">
-                                     <input type="text" class="form-control" name="user_name" required="required" data-form-field="Surname" id="form1-t-surname">
+                                    <input type="text" class="form-control" name="user_name" required="required" data-form-field="Surname" id="form1-t-surname">
                                 </div>
                        </div>
                  </div>                             
                           
-                          
-                          
-                          
-                          
-                          
-                          
-                          
-                          
-                          
-                          
-                          
-                          
-                           
-                            
-
-                            <div class="col-xs-12 col-md-4">
+                <div class="row row-sm-offset">
+                      <div class="col-xs-12 col-md-4">
                                 <div class="form-group">
-                                    <label class="form-control-label" for="form1-t-surname"><?php _e("Cognome") ?><span class="form-asterisk">*</span></label>
-                                    <input type="text" class="form-control" name="user_surname" required="required" data-form-field="Name" id="form1-t-surname">
+                                    <label class="form-control-label" for="form1-t-qualifica"><?php _e("Qualifica") ?><span class="form-asterisk">*</span></label>
+                                   	<select class="form-control" name="user_type" id="form1-t-qualifica">
+							<option disabled="disabled" selected="selected"><?php _e("Scegli un'opzione") ?></option>
+							<option value="ata"><?php _e("Personale ATA") ?></option>
+							<option value="menthor"><?php _e("Docente") ?></option>
+						</select>
                                 </div>
-                            </div>
-
-                            <div class="col-xs-12 col-md-4">
+                       </div>
+                 
+                      <div class="col-xs-12 col-md-4">
                                 <div class="form-group">
-					<select name="user_type">
-						<option disabled="disabled" selected="selected"><?php _e("Scegli un'opzione") ?></option>
-						<option value="ata"><?php _e("Personale ATA") ?></option>
-						<option value="menthor"><?php _e("Docente") ?></option>
-					</select>
-                                </div>
-                            </div>
-
-                            <div class="col-xs-12 col-md-4">
-                                <div class="form-group">
-                                    <label class="form-control-label" for="form1-t-email">Email (solo quella @itisavogadro.org)<span class="form-asterisk">*</span></label>
+                                    <label class="form-control-label" for="form1-t-email"><?php _e("Email (solo quella @itisavogadro.it)") ?><span class="form-asterisk">*</span></label>
                                     <input type="email" class="form-control" name="user_uid" required="required" data-form-field="Email" id="form1-t-email">
                                 </div>
-                            </div>
-
-                        </div>
-
+                       </div>
+                 </div>                             
+                        
+                <div><button type="submit" class="btn btn-primary">Richiedi</button></div>  
+                                    
+ 
                     </form>
                 </div>
             </div>
