@@ -45,3 +45,10 @@ defined('JQUERY')
 	or define('JQUERY', '/javascript/jquery/jquery.min.js');
 
 register_js('jquery', JQUERY);
+
+add_menu_entries( [
+	new MenuEntry('index',       '',                 _("Pagina principale") ),
+	new MenuEntry('docente',     '/docente.php',     _("Docente")           ),
+	new MenuEntry('dispositivo', '/dispositivo.php', _("Dispositivo")       ),
+	new MenuEntry('pannello',    '/pannello.php',    _("Pannello")          )
+] );
