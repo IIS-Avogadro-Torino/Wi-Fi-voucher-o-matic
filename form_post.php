@@ -28,7 +28,7 @@ Header::spawn('form_post', [
     <div class="mbr-figure">
         <div><img src="<?php echo STATIC_ROOT ?>/images/avowifiok-1400x602.png"></div>
         <div class="mbr-figure-caption">
-            <div class="container"><p>Ottimo!</p><br><p>Leggi la posta.</p>
+            <div class="container"><p><h1>Ottimo!</h1></p><br><p>Leggi la posta.</p>
             Ti abbiamo inviato il codice per iniziare da subito a navigare.
             
             <br>
