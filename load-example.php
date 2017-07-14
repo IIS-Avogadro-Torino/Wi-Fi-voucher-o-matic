@@ -31,5 +31,7 @@ define('ABSPATH', __DIR__ );
 // The URL relative folder of this project without trailing slash (e.g. '/vouchers')
 define('ROOT', '');
 
+define('CONTACT_EMAIL', 'staff@itisavogadro.org');
+
 // Insert here your Boz-PHP framework path
 require '/usr/share/boz-php-another-php-framework/load.php';
