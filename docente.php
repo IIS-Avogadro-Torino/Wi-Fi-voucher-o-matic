@@ -18,7 +18,7 @@
 
 require 'load.php';
 
-Header::spawn('dispositivo');
+Header::spawn('docente');
 
 ?>
 
