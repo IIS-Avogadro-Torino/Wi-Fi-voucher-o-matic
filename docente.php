@@ -108,13 +108,6 @@ Header::spawn('docente');
 
                         </div>
 
-                        <div class="form-group">
-                            <label class="form-control-label" for="form1-t-message">Message</label>
-                            <textarea class="form-control" name="message" rows="7" data-form-field="Message" id="form1-t-message"></textarea>
-                        </div>
-
-                        <div><button type="submit" class="btn btn-primary">CONTACT US</button></div>
-
                     </form>
                 </div>
             </div>
