@@ -25,6 +25,10 @@ class Voucher extends Queried {
 	const TYPE          = 'voucher_type';
 	const DURATION      = 'voucher_duration';
 
+	function __construct() {
+		$this->integers(self::ID);
+	}
+
 	/**
 	 * RelUserVoucher factory.
 	 *
@@ -41,5 +45,16 @@ class Voucher extends Queried {
 			new DBCol(self::TYPE,     $type,     's'),
 			new DBCol(self::DURATION, $duration, 'd')
 		] );
+	}
+
+	static function filterType( $user_type ) {
+		$types = ['menthor', 'student'];
+		if( in_array( $user_type, $types, true ) ) {
+			return $user_type;
+		}
+		if( $user_type === 'ata' ) {
+			return 'menthor';
+		}
+		return 'alien';
 	}
 }

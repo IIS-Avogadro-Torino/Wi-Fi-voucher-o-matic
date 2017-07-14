@@ -24,8 +24,9 @@ defined('DEFAULT_DURATION')
 defined('STITIC')
 	or define('STITIC', 'static');
 
-define('STATIC_ROOT', ROOT . _ . STITIC);
-define('STATIC_URL',  URL  . _ . STITIC);
+define('STATIC_ROOT', ROOT    . _  . STITIC);
+define('STATIC_URL',  URL     . _  . STITIC);
+define('STATIC_PATH', ABSPATH . __ . STITIC);
 
 // Classes folder
 define('INCLUDES', 'includes');
@@ -38,6 +39,9 @@ spl_autoload_register( function($c) {
 	}
 } );
 
+defined('SITE_NAME')
+	or define('SITE_NAME', _("Gruppo rete Avogadro") );
+
 defined('NET_SMTP_PATH')
 	or define('NET_SMTP_PATH', '/usr/share/php/Net/SMTP.php');
 
@@ -47,12 +51,13 @@ defined('JQUERY')
 register_js('jquery', JQUERY);
 
 add_menu_entries( [
-	new MenuEntry('index',           ROOT,                          _("Pagina principale") ),
+	new MenuEntry('index',           ROOT,                          _("Home") ),
 	new MenuEntry('lista_richieste', ROOT . '/lista_richieste.php', _("Richiedi" )         ),
 	new MenuEntry('condizioni',      ROOT . '/#header3-b',          _("Condizioni")        ),
 	new MenuEntry('docente',         ROOT . '/docente.php',         _("Docente"),          'hidden'),
 	new MenuEntry('studente',        ROOT . '/studente.php',        _("Studente"),         'hidden'),
 	new MenuEntry('ospite',          ROOT . '/ospite.php',          _("Ospite"),           'hidden'),
 	new MenuEntry('dispositivo',     ROOT . '/dispositivo.php',     _("Dispositivo"),      'hidden'),
-	new MenuEntry('pannello',        ROOT . '/pannello.php',        _("Pannello"),         'hidden')
+	new MenuEntry('pannello',        ROOT . '/pannello.php',        _("Pannello"),         'hidden'),
+	new MenuEntry('form_post',       ROOT . '/form_post.php',       _("Invio dati"),       'hidden')
 ] );
