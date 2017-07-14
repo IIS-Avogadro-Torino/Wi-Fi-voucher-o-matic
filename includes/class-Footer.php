@@ -29,7 +29,7 @@ class Footer {
                 <p><strong>Istituto Avogadro</strong><br>Corso San Maurizio 8&nbsp;<br>10124 Torino<br></p>
             </div>
             <div class="mbr-footer-content col-xs-12 col-md-3">
-                <p><strong>Contacts</strong><br>
+                <p><strong>Contatto:</strong><br>
 Email: <?php echo CONTACT_EMAIL ?><br><br></p>
             </div>
             <div class="mbr-footer-content col-xs-12 col-md-3">
