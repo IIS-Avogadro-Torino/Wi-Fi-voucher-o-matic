@@ -88,7 +88,7 @@ Header::spawn('lista_richieste');
                     </div>
                     <div class="mbr-plan-body card-block">
                       <div class="mbr-plan-list"><ul class="list-group list-group-flush"><li class="list-group-item">8 megabit upload/download</li><li class="list-group-item">Fino a 5 dispositivi&nbsp;</li></ul></div>
-                      <div class="mbr-plan-btn"><a href="docente.html" class="btn btn-black btn-black-outline">Chiedi</a></div>
+                      <div class="mbr-plan-btn"><a href="<?php echo get_menu_entry('docente')->url ?>" class="btn btn-black btn-black-outline">Chiedi</a></div>
                     </div>
                 </div>
             </div>
