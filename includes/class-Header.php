@@ -19,6 +19,10 @@
 class Header {
 	static function spawn( $page_uid, $args = [] ) {
 
+		$args = array_replace( [
+			'navbar' => true
+		], $args );
+
 		header( 'Content-Type: text/html; charset=' . CHARSET );
 ?>
 <!DOCTYPE html>
@@ -41,6 +45,8 @@ class Header {
   <link rel="stylesheet" href="<?php echo STATIC_ROOT ?>/mobirise/css/mbr-additional.css" type="text/css" />
 </head>
 <body>
+
+<?php if( $args['navbar'] ): ?>
 <section id="ext_menu-2g">
 
     <nav class="navbar navbar-dropdown navbar-fixed-top">
@@ -67,6 +73,8 @@ class Header {
     </nav>
 
 </section>
+<?php endif ?>
+
 <?php
 	}
 }
