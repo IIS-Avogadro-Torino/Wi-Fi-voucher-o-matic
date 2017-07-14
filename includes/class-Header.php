@@ -54,17 +54,8 @@ class Header {
                         <div class="hamburger-icon"></div>
                     </button>
 
+		<?php Printmenu::spawn() ?>
 
-
-           <ul class="nav-dropdown collapse pull-xs-right nav navbar-nav navbar-toggleable-sm" id="exCollapsingNavbar">
-                <li class="nav-item"><a class="nav-link link" href="index.html">Home</a></li>
-                <li class="nav-item"><a class="nav-link link" href="lista_richieste.html">Richiedi</a></li>
-                <li class="nav-item"><a class="nav-link link" href="docente.html"></a></li>
-                <li class="nav-item"><a class="nav-link link" href="ospite.html"></a></li>
-                <li class="nav-item"><a class="nav-link link" href="dispositivo.html"></a></li>
-                <li class="nav-item nav-btn"><a class="nav-link btn btn-white btn-white-outline" href="index.html#header3-b">Condizioni</a></li>
-
-            </ul>
                     <button hidden="" class="navbar-toggler navbar-close" type="button" data-toggle="collapse" data-target="#exCollapsingNavbar">
                         <div class="close-icon"></div>
                     </button>
