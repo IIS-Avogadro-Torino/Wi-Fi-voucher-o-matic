@@ -102,7 +102,7 @@ if( isset(
 
                     <h1 class="mbr-section-title display-1">Wireless per tutti</h1>
                     <p class="mbr-section-lead lead">Il nostro istituto vi offre una copertura wireless al 90% della superficie della scuola.<br>Studenti, docenti e personale possono accedervi senza costi e senza limitazioni di tempo.<br>Cerchiamo di fare in modo che l'informazione sia per tutti quelli che vogliono imparare.&nbsp;</p>
-                    <div class="mbr-section-btn"><a class="btn btn-lg btn-danger" <?php echo get_menu_entry('lista_richieste')->url ?>>Richiedi Accesso</a> <a class="btn btn-lg btn-danger-outline btn-danger" href="<?php echo get_menu_entry('condizioni')->url ?>">Condizioni</a></div>
+                    <div class="mbr-section-btn"><a class="btn btn-lg btn-danger" href="<?php echo get_menu_entry('lista_richieste')->url ?>">Richiedi Accesso</a> <a class="btn btn-lg btn-danger-outline btn-danger" href="<?php echo get_menu_entry('condizioni')->url ?>">Condizioni</a></div>
                 </div>
             </div>
         </div>
