@@ -22,7 +22,7 @@ Header::spawn('ospite');
 
 ?>
 
-<section class="mbr-section article mbr-parallax-background mbr-after-navbar" id="msg-box8-w" style="background-image: url(assets/images/mbr-2-2000x1334.jpg); padding-top: 120px; padding-bottom: 120px;">
+<section class="mbr-section article mbr-parallax-background mbr-after-navbar" id="msg-box8-w" style="background-image: url(<?php echo STATIC_ROOT ?>/images/mbr-2-2000x1334.jpg); padding-top: 120px; padding-bottom: 120px;">
 
     <div class="mbr-overlay" style="opacity: 0.5; background-color: rgb(34, 34, 34);">
     </div>
