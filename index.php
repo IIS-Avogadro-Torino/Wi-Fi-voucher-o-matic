@@ -20,69 +20,13 @@ require 'load.php';
 
 Header::spawn('index');
 
-$voucher = null;
-$done = false;
-
-if( isset(
-	$_POST['user_name'],
-	$_POST['user_surname'],
-	$_POST['user_uid'],
-	$_POST['user_type']
-) ) {
-	$exists = User::factoryByUID( $_POST['user_uid'] )
-		->queryRow();
-
-	if( $exists ) {
-
-	} else {
-		$_POST['user_name']    = luser_input($_POST['user_name'],    32);
-		$_POST['user_surname'] = luser_input($_POST['user_surname'], 32);
-		$_POST['user_uid']     = luser_input($_POST['user_uid'],     32);
-
-		insert_row('user', [
-			new DBCol('user_name',    $_POST['user_name'],    's'),
-			new DBCol('user_surname', $_POST['user_surname'], 's'),
-			new DBCol('user_uid',     $_POST['user_uid'],     's'),
-			new DBCol('user_type',    $_POST['user_type'],    's')
-		] );
-
-		$user_ID = last_inserted_ID();
-
-		$duration = DEFAULT_DURATION;
-
-		if( $_POST['user_type'] === 'alien' || $_POST['user_type'] === 'guest' ) {
-			$duration = 10080;
-		}
-
-		$voucher = query_row(
-			sprintf(
-				"SELECT voucher_ID, voucher_code FROM {$JOIN('voucher')} WHERE voucher_duration = %d AND NOT EXISTS (".
-					"SELECT * FROM {$JOIN('rel_user_voucher')} WHERE rel_user_voucher.voucher_ID = voucher.voucher_ID ".
-				") LIMIT 1",
-				$duration
-			)
-		);
-
-		if( ! $voucher ) {
-			die("Voucher terminati. Contattare Ivan.");
-		}
-
-		RelUserVoucher::insertUserVoucher( $user_ID, $voucher->voucher_ID );
-
-		$done = true;
-	}
-}
-
 ?>
-
 <section class="mbr-section mbr-section__container mbr-after-navbar" id="video2-8" style="background-color: rgb(0, 0, 0); padding-top: 80px; padding-bottom: 0px;">
     <div class="container">
         <div class="row">
             <div class="col-xs-12">
                 <div class="mbr-figure">
                     <div><img src="<?php echo STATIC_ROOT ?>/images/avowifiok-1400x602.png"></div>
-
-                    
 
                 </div>
             </div>

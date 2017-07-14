@@ -1,4 +1,4 @@
-<?php
+m<?php
 ######################################################################
 # Wi-Fi-voucher-o-matic - Wi-Fi voucher manager
 # Copyright (C) 2017 Valerio Bozzolan, Ivan Bertotto, ITIS Avogadro
@@ -16,11 +16,55 @@
 # along with this program.If not, see <http://www.gnu.org/licenses/>.
 ######################################################################
 
+var_dump($_POST);exit;
+
 require 'load.php';
 
-Header::spawn('form_post', [
-	'navbar' => false
-] );
+Header::spawn('form_post');
+
+if( isset(
+	$_POST['user_name'],
+	$_POST['user_surname'],
+	$_POST['user_uid'],
+	$_POST['user_type']
+) ) {
+	if( $exists ) {
+
+	} else {
+		$_POST['user_name']    = luser_input($_POST['user_name'],    32);
+		$_POST['user_surname'] = luser_input($_POST['user_surname'], 32);
+		$_POST['user_uid']     = luser_input($_POST['user_uid'],     32);
+
+		insert_row('user', [
+			new DBCol('user_name',    $_POST['user_name'],    's'),
+			new DBCol('user_surname', $_POST['user_surname'], 's'),
+			new DBCol('user_uid',     $_POST['user_uid'],     's'),
+			new DBCol('user_type',    $_POST['user_type'],    's')
+		] );
+
+		$user_ID = last_inserted_ID();
+
+		$duration = DEFAULT_DURATION;
+
+		$voucher = query_row(
+			sprintf(
+				"SELECT voucher_ID, voucher_code FROM {$JOIN('voucher')} WHERE voucher_duration = %d AND NOT EXISTS (".
+					"SELECT * FROM {$JOIN('rel_user_voucher')} WHERE rel_user_voucher.voucher_ID = voucher.voucher_ID ".
+				") LIMIT 1",
+				$duration
+			),
+			'Voucher'
+		);
+
+		if( ! $voucher ) {
+			die("Voucher terminati. Contattare Ivan.");
+		}
+
+		RelUserVoucher::insertUserVoucher( $user_ID, $voucher->voucher_ID );
+
+		$done = true;
+	}
+}
 
 ?>
 <section class="mbr-section mbr-section-nopadding" id="video1-l">

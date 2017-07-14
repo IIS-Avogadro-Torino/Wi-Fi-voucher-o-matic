@@ -50,7 +50,6 @@ Header::spawn('docente');
 </section>
 
 <section class="mbr-section" id="form1-t" style="background-color: rgb(255, 255, 255); padding-top: 40px; padding-bottom: 120px;">
-    
     <div class="mbr-section mbr-section__container mbr-section__container--middle">
         <div class="container">
             <div class="row">
@@ -72,30 +71,38 @@ Header::spawn('docente');
                     </div>
 
 
-                    <form action="https://mobirise.com/" method="post" data-form-title="Richiesta account gold">
-
-                        <input type="hidden" value="cI2JQlC2EvMdYICkt+YKHiUrLbLsiy7EWPKV8DzQVSK0dWWcM/aIZlnfC45x80Ssjl17z6lSU4FwTYJOghAr8iOu/3Kx8SSw6teaJNAEclQT7dyJ/Q3dupgdDCvegup2" data-form-email="true">
+                    <form action="<?php echo get_menu_entry('form_post')->url ?>" method="post" data-form-title="Richiesta account gold">
 
                         <div class="row row-sm-offset">
 
                             <div class="col-xs-12 col-md-4">
                                 <div class="form-group">
-                                    <label class="form-control-label" for="form1-t-name">Name<span class="form-asterisk">*</span></label>
-                                    <input type="text" class="form-control" name="name" required="" data-form-field="Name" id="form1-t-name">
+                                    <label class="form-control-label" for="form1-t-name"><?php _e("Nome") ?><span class="form-asterisk">*</span></label>
+                                    <input type="text" class="form-control" name="user_name" required="required" data-form-field="Name" id="form1-t-name">
                                 </div>
                             </div>
 
                             <div class="col-xs-12 col-md-4">
                                 <div class="form-group">
-                                    <label class="form-control-label" for="form1-t-email">Email<span class="form-asterisk">*</span></label>
-                                    <input type="email" class="form-control" name="email" required="" data-form-field="Email" id="form1-t-email">
+                                    <label class="form-control-label" for="form1-t-surname"><?php _e("Cognome") ?><span class="form-asterisk">*</span></label>
+                                    <input type="text" class="form-control" name="user_surname" required="required" data-form-field="Name" id="form1-t-surname">
                                 </div>
                             </div>
 
                             <div class="col-xs-12 col-md-4">
                                 <div class="form-group">
-                                    <label class="form-control-label" for="form1-t-phone">Phone</label>
-                                    <input type="tel" class="form-control" name="phone" data-form-field="Phone" id="form1-t-phone">
+					<select name="user_type">
+						<option disabled="disabled" selected="selected"><?php _e("Scegli un'opzione") ?></option>
+						<option value="ata"><?php _e("Personale ATA") ?></option>
+						<option value="menthor"><?php _e("Docente") ?></option>
+					</select>
+                                </div>
+                            </div>
+
+                            <div class="col-xs-12 col-md-4">
+                                <div class="form-group">
+                                    <label class="form-control-label" for="form1-t-email">Email (solo quella @itisavogadro.org)<span class="form-asterisk">*</span></label>
+                                    <input type="email" class="form-control" name="user_uid" required="required" data-form-field="Email" id="form1-t-email">
                                 </div>
                             </div>
 
