@@ -47,11 +47,11 @@ defined('JQUERY')
 register_js('jquery', JQUERY);
 
 add_menu_entries( [
-	new MenuEntry('index',       '',                         _("Pagina principale") ),
-	new MenuEntry('lista_richieste', '/lista_richieste.php', _("Richiedi" )         ),
-	new MenuEntry('condizioni',      '/#header3-b',          _("Condizioni")        ),
-	new MenuEntry('docente',         '/docente.php',         _("Docente"),          'hidden'),
-	new MenuEntry('studente',        '/studente.php',        _("Studente"),         'hidden'),
-	new MenuEntry('dispositivo',     '/dispositivo.php',     _("Dispositivo"),      'hidden'),
-	new MenuEntry('pannello',        '/pannello.php',        _("Pannello"),         'hidden')
+	new MenuEntry('index',           ROOT,                          _("Pagina principale") ),
+	new MenuEntry('lista_richieste', ROOT . '/lista_richieste.php', _("Richiedi" )         ),
+	new MenuEntry('condizioni',      ROOT . '/#header3-b',          _("Condizioni")        ),
+	new MenuEntry('docente',         ROOT . '/docente.php',         _("Docente"),          'hidden'),
+	new MenuEntry('studente',        ROOT . '/studente.php',        _("Studente"),         'hidden'),
+	new MenuEntry('dispositivo',     ROOT . '/dispositivo.php',     _("Dispositivo"),      'hidden'),
+	new MenuEntry('pannello',        ROOT . '/pannello.php',        _("Pannello"),         'hidden')
 ] );
