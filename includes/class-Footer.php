@@ -18,6 +18,52 @@
 
 class Footer {
 	static function spawn() {
+?>
+<section class="mbr-section mbr-section-md-padding mbr-footer footer1" id="contacts1-7" style="background-color: rgb(46, 46, 46); padding-top: 90px; padding-bottom: 90px;">
+    
+    <div class="container">
+        <div class="row">
+            <div class="mbr-footer-content col-xs-12 col-md-3">
+                <div><a href="http://grupporete.itisavogadro.org" target="_blank"><img src="<?php echo STATIC_ROOT ?>/images/avowifioksmall-128x55.png"></a></div>
+            </div>
+            <div class="mbr-footer-content col-xs-12 col-md-3">
+                <p><strong>Istituto Avogadro</strong><br>Corso San Maurizio 8&nbsp;<br>10124 Torino<br></p>
+            </div>
+            <div class="mbr-footer-content col-xs-12 col-md-3">
+                <p><strong>Contacts</strong><br>
+Email: <?php echo CONTACT_EMAIL ?><br><br></p>
+            </div>
+            <div class="mbr-footer-content col-xs-12 col-md-3">
+                <p><strong>Links</strong><br><a href="http://www.itisavogadro.it">sito scuola</a><br><a href="http://grupporete.itisavogadro.org">grupporete</a><br><br></p>
+            </div>
 
+        </div>
+    </div>
+</section>
+
+<footer class="mbr-small-footer mbr-section mbr-section-nopadding" id="footer1-2" style="background-color: rgb(50, 50, 50); padding-top: 1.75rem; padding-bottom: 1.75rem;">
+    
+    <div class="container">
+        <p class="text-xs-center">Copyright (c) <?php echo date('Y') ?> Grupporete.</p>
+    </div>
+</footer>
+
+
+  <script src="<?php echo STATIC_ROOT ?>/web/<?php echo STATIC_ROOT ?>/jquery/jquery.min.js"></script>
+  <script src="<?php echo STATIC_ROOT ?>/tether/tether.min.js"></script>
+  <script src="<?php echo STATIC_ROOT ?>/bootstrap/js/bootstrap.min.js"></script>
+  <script src="<?php echo STATIC_ROOT ?>/smooth-scroll/smooth-scroll.js"></script>
+  <script src="<?php echo STATIC_ROOT ?>/viewport-checker/jquery.viewportchecker.js"></script>
+  <script src="<?php echo STATIC_ROOT ?>/dropdown/js/script.min.js"></script>
+  <script src="<?php echo STATIC_ROOT ?>/touch-swipe/jquery.touch-swipe.min.js"></script>
+  <script src="<?php echo STATIC_ROOT ?>/jarallax/jarallax.js"></script>
+  <script src="<?php echo STATIC_ROOT ?>/social-likes/social-likes.js"></script>
+  <script src="<?php echo STATIC_ROOT ?>/theme/js/script.js"></script>
+  
+  
+  <input name="animation" type="hidden">
+  </body>
+</html>
+<?php
 	}
 }
