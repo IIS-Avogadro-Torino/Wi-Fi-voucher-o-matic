@@ -18,7 +18,7 @@
 
 require 'load.php';
 
-Header::spawn('welcome', [
+Header::spawn('form_post', [
 	'navbar' => false
 ] );
 
@@ -26,13 +26,12 @@ Header::spawn('welcome', [
 <section class="mbr-section mbr-section-nopadding" id="video1-l">
 
     <div class="mbr-figure">
-        <div><img src="<?php echo STATIC_ROOT ?>"></div>
+        <div><img src="<?php echo STATIC_ROOT ?>/images/avowifiok-1400x602.png"></div>
         <div class="mbr-figure-caption">
-            <div class="container"><p>Benvenuto!</p><br><p>Login avvenuto con successo.</p>
-            Puoi tornare al sito dell' <a href="http://www.itisavogadro.it">Avogadro</a>
+            <div class="container"><p>Ottimo!</p><br><p>Leggi la posta.</p>
+            Ti abbiamo inviato il codice per iniziare da subito a navigare.
+            
             <br>
-            Oppure fatti un giro nel sito <a href="http://grupporete.itisavogadro.org"> del Gruppo Rete </a>.
-            <br> <br>
             <b>Buona navigazione ! </b>
             
             
