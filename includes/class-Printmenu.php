@@ -41,7 +41,7 @@ class Printmenu {
 
 				<li class="nav-item">
 					<?php echo HTML::a(
-						$menuEntry->url,
+						ROOT . $menuEntry->url,
 						$menuEntry->name,
 						$menuEntry->get('title'),
 						'nav-link link'

@@ -48,9 +48,10 @@ register_js('jquery', JQUERY);
 
 add_menu_entries( [
 	new MenuEntry('index',       '',                         _("Pagina principale") ),
-	new MenuEntry('lista_richieste', '/lista_richieste.php', _("Lista richieste")   ),
-	new MenuEntry('docente',         '/docente.php',         _("Docente")           ),
-	new MenuEntry('studente',        '/studente.php',        _("Studente")          ),
-	new MenuEntry('dispositivo',     '/dispositivo.php',     _("Dispositivo")       ),
-	new MenuEntry('pannello',        '/pannello.php',        _("Pannello")          )
+	new MenuEntry('lista_richieste', '/lista_richieste.php', _("Richiedi" )         ),
+	new MenuEntry('condizioni',      '/#header3-b',          _("Condizioni")        ),
+	new MenuEntry('docente',         '/docente.php',         _("Docente"),          'hidden'),
+	new MenuEntry('studente',        '/studente.php',        _("Studente"),         'hidden'),
+	new MenuEntry('dispositivo',     '/dispositivo.php',     _("Dispositivo"),      'hidden'),
+	new MenuEntry('pannello',        '/pannello.php',        _("Pannello"),         'hidden')
 ] );

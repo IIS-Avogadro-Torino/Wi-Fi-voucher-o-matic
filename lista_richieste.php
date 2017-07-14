@@ -27,7 +27,7 @@ Header::spawn('lista_richieste');
         <div class="row">
             <div class="col-xs-12">
                 <div class="mbr-figure">
-                    <div><img src="assets/images/avowifiok-1400x602.png"></div>
+                    <div><img src="<?php echo STATIC_ROOT ?>/images/avowifiok-1400x602.png"></div>
 
                     
 
@@ -37,7 +37,7 @@ Header::spawn('lista_richieste');
     </div>
 </section>
 
-<section class="mbr-section article mbr-parallax-background" id="msg-box8-1u" style="background-image: url(assets/images/mbr-2000x1334.jpg); padding-top: 120px; padding-bottom: 120px;">
+<section class="mbr-section article mbr-parallax-background" id="msg-box8-1u" style="background-image: url(<?php echo STATIC_ROOT ?>/images/mbr-2000x1334.jpg); padding-top: 120px; padding-bottom: 120px;">
 
     <div class="mbr-overlay" style="opacity: 0.5; background-color: rgb(34, 34, 34);">
     </div>
