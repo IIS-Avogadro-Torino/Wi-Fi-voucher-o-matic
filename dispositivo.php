@@ -21,7 +21,8 @@ require 'load.php';
 Header::spawn('dispositivo');
 
 ?>
-<section class="engine"><section class="mbr-section article mbr-parallax-background mbr-after-navbar" id="msg-box8-1g" style="background-image: url(assets/images/mbr-1-2000x1333.jpg); padding-top: 120px; padding-bottom: 120px;">
+
+<section class="mbr-section article mbr-parallax-background mbr-after-navbar" id="msg-box8-1g" style="background-image: url(<?php echo STATIC_ROOT ?>/images/mbr-1-2000x1333.jpg); padding-top: 120px; padding-bottom: 120px;">
     <div class="mbr-overlay" style="opacity: 0.5; background-color: rgb(34, 34, 34);">
     </div>
     <div class="container">
@@ -29,7 +30,6 @@ Header::spawn('dispositivo');
             <div class="col-md-8 col-md-offset-2 text-xs-center">
                 <h3 class="mbr-section-title display-2">Richiesta account per dispositivo</h3>
                 <div class="lead"><h4>solo responsabili di laboratorio</h4></div>
-                
             </div>
         </div>
     </div>
