@@ -54,7 +54,7 @@ Header::spawn('docente');
         <div class="container">
             <div class="row">
                 <div class="col-xs-12 text-xs-center">
-                    <h3 class="mbr-section-title display-2">Richiesta account gold</h3>
+                    <h3 class="mbr-section-title display-2">Richiesta account Docente e ATA</h3>
                     <small class="mbr-section-subtitle"></small>
                 </div>
             </div>
@@ -67,19 +67,47 @@ Header::spawn('docente');
 
 
                     <div data-form-alert="true">
-                        <div hidden="" data-form-alert-success="true" class="alert alert-form alert-success text-xs-center">Thanks for filling out form!</div>
+                        <div hidden="" data-form-alert-success="true" class="alert alert-form alert-success text-xs-center">TGrazie per aver compilato il form.</div>
                     </div>
 
 
-                    <form action="<?php echo get_menu_entry('form_post')->url ?>" method="post" data-form-title="Richiesta account gold">
+                    <form action="<?php echo get_menu_entry('form_post')->url ?>" method="post" data-form-title="Richiesta account docente e Ata">
 
-                        <div class="row row-sm-offset">
-
-                            <div class="col-xs-12 col-md-4">
+                <div class="row row-sm-offset">
+                      <div class="col-xs-12 col-md-4">
                                 <div class="form-group">
                                     <label class="form-control-label" for="form1-t-name"><?php _e("Nome") ?><span class="form-asterisk">*</span></label>
-                                    <input type="text" class="form-control" name="user_name" required="required" data-form-field="Name" id="form1-t-name">
                                 </div>
+                        	    <div class="col-xs-12 col-md-4">
+                                     <input type="text" class="form-control" name="user_name" required="required" data-form-field="Name" id="form1-t-name">
+                                </div>
+                       </div>
+                 </div>      
+                          
+                <div class="row row-sm-offset">
+                      <div class="col-xs-12 col-md-4">
+                                <div class="form-group">
+                                    <label class="form-control-label" for="form1-t-surname"><?php _e("Cognome") ?><span class="form-asterisk">*</span></label>
+                                </div>
+                        	    <div class="col-xs-12 col-md-4">
+                                     <input type="text" class="form-control" name="user_name" required="required" data-form-field="Surname" id="form1-t-surname">
+                                </div>
+                       </div>
+                 </div>                             
+                          
+                          
+                          
+                          
+                          
+                          
+                          
+                          
+                          
+                          
+                          
+                          
+                          
+                           
                             </div>
 
                             <div class="col-xs-12 col-md-4">
