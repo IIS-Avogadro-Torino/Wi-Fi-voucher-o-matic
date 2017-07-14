@@ -18,7 +18,7 @@
 
 require 'load.php';
 
-Header::spawn();
+Header::spawn('index');
 
 $voucher = null;
 $done = false;
@@ -80,7 +80,7 @@ if( isset(
         <div class="row">
             <div class="col-xs-12">
                 <div class="mbr-figure">
-                    <div><img src="assets/images/avowifiok-1400x602.png"></div>
+                    <div><img src="<?php echo STATIC_ROOT ?>/images/avowifiok-1400x602.png"></div>
 
                     
 
@@ -90,7 +90,7 @@ if( isset(
     </div>
 </section>
 
-<section class="mbr-section mbr-section-hero mbr-section-full mbr-parallax-background mbr-section-with-arrow" id="header1-5" style="background-image: url(assets/images/sfonfoavowifi-2000x1333.jpg);">
+<section class="mbr-section mbr-section-hero mbr-section-full mbr-parallax-background mbr-section-with-arrow" id="header1-5" style="background-image: url(<?php echo STATIC_ROOT ?>/images/sfonfoavowifi-2000x1333.jpg);">
 
     <div class="mbr-overlay" style="opacity: 0.6; background-color: rgb(0, 0, 0);"></div>
 
@@ -133,7 +133,7 @@ if( isset(
 
 </section>
 
-<section class="mbr-section article mbr-parallax-background" id="msg-box8-g" style="background-image: url(assets/images/mbr-2000x1334.jpg); padding-top: 120px; padding-bottom: 120px;">
+<section class="mbr-section article mbr-parallax-background" id="msg-box8-g" style="background-image: url(<?php echo STATIC_ROOT ?>/images/mbr-2000x1334.jpg); padding-top: 120px; padding-bottom: 120px;">
 
     <div class="mbr-overlay" style="opacity: 0.5; background-color: rgb(34, 34, 34);">
     </div>
@@ -174,21 +174,21 @@ if( isset(
                     <div class="mbr-testimonial card mbr-testimonial-lg">
                         <div class="card-block"><p><span style="font-size: 1.125rem; line-height: 2; text-align: left;"><strong>Accesso Gold</strong></span></p><p><span style="font-size: 1.125rem; line-height: 2; text-align: left;">Ogni utente che dispone di una casella di posta @itisavogadro.it può da subito richiedere un voucher della durata di un anno che permette di navigare liberamente da un dispositivo.</span><br></p><div><span style="font-size: 1.125rem; line-height: 2;">Chi non dispone di una mail @itisavogadro dovrà prima passare a ritirare un codice di attivazione, disponibile al centralino della scuola.</span><br></div><div><span style="font-size: 1.125rem; line-height: 2;">Ora è semplicissimo: basta connettersi alla rete Avo_spot e inserire il voucher, il dispositivo verrà identificato e per 365 giorni potrà navigare senza inserire di nuovo password o altro.</span><br></div><p></p></div>
                         <div class="mbr-author card-footer">
-                            <div class="mbr-author-img"><img src="assets/images/mbr-2-160x106.jpg" class="img-circle"></div>
+                            <div class="mbr-author-img"><img src="<?php echo STATIC_ROOT ?>/images/mbr-2-160x106.jpg" class="img-circle"></div>
                             <div class="mbr-author-name"><br><br></div>
                             <small class="mbr-author-desc"></small>
                         </div>
                     </div><div class="mbr-testimonial card mbr-testimonial-lg">
                         <div class="card-block"><p><strong>Accesso Device</strong></p><p><span style="font-size: 1.125rem; line-height: 2;">Se serve registrare sulla rete un dispositivo di utilizzo pubblico (computer registro elettronico, dispositivi di laboratorio, pc lim eccetera) è possibile richiedere un assegnazione permanente alla rete "Avo_internal" che permetterà al dispositivo di essere in rete esattamente come se la connessione fosse a filo.</span><br></p><p></p><div><span style="font-size: 1.125rem; line-height: 2;">La richiesta va fatta dal responsabile del dispositivo o del laboratorio tramite l'apposito form.</span><br></div><p></p></div>
                         <div class="mbr-author card-footer">
-                            <div class="mbr-author-img"><img src="assets/images/mbr-3-160x106.jpg" class="img-circle"></div>
+                            <div class="mbr-author-img"><img src="<?php echo STATIC_ROOT ?>/images/mbr-3-160x106.jpg" class="img-circle"></div>
                             <div class="mbr-author-name"></div>
                             <small class="mbr-author-desc"></small>
                         </div>
                     </div><div class="mbr-testimonial card mbr-testimonial-lg">
                         <div class="card-block"><p><strong>Accesso Guest</strong></p><p>Siete all' Avo per un convegno, una visita o semplicemente perchè vi siete diplomati e vi manca tanto la vostra scuola?</p><p><span style="font-size: 1.125rem; line-height: 2;">Navigate gratis... offriamo noi:-)</span></p><p><span style="font-size: 1.125rem; line-height: 2;">Con l'accesso guest vi diamo sei ore di navigazione in cui avete a disposizione ben un Gigabyte di dati tutti per voi.</span><br></p></div>
                         <div class="mbr-author card-footer">
-                            <div class="mbr-author-img"><img src="assets/images/mbr-160x107.jpg" class="img-circle"></div>
+                            <div class="mbr-author-img"><img src="<?php echo STATIC_ROOT ?>/images/mbr-160x107.jpg" class="img-circle"></div>
                             <div class="mbr-author-name"></div>
                             <small class="mbr-author-desc"></small>
                         </div>
@@ -234,7 +234,7 @@ if( isset(
     </div>
 </section>
 
-<section class="mbr-section mbr-section-md-padding mbr-parallax-background" id="social-buttons1-i" style="background-image: url(assets/images/mbr-2000x1333.jpg); padding-top: 30px; padding-bottom: 60px;">
+<section class="mbr-section mbr-section-md-padding mbr-parallax-background" id="social-buttons1-i" style="background-image: url(<?php echo STATIC_ROOT ?>/images/mbr-2000x1333.jpg); padding-top: 30px; padding-bottom: 60px;">
     <div class="mbr-overlay" style="opacity: 0.2; background-color: rgb(34, 34, 34);">
     </div>
     <div class="container">
