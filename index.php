@@ -18,7 +18,7 @@
 
 require 'load.php';
 
-enqueue_script('jquery');
+enqueue_js('jquery');
 
 Header::spawn();
 
