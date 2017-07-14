@@ -18,15 +18,13 @@
 
 require 'load.php';
 
-enqueue_js('jquery');
-
 Header::spawn('pannello');
 
 ?>
 <section class="mbr-section mbr-section-nopadding" id="video1-l">
 
     <div class="mbr-figure">
-        <div><img src="assets/images/avowifiok-1400x602.png"></div>
+        <div><img src="<?php echo STATIC_ROOT ?>/images/avowifiok-1400x602.png"></div>
         <div class="mbr-figure-caption">
             <div class="container"><p>Pannello di controllo</p><br>
            

@@ -24,6 +24,9 @@ defined('DEFAULT_DURATION')
 defined('STITIC')
 	or define('STITIC', 'static');
 
+define('STATIC_ROOT', ROOT . _ . STITIC);
+define('STATIC_URL',  URL  . _ . STITIC);
+
 // Classes folder
 define('INCLUDES', 'includes');
 

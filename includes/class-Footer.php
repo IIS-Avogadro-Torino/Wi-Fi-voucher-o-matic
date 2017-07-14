@@ -20,7 +20,6 @@ class Footer {
 	static function spawn() {
 ?>
 <section class="mbr-section mbr-section-md-padding mbr-footer footer1" id="contacts1-7" style="background-color: rgb(46, 46, 46); padding-top: 90px; padding-bottom: 90px;">
-    
     <div class="container">
         <div class="row">
             <div class="mbr-footer-content col-xs-12 col-md-3">
@@ -49,7 +48,7 @@ Email: <?php echo CONTACT_EMAIL ?><br><br></p>
 </footer>
 
 
-  <script src="<?php echo STATIC_ROOT ?>/web/<?php echo STATIC_ROOT ?>/jquery/jquery.min.js"></script>
+  <script src="<?php echo STATIC_ROOT ?>/web/assets/jquery/jquery.min.js"></script>
   <script src="<?php echo STATIC_ROOT ?>/tether/tether.min.js"></script>
   <script src="<?php echo STATIC_ROOT ?>/bootstrap/js/bootstrap.min.js"></script>
   <script src="<?php echo STATIC_ROOT ?>/smooth-scroll/smooth-scroll.js"></script>

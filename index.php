@@ -18,8 +18,6 @@
 
 require 'load.php';
 
-enqueue_js('jquery');
-
 Header::spawn();
 
 $voucher = null;
