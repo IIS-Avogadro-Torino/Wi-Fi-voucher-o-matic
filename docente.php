@@ -133,6 +133,10 @@ Header::spawn('docente');
                                     <input type="email" class="form-control" name="user_uid" required="required" data-form-field="Email" id="form1-t-email">
                                 </div>
                             </div>
+                            
+                            
+                           <div><button type="submit" class="btn btn-primary">Richiedi</button></div> 
+                            
 
                         </div>
 
