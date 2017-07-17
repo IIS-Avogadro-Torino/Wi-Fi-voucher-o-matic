@@ -22,78 +22,80 @@ Header::spawn('docente');
 
 ?>
 
-
 <section class="mbr-section article mbr-parallax-background mbr-after-navbar" id="msg-box8-s" style="background-image: url(<?php echo STATIC_ROOT ?>/images/william-iven-2000x1328.jpg); padding-top: 120px; padding-bottom: 120px;">
-
-    <div class="mbr-overlay" style="opacity: 0.5; background-color: rgb(34, 34, 34);">
-    </div>
-    <div class="container">
-        <div class="row">
-            <div class="col-md-8 col-md-offset-2 text-xs-center">
-                <h3 class="mbr-section-title display-2">Richiesta account docente e ata</h3>
-                <div class="lead"><p>Per utilizzarlo dovete avere una casella di posta itisavogadro.it</p></div>
-                
-            </div>
-        </div>
-    </div>
-
+	<div class="mbr-overlay" style="opacity: 0.5; background-color: rgb(34, 34, 34);">
+	</div>
+	<div class="container">
+		<div class="row">
+			<div class="col-md-8 col-md-offset-2 text-xs-center">
+				<h3 class="mbr-section-title display-2">Richiesta account docente e ata</h3>
+				<div class="lead"><p>Per utilizzarlo dovete avere una casella di posta itisavogadro.it</p></div>
+			</div>
+		</div>
+	</div>
 </section>
 
 <section class="mbr-section article mbr-section__container" id="content1-u" style="background-color: rgb(255, 255, 255); padding-top: 20px; padding-bottom: 20px;">
-
-    <div class="container">
-        <div class="row">
-            <div class="col-xs-12 lead"><p>Se avete una mail itisavogadro.it potete compilare questo form e ottenere subito un voucher per navigare 365 giorni con la rete della scuola.</p><p>Avrete a disposizione 8 megabit ciascuno.</p></div>
-        </div>
-    </div>
-
+	<div class="container">
+		<div class="row">
+			<div class="col-xs-12 lead"><p>Se avete una mail itisavogadro.it potete compilare questo form e ottenere subito un voucher per navigare 365 giorni con la rete della scuola.</p><p>Avrete a disposizione 8 megabit ciascuno.</p></div>
+		</div>
+	</div>
 </section>
 
 <section class="mbr-section" id="form1-t" style="background-color: rgb(255, 255, 255); padding-top: 40px; padding-bottom: 120px;">
-    <div class="mbr-section mbr-section__container mbr-section__container--middle">
-        <div class="container">
-            <div class="row">
-                <div class="col-xs-12 text-xs-center">
-                    <h3 class="mbr-section-title display-2">Richiesta account Docente e ATA</h3>
-                    <small class="mbr-section-subtitle"></small>
-                </div>
-            </div>
-        </div>
-    </div>
-    <div class="mbr-section mbr-section-nopadding">
-        <div class="container">
-            <div class="row">
-                <div class="col-xs-12 col-lg-10 col-lg-offset-1" data-form-type="formoid">
-
-
-                    <div data-form-alert="true">
-                        <div hidden="" data-form-alert-success="true" class="alert alert-form alert-success text-xs-center">TGrazie per aver compilato il form.</div>
-                    </div>
-
-
-                    <form action="<?php echo get_menu_entry('form_post')->url ?>" method="post" data-form-title="Richiesta account docente e Ata">
-
-                <div class="row row-sm-offset">
-                      <div class="col-xs-12 col-md-4">
+	<div class="mbr-section mbr-section__container mbr-section__container--middle">
+		<div class="container">
+			<div class="row">
+				<div class="col-xs-12 text-xs-center">
+					<h3 class="mbr-section-title display-2">Richiesta account Docente e ATA</h3>
+					<small class="mbr-section-subtitle"></small>
+				</div>
+			</div>
+		</div>
+	</div>
+	<div class="mbr-section mbr-section-nopadding">
+		<div class="container">
+			<div class="row">
+				<div class="col-xs-12 col-lg-20 col-lg-offset-1" data-form-type="formoid">
+					<div data-form-alert="true">
+						<div hidden="" data-form-alert-success="true" class="alert alert-form alert-success text-xs-center"> Grazie per aver compilato il form.</div>
+					</div>
+					<form action="<?php echo get_menu_entry('form_post')->url ?>" method="post" data-form-title="Richiesta account docente e Ata">
+				                <div class="row row-sm-offset">
+							<div class="col-xs-12 col-md-4">
+								<div class="form-group">
+									<label class="form-control-label" for="form1-t-name"><?php _e("Nome") ?><span class="form-asterisk">*</span></label>
+									<input type="text" class="form-control" name="user_name" required="required" data-form-field="Name" id="form1-t-name">
+								</div>
+							</div>
+							<div class="col-xs-12 col-md-4">
+								<div class="form-group">
+									<label class="form-control-label" for="form1-t-surname"><?php _e("Cognome") ?><span class="form-asterisk">*</span></label>
+									<input type="text" class="form-control" name="user_surname" required="required" data-form-field="Surname" id="form1-t-surname">
+								</div>
+							</div>
+						</div>
+						<div class="row row-sm-offset">
+							<div class="col-xs-12 col-md-4">
                                 <div class="form-group">
-                                    <label class="form-control-label" for="form1-t-name"><?php _e("Nome") ?><span class="form-asterisk">*</span></label>
-                                </div>
-                        	    <div class="col-xs-12 col-md-4">
-                                     <input type="text" class="form-control" name="user_name" required="required" data-form-field="Name" id="form1-t-name">
+                                    <label class="form-control-label" for="form1-t-qualifica"><?php _e("Qualifica") ?><span class="form-asterisk">*</span></label>
+                                   	<select class="form-control" name="user_type" id="form1-t-qualifica">
+							<option disabled="disabled" selected="selected"><?php _e("Scegli un'opzione") ?></option>
+							<option value="ata"><?php _e("Personale ATA") ?></option>
+							<option value="menthor"><?php _e("Docente") ?></option>
+						</select>
                                 </div>
                        </div>
-                 </div>      
-                          
-                <div class="row row-sm-offset">
+                 
                       <div class="col-xs-12 col-md-4">
                                 <div class="form-group">
-                                    <label class="form-control-label" for="form1-t-surname"><?php _e("Cognome") ?><span class="form-asterisk">*</span></label>
-                                </div>
-                        	    <div class="col-xs-12 col-md-4">
-                                     <input type="text" class="form-control" name="user_name" required="required" data-form-field="Surname" id="form1-t-surname">
+                                    <label class="form-control-label" for="form1-t-email"><?php _e("Email (solo quella @itisavogadro.it)") ?><span class="form-asterisk">*</span></label>
+                                    <input type="email" class="form-control" name="user_uid" required="required" data-form-field="Email" id="form1-t-email">
                                 </div>
                        </div>
                  </div>                             
+<<<<<<< HEAD
                           
                           
                           
@@ -140,6 +142,12 @@ Header::spawn('docente');
 
                         </div>
 
+=======
+                        
+                <div><button type="submit" class="btn btn-primary">Richiedi</button></div>  
+                                    
+ 
+>>>>>>> 01bfd87203c8595cdd14b35401677a03aec4a51a
                     </form>
                 </div>
             </div>

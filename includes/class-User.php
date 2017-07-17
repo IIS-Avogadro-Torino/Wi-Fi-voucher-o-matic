@@ -20,6 +20,7 @@ class User extends Queried {
 
 	const T = 'user';
 
+	const ID      = 'user_ID';
 	const NAME    = 'user_name';
 	const SURNAME = 'user_surname';
 	const UID     = 'user_uid';
@@ -34,6 +35,11 @@ class User extends Queried {
 		return Query::factory( __CLASS__ )->from( self::T );
 	}
 
+	static function factoryByID( $user_ID ) {
+		return self::factory()
+			->whereInt( self::ID, $user_ID );
+	}
+
 	/**
 	 * User factory.
 	 *
@@ -43,6 +49,15 @@ class User extends Queried {
 	static function factoryByUID($user_uid) {
 		$user_uid = luser_input($user_uid, 128);
 
-		return self::factory()->whereStr(self::UID, $user_uid);
+		return self::factory()
+			->whereStr(self::UID, $user_uid);
+	}
+
+	static function filterType( $user_type ) {
+		$types = ['ata', 'menthor', 'student'];
+		if( in_array( $user_type, $types, true ) ) {
+			return $user_type;
+		}
+		return 'alien';
 	}
 }

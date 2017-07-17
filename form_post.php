@@ -1,4 +1,4 @@
-m<?php
+<?php
 ######################################################################
 # Wi-Fi-voucher-o-matic - Wi-Fi voucher manager
 # Copyright (C) 2017 Valerio Bozzolan, Ivan Bertotto, ITIS Avogadro
@@ -16,8 +16,6 @@ m<?php
 # along with this program.If not, see <http://www.gnu.org/licenses/>.
 ######################################################################
 
-var_dump($_POST);exit;
-
 require 'load.php';
 
 Header::spawn('form_post');
@@ -28,62 +26,135 @@ if( isset(
 	$_POST['user_uid'],
 	$_POST['user_type']
 ) ) {
-	if( $exists ) {
+	$_POST['user_name']    = luser_input($_POST['user_name'],    32);
+	$_POST['user_surname'] = luser_input($_POST['user_surname'], 32);
+	$_POST['user_uid']     = luser_input($_POST['user_uid'],     128);
+	$_POST['user_type']    = User::filterType( $_POST['user_type'] );
 
-	} else {
-		$_POST['user_name']    = luser_input($_POST['user_name'],    32);
-		$_POST['user_surname'] = luser_input($_POST['user_surname'], 32);
-		$_POST['user_uid']     = luser_input($_POST['user_uid'],     32);
+	$type = $_POST['user_type'];
+
+	$existing_user = User::factoryByUID( $_POST['user_uid'] )
+		->queryRow();
+
+	if( ! $existing_user ) {
+		if( $type === 'ata' || $type === 'menthor' ) {
+			$email = $_POST['user_uid'];
+			$pos = strpos($email, '@itisavogadro.it');
+
+			if( $pos === false ) {
+				die("Per favore utilizzare solo indirizzi del dominio itisavogadro.it.");
+			}
+		}
 
 		insert_row('user', [
 			new DBCol('user_name',    $_POST['user_name'],    's'),
 			new DBCol('user_surname', $_POST['user_surname'], 's'),
 			new DBCol('user_uid',     $_POST['user_uid'],     's'),
-			new DBCol('user_type',    $_POST['user_type'],    's')
+			new DBCol('user_type',    $type,                  's')
 		] );
 
-		$user_ID = last_inserted_ID();
+		$existing_user = User::factoryByID( last_inserted_ID() )
+			->queryRow();
 
-		$duration = DEFAULT_DURATION;
+		if( ! $existing_user ) {
+			die("Impossibile inserire l'utente causa alieni. Segnalare il problema.");
+		}
+	}
 
-		$voucher = query_row(
+	// $existing_user
+
+	$voucher_type = Voucher::filterType( $existing_user->get(User::TYPE) );
+
+	$yet_obtained_vouchers = 0;
+	$MAX_VOUCHERS          = 1;
+
+	if( $voucher_type === 'menthor' ) {
+		$MAX_VOUCHERS = 10;
+
+		$yet_obtained_vouchers = (int) query_value(
 			sprintf(
-				"SELECT voucher_ID, voucher_code FROM {$JOIN('voucher')} WHERE voucher_duration = %d AND NOT EXISTS (".
-					"SELECT * FROM {$JOIN('rel_user_voucher')} WHERE rel_user_voucher.voucher_ID = voucher.voucher_ID ".
-				") LIMIT 1",
-				$duration
+				"SELECT COUNT(*) as count FROM {$T('rel_user_voucher')} WHERE user_ID = %d",
+				$existing_user->get(User::ID)
 			),
-			'Voucher'
+			'count'
 		);
 
-		if( ! $voucher ) {
-			die("Voucher terminati. Contattare Ivan.");
+		if( $yet_obtained_vouchers > 8 ) {
+			die("Hai raggiunto il massimo numero di voucher a tua disposizione.");
 		}
-
-		RelUserVoucher::insertUserVoucher( $user_ID, $voucher->voucher_ID );
-
-		$done = true;
 	}
+
+	$voucher = query_row(
+		sprintf(
+			"SELECT voucher_ID, voucher_code FROM {$JOIN('voucher')} WHERE voucher_type = '%s' AND NOT EXISTS (".
+				"SELECT * FROM {$JOIN('rel_user_voucher')} WHERE rel_user_voucher.voucher_ID = voucher.voucher_ID ".
+			") LIMIT 1",
+			esc_sql( $voucher_type )
+		),
+		'Voucher'
+	);
+
+	$yet_obtained_vouchers++;
+
+	if( ! $voucher ) {
+		die("Voucher terminati. Contattare Ivan.");
+	}
+
+	RelUserVoucher::insertUserVoucher(
+		$existing_user->get(User::ID),
+		$voucher->get(Voucher::ID)
+	);
+
+	// Email generation
+
+	$search = [];
+	$sobstitute = [];
+
+	$search[]     = '[CODICE]';
+	$sobstitute[] = $voucher->get(Voucher::CODE);
+
+	$search[]     = '[Nome]';
+	$sobstitute[] = esc_html( $_POST['user_name'] );
+
+	$search[]     = '[Cognome]';
+	$sobstitute[] = esc_html( $_POST['user_surname'] );
+
+	$search[]     = '[numero]';
+	$sobstitute[] = $yet_obtained_vouchers;
+
+	$search[]     = '[numeri]';
+	$sobstitute[]  = $MAX_VOUCHERS;
+
+	$mail_content = file_get_contents( STATIC_PATH . __ . 'email.html' );
+	$mail_content = str_replace( $search, $sobstitute, $mail_content );
+
+	SMTPMail::send(
+		$existing_user->get(User::UID),
+		_("Il tuo voucher ITI Avogadro"),
+		$mail_content
+	);
+
+	$done = true;
 }
 
 ?>
 <section class="mbr-section mbr-section-nopadding" id="video1-l">
-
-    <div class="mbr-figure">
-        <div><img src="<?php echo STATIC_ROOT ?>/images/avowifiok-1400x602.png"></div>
-        <div class="mbr-figure-caption">
-            <div class="container"><p><h1>Ottimo!</h1></p><br><p>Leggi la posta.</p>
-            Ti abbiamo inviato il codice per iniziare da subito a navigare.
-            
-            <br>
-            <b>Buona navigazione ! </b>
-            
-            
-            </div>
-            
-        </div>
-    </div>
-
+	<div class="mbr-figure">
+		<div><img src="<?php echo STATIC_ROOT ?>/images/avowifiok-1400x602.png"></div>
+		<div class="mbr-figure-caption">
+			<div class="container">
+				<?php if( $done ): ?>
+					<p><h1>Ottimo!</h1></p>
+					<p>Leggi la posta.</p>
+					Ti abbiamo inviato il codice per iniziare da subito a navigare.
+					<br />
+					<b>Buona navigazione!</b>
+				<?php else: ?>
+					<p>Si è verificato un errore.</p>
+				<?php endif ?>
+	 		</div>
+		</div>
+	</div>
 </section>
 
 <?php
