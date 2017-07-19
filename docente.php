@@ -93,61 +93,10 @@ Header::spawn('docente');
                                     <label class="form-control-label" for="form1-t-email"><?php _e("Email (solo quella @itisavogadro.it)") ?><span class="form-asterisk">*</span></label>
                                     <input type="email" class="form-control" name="user_uid" required="required" data-form-field="Email" id="form1-t-email">
                                 </div>
-                       </div>
-                 </div>                             
-<<<<<<< HEAD
-                          
-                          
-                          
-                          
-                          
-                          
-                          
-                          
-                          
-                          
-                          
-                          
-                          
-                           
-                            
-
-                            <div class="col-xs-12 col-md-4">
-                                <div class="form-group">
-                                    <label class="form-control-label" for="form1-t-surname"><?php _e("Cognome") ?><span class="form-asterisk">*</span></label>
-                                    <input type="text" class="form-control" name="user_surname" required="required" data-form-field="Name" id="form1-t-surname">
-                                </div>
-                            </div>
-
-                            <div class="col-xs-12 col-md-4">
-                                <div class="form-group">
-					<select name="user_type">
-						<option disabled="disabled" selected="selected"><?php _e("Scegli un'opzione") ?></option>
-						<option value="ata"><?php _e("Personale ATA") ?></option>
-						<option value="menthor"><?php _e("Docente") ?></option>
-					</select>
-                                </div>
-                            </div>
-
-                            <div class="col-xs-12 col-md-4">
-                                <div class="form-group">
-                                    <label class="form-control-label" for="form1-t-email">Email (solo quella @itisavogadro.org)<span class="form-asterisk">*</span></label>
-                                    <input type="email" class="form-control" name="user_uid" required="required" data-form-field="Email" id="form1-t-email">
-                                </div>
-                            </div>
-                            
-                            
-                           <div><button type="submit" class="btn btn-primary">Richiedi</button></div> 
-                            
-
-                        </div>
-
-=======
+                       </div>                        
                         
-                <div><button type="submit" class="btn btn-primary">Richiedi</button></div>  
+					<div><button type="submit" class="btn btn-primary">Richiedi</button></div>  
                                     
- 
->>>>>>> 01bfd87203c8595cdd14b35401677a03aec4a51a
                     </form>
                 </div>
             </div>
