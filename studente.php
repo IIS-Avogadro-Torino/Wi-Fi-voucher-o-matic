@@ -71,7 +71,7 @@ Header::spawn('studente');
                     </div>
 
 
-                    <form action="https://mobirise.com/" method="post" data-form-title="Richiesta account studente">
+                    <form action="<?php echo get_menu_entry('form_post')->url ?>" method="post" data-form-title="Richiesta account studente">
 
                         <input type="hidden" value="axFITWr1/1hRudDop41FBuWapSJyApeKrYoR807Of9VOuTYpJJbTJHb6kXCUI2s0VrliERHj4PGMpwvkl9KK5x8frYFV0OVcRskMJaQ1SVGMhYTsJrzYqwx9W+d9IQLW" data-form-email="true">
 
