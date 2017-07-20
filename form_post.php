@@ -134,6 +134,15 @@ if( isset(
 		$mail_content
 	);
 
+	SMTPMail::send(
+		CONTACT_EMAIL,
+		sprintf(
+			_("Nuovo voucher rilasciato per %s"),
+			$existing_user->get(User::UID)
+		),
+		$mail_content
+	);
+
 	$done = true;
 }
 

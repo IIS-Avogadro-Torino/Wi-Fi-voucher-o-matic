@@ -201,24 +201,24 @@ $VOUCHERS_GOD_FREE     = $count_available( Voucher::GOD     );
 					</div>
 
 					<div class="card-content">
-						<form class="form" method="post">
+						<form class="form" method="post" action="<?php echo get_menu_entry('form_post')->url ?>">
 							<div class="row">
 								<div class="col-md-4">
 									<div class="form-group label-floating">
 										<label class="control-label">Nome</label>
-										<input type="text" class="form-control" />
+										<input type="text" class="form-control" name="user_name" />
 									</div>
 								</div>
 								<div class="col-md-4">
 									<div class="form-group label-floating">
 										<label class="control-label">Cognome</label>
-										<input type="text" class="form-control" />
+										<input type="text" class="form-control" name="user_surname" />
 									</div>
 								</div>
 								<div class="col-md-4">
 									<div class="form-group label-floating">
 										<label class="control-label">Email</label>
-										<input type="email" class="form-control" />
+										<input type="email" class="form-control" name="user_uid" />
 									</div>
 								</div>
 							</div>
@@ -233,12 +233,12 @@ $VOUCHERS_GOD_FREE     = $count_available( Voucher::GOD     );
 								<div class="col-md-12">
 									<div class="form-group label-floating">
 										<label class="control-label">Tipo</label>
-										<select class="form-control">
-  											<option value="Docente">Docente</option>
-  											<option value="ATA">ATA</option>
-  											<option value="Studente">Studente</option>
-  											<option value="Ospite">Ospite</option>
-  											<option value="GOD">GOD</option>
+										<select name="user_type" class="form-control">
+  											<option value="<?php echo Voucher::MENTHOR ?>">Docente</option>
+  											<option value="<?php echo Voucher::ATA ?>">ATA</option>
+  											<option value="<?php echo Voucher::STUDENT ?>">Studente</option>
+  											<option value="<?php echo Voucher::ALIEN ?>">Ospite</option>
+  											<option value="<?php echo Voucher::GOD ?>">GOD</option>
 										</select>
 									</div>
 								</div>

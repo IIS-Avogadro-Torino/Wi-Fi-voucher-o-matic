@@ -64,5 +64,6 @@ add_menu_entries( [
 ] );
 
 register_permissions('admin', [
-	'administrate'
+	'administrate',
+	'register_god'
 ] );

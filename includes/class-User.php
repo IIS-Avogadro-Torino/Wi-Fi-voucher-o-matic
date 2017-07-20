@@ -61,6 +61,9 @@ class User extends Queried {
 		if( in_array( $user_type, $types, true ) ) {
 			return $user_type;
 		}
+		if( $user_type === 'god' && has_permission('register_god') ) {
+			return 'god';
+		}
 		return 'alien';
 	}
 }
