@@ -29,8 +29,6 @@ Header::spawn('lista_richieste');
                 <div class="mbr-figure">
                     <div><img src="<?php echo STATIC_ROOT ?>/images/avowifiok-1400x602.png"></div>
 
-                    
-
                 </div>
             </div>
         </div>
@@ -110,7 +108,7 @@ Header::spawn('lista_richieste');
                     </div>
                     <div class="mbr-plan-body card-block">
                       <div class="mbr-plan-list"><ul class="list-group list-group-flush"><li class="list-group-item">5 megabit</li><li class="list-group-item">Fino a 2 dispositivi&nbsp;</li></ul></div>
-                      <div class="mbr-plan-btn"><a href="<?php echo get_menu_entry('studente')->url ?>" class="btn btn-black btn-black-outline">Chiedi</a></div>
+                      <div class="mbr-plan-btn"><a xxxhref="<?php echo get_menu_entry('studente')->url ?>" class="btn btn-black btn-black-outline">Presto disponibile</a></div>
                     </div>
                 </div>
             </div>
@@ -132,7 +130,7 @@ Header::spawn('lista_richieste');
                     </div>
                     <div class="mbr-plan-body card-block">
                       <div class="mbr-plan-list"><ul class="list-group list-group-flush"><li class="list-group-item">4 megabit</li><li class="list-group-item">1 Gigabyte</li></ul></div>
-                      <div class="mbr-plan-btn"><a href="<?php echo get_menu_entry('ospite')->url ?>" class="btn btn-black btn-black-outline">Chiedi</a></div>
+                      <div class="mbr-plan-btn"><a xxxhref="<?php echo get_menu_entry('ospite')->url ?>" class="btn btn-black btn-black-outline">Presto disponibile</a></div>
                     </div>
                 </div>
             </div>
@@ -154,7 +152,7 @@ Header::spawn('lista_richieste');
                     </div>
                     <div class="mbr-plan-body card-block">
                       <div class="mbr-plan-list"><ul class="list-group list-group-flush"><li class="list-group-item">banda illimitata</li><li class="list-group-item">Connesso alla lan</li></ul></div>
-                      <div class="mbr-plan-btn"><a href="<?php echo get_menu_entry('dispositivo')->url ?>" class="btn btn-black btn-black-outline">Chiedi</a></div>
+                      <div class="mbr-plan-btn"><a href="http://www.grupporete.itisavogadro.org/index.php/servizi/avo-wifi/richiesta-dispositivo" class="btn btn-black btn-black-outline">Chiedi</a></div>
                     </div>
                 </div>
             </div>
@@ -165,4 +163,3 @@ Header::spawn('lista_richieste');
 
 <?php
 Footer::spawn();
-
