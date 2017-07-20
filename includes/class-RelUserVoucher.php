@@ -24,13 +24,29 @@ class RelUserVoucher extends Queried {
 	const VOUCHER       = 'voucher_ID';
 	const CREATION_DATE = 'rel_user_voucher_creation_date';
 
+	const USER_         = self::T . DOT . self::USER;
+	const VOUCHER_      = self::T . DOT . self::VOUCHER;
+
 	/**
 	 * RelUserVoucher factory.
 	 *
 	 * @return Query
 	 */
 	static function factory() {
-		return Query::factory( __CLASS__ )->from( self::T );
+		return Query::factory( __CLASS__ )
+			->from( self::T );
+	}
+
+	static function factoryUser() {
+		return self::factory()
+			->from( User::T )
+			->equals( User::ID_, self::USER_ );
+	}
+
+	static function factoryVoucher() {
+		return self::factory()
+			->from( Voucher::T )
+			->equals( Voucher::ID_, self::VOUCHER_ );
 	}
 
 	/**

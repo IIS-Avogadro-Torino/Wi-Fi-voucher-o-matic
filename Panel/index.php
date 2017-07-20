@@ -18,6 +18,51 @@
 
 require '../load.php';
 
+require_permission('administrate');
+
+$count = function ( $voucher_type ) {
+	$count = RelUserVoucher::factoryVoucher()
+		->select('COUNT(*) as count')
+		->whereStr( Voucher::TYPE, $voucher_type )
+		->queryRow();
+
+	return $count ? (int)$count->count : 0;
+};
+
+$count_available = function ( $voucher_type ) {
+	$count = Voucher::factory()
+		->select('COUNT(*) as count')
+		->whereStr( Voucher::TYPE, $voucher_type )
+		->where(
+			'NOT EXISTS (' .
+				RelUserVoucher::factory()
+					->equals( RelUserVoucher::VOUCHER_, Voucher::ID_ )
+					->getQuery() .
+			')'
+		)
+		->queryRow();
+
+	return $count ? (int)$count->count : 0;
+};
+
+$a_on_b = function ($a, $b) {
+	printf(
+		_("%d su <small>%d</small>"),
+		$a,
+		$b
+	);
+};
+
+$VOUCHERS_ATA          = $count(           Voucher::ATA     );
+$VOUCHERS_ATA_FREE     = $count_available( Voucher::ATA     );
+$VOUCHERS_STUDENT      = $count(           Voucher::STUDENT );
+$VOUCHERS_STUDENT_FREE = $count_available( Voucher::STUDENT );
+$VOUCHERS_MENTHOR      = $count(           Voucher::MENTHOR );
+$VOUCHERS_MENTHOR_FREE = $count_available( Voucher::MENTHOR );
+$VOUCHERS_ALIEN        = $count(           Voucher::ALIEN   );
+$VOUCHERS_ALIEN_FREE   = $count_available( Voucher::ALIEN   );
+$VOUCHERS_GOD          = $count(           Voucher::GOD     );
+$VOUCHERS_GOD_FREE     = $count_available( Voucher::GOD     );
 ?>
 <!doctype html>
 <html lang="en">
@@ -99,12 +144,7 @@ require '../load.php';
 								</div>
 								<div class="card-content">
 									<p class="category"><b>Docenti:</b></p>
-									<p class="category">[Numero] Su <small>[Numeri]</small> </p>
-								</div>
-								<div class="card-footer">
-									<div class="stats">
-										<i class="material-icons text-danger">info</i> Ne rimangono <b>[numero]</b>
-									</div>
+									<p class="category"><?php $a_on_b( $VOUCHERS_MENTHOR, $VOUCHERS_MENTHOR_FREE ) ?></p>
 								</div>
 							</div>
 						</div>
@@ -116,12 +156,7 @@ require '../load.php';
 								</div>
 								<div class="card-content">
 									<p class="category"><b>Studenti:</b></p>
-									<p class="category">[Numero] Su <small>[Numeri]</small> </p>
-								</div>
-								<div class="card-footer">
-									<div class="stats">
-										<i class="material-icons text-danger">info</i> Ne rimangono <b>[numero]</b>
-									</div>
+									<p class="category"><?php $a_on_b( $VOUCHERS_STUDENT, $VOUCHERS_STUDENT_FREE ) ?></p>
 								</div>
 							</div>
 						</div>
@@ -133,13 +168,15 @@ require '../load.php';
 								</div>
 								<div class="card-content">
 									<p class="category"><b>Ospiti:</b></p>
-									<p class="category">[Numero] Su <small>[Numeri]</small> </p>
+									<p class="category"><?php $a_on_b( $VOUCHERS_STUDENT, $VOUCHERS_STUDENT_FREE ) ?></p>
 								</div>
+								<?php /*
 								<div class="card-footer">
 									<div class="stats">
 										<i class="material-icons text-danger">info</i> Ne rimangono <b>[numero]</b>
 									</div>
 								</div>
+								*/ ?>
 							</div>
 						</div>
 
@@ -150,12 +187,7 @@ require '../load.php';
 								</div>
 								<div class="card-content">
 									<p class="category"><b>God:</b></p>
-									<p class="category">[Numero] Su <small>[Numeri]</small> </p>
-								</div>
-								<div class="card-footer">
-									<div class="stats">
-										<i class="material-icons text-danger">info</i> Ne rimangono <b>[numero]</b>
-									</div>
+									<p class="category"><?php $a_on_b( $VOUCHERS_GOD, $VOUCHERS_GOD_FREE ) ?></p>
 								</div>
 							</div>
 						</div>

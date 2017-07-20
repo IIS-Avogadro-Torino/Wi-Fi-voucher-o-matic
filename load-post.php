@@ -59,5 +59,10 @@ add_menu_entries( [
 	new MenuEntry('ospite',          ROOT . '/ospite.php',          _("Ospite"),           'hidden'),
 	new MenuEntry('dispositivo',     ROOT . '/dispositivo.php',     _("Dispositivo"),      'hidden'),
 	new MenuEntry('pannello',        ROOT . '/pannello.php',        _("Pannello"),         'hidden'),
-	new MenuEntry('form_post',       ROOT . '/form_post.php',       _("Invio dati"),       'hidden')
+	new MenuEntry('form_post',       ROOT . '/form_post.php',       _("Invio dati"),       'hidden'),
+	new MenuEntry('panel',           ROOT . '/Panel',               _("Pannello"),         'hidden')
+] );
+
+register_permissions('admin', [
+	'administrate'
 ] );

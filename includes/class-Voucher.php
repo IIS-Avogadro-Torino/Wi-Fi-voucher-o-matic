@@ -25,6 +25,14 @@ class Voucher extends Queried {
 	const TYPE          = 'voucher_type';
 	const DURATION      = 'voucher_duration';
 
+	const ID_           = self::T . DOT . self::ID;
+
+	const GOD     = 'god';
+	const ATA     = 'ata';
+	const MENTHOR = 'menthor';
+	const STUDENT = 'student';
+	const ALIEN   = 'alien';
+
 	function __construct() {
 		$this->integers(self::ID);
 	}

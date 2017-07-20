@@ -25,6 +25,9 @@ class User extends Queried {
 	const SURNAME = 'user_surname';
 	const UID     = 'user_uid';
 	const TYPE    = 'user_type';
+	const ROLE    = 'user_role';
+
+	const ID_     = self::T . DOT . self::ID;
 
 	/**
 	 * User factory.
