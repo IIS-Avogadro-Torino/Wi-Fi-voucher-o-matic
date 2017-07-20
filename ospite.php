@@ -71,7 +71,7 @@ Header::spawn('ospite');
                     </div>
 
 
-                    <form action="https://mobirise.com/" method="post" data-form-title="Richiesta account ospite">
+                    <form action="<?php echo get_menu_entry('form_post')->url ?>" method="post" data-form-title="Richiesta account ospite">
 
                         <input type="hidden" value="X3Eul1b7/tQine3/yVILjd/CkAO7XPZ/+ik4rPvnzxPRHl9ZwYJZfEuiRbeVva4jRS533Smmd0kCxPhpra8YunRIT4RdE7X8iYMRMjCRv4cirKvc3qokKWcXkD8LdiLZ" data-form-email="true">
 
