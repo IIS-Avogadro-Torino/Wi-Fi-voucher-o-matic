@@ -106,7 +106,7 @@ $VOUCHERS_GOD_FREE     = $count_available( Voucher::GOD     );
 			<div class="sidebar-wrapper">
 				<ul class="nav">
 					<li class="active">
-						<a href="dashboard.php">
+						<a href="#">
 							<i class="material-icons">dashboard</i>
 							<p>Pannello di controllo</p>
 						</a>
@@ -259,28 +259,76 @@ $VOUCHERS_GOD_FREE     = $count_available( Voucher::GOD     );
 							<div class="card-header" data-background-color="blue">
 								<h4 class="title">Utenti Attivati</h4>
 								<p class="category">Intestazione della tabella sortable</p>
+								<form method="get">
+									<button type="submit" name="unique_name" class="btn btn-primary"><?php _e("Solo utenti") ?></button>
+									<?php if( isset( $_GET['type'] ) ): ?>
+										<input type="hidden" name="sort" value="<?php _esc_attr( $_GET['type'] ) ?>" />
+									<?php endif ?>
+								</form>
 							</div>
 							<div class="card-content table-responsive">
 								<table class="table table-hover">
 									<thead>
 										<tr>
-											<th><a href="#">Nome</a></th>
-											<th><a href="#">Cognome</a></th>
-											<th><a href="#">E-mail</a></th>
-											<th><a href="#">Data</a></th>
-											<th><a href="#">Voucher</a></th>
-											<th><a href="#">Tipo</a></th>
+											<th><a href="?sort=name">Nome</a></th>
+											<th><a href="?sort=surname">Cognome</a></th>
+											<th><a href="?sort=uid">E-mail</a></th>
+											<th><a href="?sort=date">Data</a></th>
+											<th><a href="?sort=voucher">Voucher</a></th>
+											<th><a href="?sort=type">Tipo</a></th>
 										</tr>
 									</thead>
 									<tbody>
+										<?php
+										$relUserVouchers = RelUserVoucher::factoryUserVoucher()
+											->select(
+												User::NAME,
+												User::SURNAME,
+												User::UID,
+												Voucher::TYPE,
+												Voucher::CODE,
+												RelUserVoucher::CREATION_DATE
+											);
+
+										switch( @ $_GET['sort'] ) {
+											case 'name';
+												$relUserVouchers->orderBy( User::NAME );
+												break;
+											case 'surname':
+												$relUserVouchers->orderBy( User::SURNAME );
+												break;
+											case 'uid':
+												$relUserVouchers->orderBy( User::UID );
+												break;
+											case 'date':
+												$relUserVouchers->orderBy( RelUserVoucher::CREATION_DATE . ' DESC' );
+												break;
+											case 'voucher':
+												$relUserVouchers->orderBy( Voucher::CODE );
+												break;
+											case 'type':
+												$relUserVouchers->orderBy( Voucher::TYPE );
+												break;
+										}
+
+										if( isset( $_GET['unique_name'] ) ) {
+											$relUserVouchers->groupBy( User::UID );
+										}
+
+										$relUserVouchers = $relUserVouchers->queryResults();
+
+										?>
+
+										<?php foreach($relUserVouchers as $relUserVoucher): ?>
 										<tr>
-											<td>Mario</td>
-											<td>Rossi</td>
-											<td>mario.rossi@gmail.com</td>
-											<td>2017-08-08</td>
-											<td>56842578</td>
-											<td>Docente</td>
+											<td><?php echo $relUserVoucher->get( User::NAME ) ?></td>
+											<td><?php echo $relUserVoucher->get( User::SURNAME ) ?></td>
+											<td><?php echo $relUserVoucher->get( User::UID ) ?></td>
+											<td><?php echo $relUserVoucher->formatRelUserVoucherDate('Y/m/d') ?></td>
+											<td><?php echo $relUserVoucher->get( Voucher::CODE ) ?></td>
+											<td><?php echo $relUserVoucher->get( Voucher::TYPE ) ?></td>
 										</tr>
+										<?php endforeach ?>
 									</tbody>
 								</table>
 							</div>

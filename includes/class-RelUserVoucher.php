@@ -16,7 +16,19 @@
 # along with this program.If not, see <http://www.gnu.org/licenses/>.
 ######################################################################
 
+trait RelUserVoucherTrait {
+	function formatRelUserVoucherDate($f) {
+		return $this->get( RelUserVoucher::CREATION_DATE )
+			->format($f);
+	}
+}
+
 class RelUserVoucher extends Queried {
+	use RelUserVoucherTrait;
+
+	function __construct() {
+		$this->datetimes( self::CREATION_DATE );
+	}
 
 	const T = 'rel_user_voucher';
 
@@ -45,6 +57,12 @@ class RelUserVoucher extends Queried {
 
 	static function factoryVoucher() {
 		return self::factory()
+			->from( Voucher::T )
+			->equals( Voucher::ID_, self::VOUCHER_ );
+	}
+
+	static function factoryUserVoucher() {
+		return self::factoryUser()
 			->from( Voucher::T )
 			->equals( Voucher::ID_, self::VOUCHER_ );
 	}

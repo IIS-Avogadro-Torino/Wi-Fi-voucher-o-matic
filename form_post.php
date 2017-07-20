@@ -37,12 +37,15 @@ if( isset(
 		->queryRow();
 
 	if( ! $existing_user ) {
-		if( $type === 'ata' || $type === 'menthor' ) {
-			$email = $_POST['user_uid'];
-			$pos = strpos($email, '@itisavogadro.it');
 
-			if( $pos === false ) {
-				die("Per favore utilizzare solo indirizzi del dominio itisavogadro.it.");
+		if( $type === 'ata' || $type === 'menthor' ) {
+			if( ! has_permission('register_whatever_mail') ) {
+				$email = $_POST['user_uid'];
+				$pos = strpos($email, '@itisavogadro.it');
+
+				if( $pos === false ) {
+					die("Per favore utilizzare solo indirizzi del dominio itisavogadro.it.");
+				}
 			}
 		}
 

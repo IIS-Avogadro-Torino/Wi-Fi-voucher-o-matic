@@ -65,5 +65,6 @@ add_menu_entries( [
 
 register_permissions('admin', [
 	'administrate',
+	'register_whatever_mail',
 	'register_god'
 ] );
