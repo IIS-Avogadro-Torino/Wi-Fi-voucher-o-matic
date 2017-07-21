@@ -16,7 +16,14 @@
 # along with this program.If not, see <http://www.gnu.org/licenses/>.
 ######################################################################
 
+trait UserTrait {
+	function updateUser( $cols ) {
+		return User::update( $this->get(User::ID), $cols );
+	}
+}
+
 class User extends Queried {
+	use UserTrait;
 
 	const T = 'user';
 
@@ -65,5 +72,13 @@ class User extends Queried {
 			return 'god';
 		}
 		return 'alien';
+	}
+
+	static function update( $user_ID, $cols = [] ) {
+		query_update(self::User, $cols, sprintf(
+			'%s = %d',
+			self::ID,
+			$user_ID
+		) );
 	}
 }

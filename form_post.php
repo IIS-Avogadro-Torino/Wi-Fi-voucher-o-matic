@@ -39,7 +39,7 @@ if( isset(
 	if( ! $existing_user ) {
 
 		if( $type === 'ata' || $type === 'menthor' ) {
-			if( ! has_permission('register_whatever_mail') ) {
+			if( ! has_permission('register_whatever_ata_mail') ) {
 				$email = $_POST['user_uid'];
 				$pos = strpos($email, '@itisavogadro.it');
 
@@ -69,33 +69,29 @@ if( isset(
 	$voucher_type = Voucher::filterType( $existing_user->get(User::TYPE) );
 
 	$yet_obtained_vouchers = 0;
-	$MAX_VOUCHERS          = 1;
+	$MAX_VOUCHERS          = 5;
 
 	if( $voucher_type === 'menthor' ) {
 		$MAX_VOUCHERS = 10;
 
-		$yet_obtained_vouchers = (int) query_value(
-			sprintf(
-				"SELECT COUNT(*) as count FROM {$T('rel_user_voucher')} WHERE user_ID = %d",
-				$existing_user->get(User::ID)
-			),
-			'count'
-		);
+		$yet_obtained_vouchers = (int) RelUserVoucher::factoryByUser( $existing_user->get(User::ID) )
+			->select('COUNT(*) as count')
+			->queryValue('count');
 
-		if( $yet_obtained_vouchers > 8 ) {
+		if( $yet_obtained_vouchers > $MAX_VOUCHERS ) {
 			die("Hai raggiunto il massimo numero di voucher a tua disposizione.");
 		}
 	}
 
-	$voucher = query_row(
-		sprintf(
-			"SELECT voucher_ID, voucher_code FROM {$JOIN('voucher')} WHERE voucher_type = '%s' AND NOT EXISTS (".
-				"SELECT * FROM {$JOIN('rel_user_voucher')} WHERE rel_user_voucher.voucher_ID = voucher.voucher_ID ".
-			") LIMIT 1",
-			esc_sql( $voucher_type )
-		),
-		'Voucher'
-	);
+	$voucher = Voucher::factory()
+		->whereStr( Voucher::TYPE, $voucher_type )
+		->where( 'NOT EXISTS (' .
+			RelUserVoucher::factory()
+				->equals( RelUserVoucher::VOUCHER_, Voucher::ID_ )
+				->getQuery() .
+		')' )
+		->limit(1)
+		->queryRow();
 
 	$yet_obtained_vouchers++;
 
@@ -113,37 +109,20 @@ if( isset(
 	$search = [];
 	$sobstitute = [];
 
-	$search[]     = '[CODICE]';
-	$sobstitute[] = $voucher->get(Voucher::CODE);
-
-	$search[]     = '[Nome]';
-	$sobstitute[] = esc_html( $_POST['user_name'] );
-
-	$search[]     = '[Cognome]';
-	$sobstitute[] = esc_html( $_POST['user_surname'] );
-
-	$search[]     = '[numero]';
-	$sobstitute[] = $yet_obtained_vouchers;
-
-	$search[]     = '[numeri]';
-	$sobstitute[]  = $MAX_VOUCHERS;
-
 	$mail_content = file_get_contents( STATIC_PATH . __ . 'email.html' );
 	$mail_content = str_replace( $search, $sobstitute, $mail_content );
 
 	SMTPMail::send(
 		$existing_user->get(User::UID),
 		_("Il tuo voucher ITI Avogadro"),
-		$mail_content
-	);
-
-	SMTPMail::send(
-		CONTACT_EMAIL,
-		sprintf(
-			_("Nuovo voucher rilasciato per %s"),
-			$existing_user->get(User::UID)
-		),
-		$mail_content
+		file_get_contents( STATIC_PATH . __ . 'email.html' ),
+		[
+			'CODICE'  => esc_html( $voucher->get(Voucher::CODE) ),
+			'Nome'    => esc_html( $_POST['user_name'] ),
+			'Cognome' => esc_html( $_POST['user_surname'] ),
+			'numero'  => $yet_obtained_vouchers,
+			'numeri'  => $MAX_VOUCHERS
+		]
 	);
 
 	$done = true;

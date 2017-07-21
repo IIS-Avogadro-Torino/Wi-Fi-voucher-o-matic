@@ -16,24 +16,6 @@
 /*!40111 SET @OLD_SQL_NOTES=@@SQL_NOTES, SQL_NOTES=0 */;
 
 --
--- Table structure for table `registrazioni_rel_user_voucher`
---
-
-DROP TABLE IF EXISTS `registrazioni_rel_user_voucher`;
-/*!40101 SET @saved_cs_client     = @@character_set_client */;
-/*!40101 SET character_set_client = utf8 */;
-CREATE TABLE `registrazioni_rel_user_voucher` (
-  `user_ID` int(10) unsigned NOT NULL,
-  `voucher_ID` int(10) unsigned NOT NULL,
-  `rel_user_voucher_creation_date` date NOT NULL,
-  PRIMARY KEY (`user_ID`,`voucher_ID`),
-  KEY `voucher_ID` (`voucher_ID`),
-  CONSTRAINT `registrazioni_rel_user_voucher_ibfk_1` FOREIGN KEY (`user_ID`) REFERENCES `registrazioni_user` (`user_ID`) ON DELETE CASCADE,
-  CONSTRAINT `registrazioni_rel_user_voucher_ibfk_2` FOREIGN KEY (`voucher_ID`) REFERENCES `registrazioni_voucher` (`voucher_ID`)
-) ENGINE=InnoDB DEFAULT CHARSET=utf8 ROW_FORMAT=COMPACT;
-/*!40101 SET character_set_client = @saved_cs_client */;
-
---
 -- Table structure for table `registrazioni_user`
 --
 
@@ -52,6 +34,27 @@ CREATE TABLE `registrazioni_user` (
   PRIMARY KEY (`user_ID`),
   UNIQUE KEY `user_uid` (`user_uid`)
 ) ENGINE=InnoDB DEFAULT CHARSET=utf8;
+/*!40101 SET character_set_client = @saved_cs_client */;
+
+--
+-- Table structure for table `registrazioni_rel_user_voucher`
+--
+
+DROP TABLE IF EXISTS `registrazioni_rel_user_voucher`;
+/*!40101 SET @saved_cs_client     = @@character_set_client */;
+/*!40101 SET character_set_client = utf8 */;
+CREATE TABLE `registrazioni_rel_user_voucher` (
+  `user_ID` int(10) unsigned NOT NULL,
+  `voucher_ID` int(10) unsigned NOT NULL,
+  `rel_user_voucher_creation_date` datetime NOT NULL,
+  `rel_user_voucher_creation_user` int(10) unsigned NOT NULL,
+  PRIMARY KEY (`user_ID`,`voucher_ID`),
+  KEY `voucher_ID` (`voucher_ID`),
+  KEY `rel_user_voucher_creation_user` (`rel_user_voucher_creation_user`),
+  CONSTRAINT `registrazioni_rel_user_voucher_ibfk_1` FOREIGN KEY (`user_ID`) REFERENCES `registrazioni_user` (`user_ID`) ON DELETE CASCADE,
+  CONSTRAINT `registrazioni_rel_user_voucher_ibfk_2` FOREIGN KEY (`voucher_ID`) REFERENCES `registrazioni_voucher` (`voucher_ID`),
+  CONSTRAINT `registrazioni_rel_user_voucher_ibfk_3` FOREIGN KEY (`rel_user_voucher_creation_user`) REFERENCES `registrazioni_user` (`user_ID`)
+) ENGINE=InnoDB DEFAULT CHARSET=utf8 ROW_FORMAT=COMPACT;
 /*!40101 SET character_set_client = @saved_cs_client */;
 
 --
@@ -86,6 +89,23 @@ CREATE TABLE `registrazioni_activationcode` (
   UNIQUE KEY `activationcode_code` (`activationcode_code`)
 ) ENGINE=InnoDB DEFAULT CHARSET=utf8;
 /*!40101 SET character_set_client = @saved_cs_client */;
+
+--
+-- Table structure for table `registrazioni_rel_user_activationcode`
+--
+
+DROP TABLE IF EXISTS `registrazioni_rel_user_activationcode`;
+/*!40101 SET @saved_cs_client     = @@character_set_client */;
+/*!40101 SET character_set_client = utf8 */;
+CREATE TABLE `registrazioni_rel_user_activationcode` (
+  `user_ID` int(10) unsigned NOT NULL,
+  `activationcode_ID` int(10) unsigned NOT NULL,
+  PRIMARY KEY (`user_ID`,`activationcode_ID`),
+  KEY `activationcode_ID` (`activationcode_ID`),
+  CONSTRAINT `registrazioni_rel_user_activationcode_ibfk_1` FOREIGN KEY (`user_ID`) REFERENCES `registrazioni_user` (`user_ID`) ON DELETE CASCADE,
+  CONSTRAINT `registrazioni_rel_user_activationcode_ibfk_2` FOREIGN KEY (`activationcode_ID`) REFERENCES `registrazioni_activationcode` (`activationcode_ID`)
+) ENGINE=InnoDB DEFAULT CHARSET=utf8;
+/*!40101 SET character_set_client = @saved_cs_client */;
 /*!40103 SET TIME_ZONE=@OLD_TIME_ZONE */;
 
 /*!40101 SET SQL_MODE=@OLD_SQL_MODE */;
@@ -96,4 +116,4 @@ CREATE TABLE `registrazioni_activationcode` (
 /*!40101 SET COLLATION_CONNECTION=@OLD_COLLATION_CONNECTION */;
 /*!40111 SET SQL_NOTES=@OLD_SQL_NOTES */;
 
--- Dump completed on 2017-07-20  6:14:19
+-- Dump completed on 2017-07-21  7:20:43

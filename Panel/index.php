@@ -21,16 +21,14 @@ require '../load.php';
 require_permission('administrate');
 
 $count = function ( $voucher_type ) {
-	$count = RelUserVoucher::factoryVoucher()
+	return (int) RelUserVoucher::factoryVoucher()
 		->select('COUNT(*) as count')
 		->whereStr( Voucher::TYPE, $voucher_type )
-		->queryRow();
-
-	return $count ? (int)$count->count : 0;
+		->queryValue('count');
 };
 
 $count_available = function ( $voucher_type ) {
-	$count = Voucher::factory()
+	return (int) Voucher::factory()
 		->select('COUNT(*) as count')
 		->whereStr( Voucher::TYPE, $voucher_type )
 		->where(
@@ -40,9 +38,7 @@ $count_available = function ( $voucher_type ) {
 					->getQuery() .
 			')'
 		)
-		->queryRow();
-
-	return $count ? (int)$count->count : 0;
+		->queryValue('count');
 };
 
 $a_on_b = function ($a, $b) {
@@ -253,6 +249,8 @@ $VOUCHERS_GOD_FREE     = $count_available( Voucher::GOD     );
 				</div>
 				<!-- end .container-fluid -->
 
+				<?php if( has_permission('view-all-users') ): ?>
+
 				<div class="row">
 					<div class="col-md-12">
 						<div class="card card-plain">
@@ -265,11 +263,53 @@ $VOUCHERS_GOD_FREE     = $count_available( Voucher::GOD     );
 										<input type="hidden" name="sort" value="<?php _esc_attr( $_GET['type'] ) ?>" />
 									<?php endif ?>
 								</form>
+
+								<?php if( isset( $_POST['action'], $_POST['uid'] ): ?>
+									<?php switch( $_POST['action'] ) {
+										case 'send-password':
+											$user = User::factoryByUID( $user_uid )
+												->select(
+													User::ID_,
+													User::UID
+												)
+												->queryRow();
+
+											$user or error_die("Unexisting user");
+
+											$pwd = substr(
+												sha1( rand() . rand() . rand()  ),
+												0,
+												10
+											);
+
+											SMTPMail::send(
+												$user->get( User::UID ),
+												_("Accesso pannello Voucher"),
+												file_get_contents( STATIC_PATH . __ . 'email_new_account.html' ),
+												[
+													'PASSWORD'  => $pwb,
+													'NOME'      => esc_html( $user->get( User::EMAIL ) ),
+													'COGNOME'   => esc_html( $user->get( User::SURNAME ) ),
+													'URL_PANEL' => get_menu_entry('panel')->url
+												]
+											);
+
+											$pwb = Session::encryptUserPassword( $pwb );
+
+											$user->updateUser( [
+												new DBCol( User::ACTIVE,   1, 'd'   ),
+												new DBCol( User::PASSWORD, $pwd, 's')
+											] );
+										break;
+									}
+									?>
+								<?php endif ?>
 							</div>
 							<div class="card-content table-responsive">
 								<table class="table table-hover">
 									<thead>
 										<tr>
+											<th></th>
 											<th><a href="?sort=name">Nome</a></th>
 											<th><a href="?sort=surname">Cognome</a></th>
 											<th><a href="?sort=uid">E-mail</a></th>
@@ -285,6 +325,7 @@ $VOUCHERS_GOD_FREE     = $count_available( Voucher::GOD     );
 												User::NAME,
 												User::SURNAME,
 												User::UID,
+												User::ACTIVE,
 												Voucher::TYPE,
 												Voucher::CODE,
 												RelUserVoucher::CREATION_DATE
@@ -321,6 +362,11 @@ $VOUCHERS_GOD_FREE     = $count_available( Voucher::GOD     );
 
 										<?php foreach($relUserVouchers as $relUserVoucher): ?>
 										<tr>
+											<td><form method="post">
+												<input type="hidden" name="action" value="send-password" />
+												<input type="hidden" name="uid" value="<?php echo $relUserVoucher->get( User::UID ) ?>" />
+												<button type="submit"><?php _e("Abilita") ?></button>
+											</form></td>
 											<td><?php echo $relUserVoucher->get( User::NAME ) ?></td>
 											<td><?php echo $relUserVoucher->get( User::SURNAME ) ?></td>
 											<td><?php echo $relUserVoucher->get( User::UID ) ?></td>
@@ -339,6 +385,7 @@ $VOUCHERS_GOD_FREE     = $count_available( Voucher::GOD     );
 					<!-- end .col -->
 				</div>
 				<!-- end .row -->
+				<?php endif ?>
 			</div>
 			<!-- end .content -->
 		</div>

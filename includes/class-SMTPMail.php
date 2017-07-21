@@ -24,7 +24,7 @@
 // MAIL_SENDER
 
 class SMTPMail {
-	static function send($to, $subject, $body) {
+	static function send($to, $subject, $body, $placeholders = [] ) {
 		$ln = "\r\n";
 
 		require_once NET_SMTP_PATH;
@@ -77,6 +77,7 @@ class SMTPMail {
 				SITE_NAME,
 				MAIL_SENDER
 			),
+			'Bcc' => CONTACT_EMAIL,
 			'Content-Type' => 'text/html;charset=utf-8'
 		];
 
@@ -87,6 +88,14 @@ class SMTPMail {
 			$merge[] = sprintf("%s: %s", $header, $value);
 		}
 		$headers = implode($ln, $merge);
+
+		$searches = [];
+		$replaces = [];
+		foreach($placeholders as $search => $replace) {
+			$searches[] = $search;
+			$replaces[] = $replace;
+		}
+		$body = str_replace( $searches, $replaces, $body );
 
 		// Newline + empty line
 		if( PEAR::isError($smtp->data("$headers$ln$ln$body")) ) {

@@ -35,6 +35,7 @@ class RelUserVoucher extends Queried {
 	const USER          = 'user_ID';
 	const VOUCHER       = 'voucher_ID';
 	const CREATION_DATE = 'rel_user_voucher_creation_date';
+	const CREATION_USER = 'rel_user_voucher_creation_user';
 
 	const USER_         = self::T . DOT . self::USER;
 	const VOUCHER_      = self::T . DOT . self::VOUCHER;
@@ -74,10 +75,16 @@ class RelUserVoucher extends Queried {
 	 * @param int $voucher_ID Voucher::ID
 	 */
 	static function insertUserVoucher($user_ID, $voucher_ID) {
+
+		$creation_user = is_logged()
+			? get_user('user_ID')
+			: $user_ID;
+
 		insert_row(self::T, [
-			new DBCol(self::USER,          $user_ID,    'd'),
-			new DBCol(self::VOUCHER,       $voucher_ID, 'd'),
-			new DBCol(self::CREATION_DATE, 'NOW()',     '-')
+			new DBCol(self::USER,          $user_ID,       'd'),
+			new DBCol(self::VOUCHER,       $voucher_ID,    'd'),
+			new DBCol(self::CREATION_DATE, 'NOW()',        '-'),
+			new DBCol(self::CREATION_USER, $creation_user, 'd')
 		] );
 	}
 }

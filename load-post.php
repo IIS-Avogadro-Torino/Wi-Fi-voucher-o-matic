@@ -54,17 +54,21 @@ add_menu_entries( [
 	new MenuEntry('index',           ROOT,                          _("Home") ),
 	new MenuEntry('lista_richieste', ROOT . '/lista_richieste.php', _("Richiedi" )         ),
 	new MenuEntry('condizioni',      ROOT . '/#header3-b',          _("Condizioni")        ),
+	new MenuEntry('panel',           ROOT . '/Panel',       		_("Admin")          ),
 	new MenuEntry('docente',         ROOT . '/docente.php',         _("Docente"),          'hidden'),
 	new MenuEntry('studente',        ROOT . '/studente.php',        _("Studente"),         'hidden'),
 	new MenuEntry('ospite',          ROOT . '/ospite.php',          _("Ospite"),           'hidden'),
 	new MenuEntry('dispositivo',     ROOT . '/dispositivo.php',     _("Dispositivo"),      'hidden'),
-	new MenuEntry('pannello',        ROOT . '/pannello.php',        _("Pannello"),         'hidden'),
 	new MenuEntry('form_post',       ROOT . '/form_post.php',       _("Invio dati"),       'hidden'),
-	new MenuEntry('panel',           ROOT . '/Panel',               _("Pannello"),         'hidden')
 ] );
 
 register_permissions('admin', [
-	'administrate',
-	'register_whatever_mail',
+	'administrate'
+] );
+
+inherit_permissions('superadmin', 'admin');
+register_permissions('superadmin', [
+	'view-all-users',
+	'register_whatever_ata_mail',
 	'register_god'
 ] );
