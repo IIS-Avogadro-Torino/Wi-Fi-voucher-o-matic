@@ -60,6 +60,7 @@ add_menu_entries( [
 	new MenuEntry('ospite',          ROOT . '/ospite.php',          _("Ospite"),           'hidden'),
 	new MenuEntry('dispositivo',     ROOT . '/dispositivo.php',     _("Dispositivo"),      'hidden'),
 	new MenuEntry('form_post',       ROOT . '/form_post.php',       _("Invio dati"),       'hidden'),
+	new MenuEntry('logout',          ROOT . '/logint.php?logout=1', _("Esci"),             'hidden')
 ] );
 
 register_permissions('admin', [

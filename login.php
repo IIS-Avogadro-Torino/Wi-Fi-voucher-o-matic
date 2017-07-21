@@ -18,7 +18,7 @@
 
 require 'load.php';
 
-if( empty( $_POST) && ! empty( $_GET['logout'] ) ) {
+if( empty( $_POST ) && ! empty( $_GET['logout'] ) ) {
 	logout();
 } else {
 	login();

@@ -97,7 +97,10 @@ $VOUCHERS_GOD_FREE     = $count_available( Voucher::GOD     );
 				<a href="<?php echo ROOT ?>" class="simple-text">
 					AvoWiFi
 				</a>
-				<li><?php echo esc_html( get_user( User::UID ) ) ?></li>
+				<ul>
+					<li><?php echo esc_html( get_user( User::UID ) ) ?></li>
+					<li><a href="<?php echo get_menu_entry('logout')->url ?>"><?php _e("Esci") ?></a></li>
+				</ul>
 			</div>
 
 			<div class="sidebar-wrapper">
