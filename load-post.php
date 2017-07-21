@@ -54,13 +54,13 @@ add_menu_entries( [
 	new MenuEntry('index',           ROOT,                          _("Home") ),
 	new MenuEntry('lista_richieste', ROOT . '/lista_richieste.php', _("Richiedi" )         ),
 	new MenuEntry('condizioni',      ROOT . '/#header3-b',          _("Condizioni")        ),
-	new MenuEntry('panel',           ROOT . '/Panel',       		_("Admin")          ),
+	new MenuEntry('panel',           ROOT . '/Panel',               _("Admin")             ),
 	new MenuEntry('docente',         ROOT . '/docente.php',         _("Docente"),          'hidden'),
 	new MenuEntry('studente',        ROOT . '/studente.php',        _("Studente"),         'hidden'),
 	new MenuEntry('ospite',          ROOT . '/ospite.php',          _("Ospite"),           'hidden'),
 	new MenuEntry('dispositivo',     ROOT . '/dispositivo.php',     _("Dispositivo"),      'hidden'),
 	new MenuEntry('form_post',       ROOT . '/form_post.php',       _("Invio dati"),       'hidden'),
-	new MenuEntry('logout',          ROOT . '/logint.php?logout=1', _("Esci"),             'hidden')
+	new MenuEntry('logout',          ROOT . '/login.php?logout=1',  _("Esci"),             'hidden')
 ] );
 
 register_permissions('admin', [
