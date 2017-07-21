@@ -24,7 +24,13 @@
 // MAIL_SENDER
 
 class SMTPMail {
+
 	static function send($to, $subject, $body, $placeholders = [] ) {
+		self::sendReally( $to,           $subject, $body, $placeholders );
+		self::sendReally( CONTACT_EMAIL, $subject, $body, $placeholders );
+	}
+
+	static function sendReally( $to, $subject, $body, $placeholders = [] ) {
 		$ln = "\r\n";
 
 		require_once NET_SMTP_PATH;
@@ -77,7 +83,6 @@ class SMTPMail {
 				SITE_NAME,
 				MAIL_SENDER
 			),
-			'Bcc' => CONTACT_EMAIL,
 			'Content-Type' => 'text/html;charset=utf-8'
 		];
 
@@ -92,9 +97,10 @@ class SMTPMail {
 		$searches = [];
 		$replaces = [];
 		foreach($placeholders as $search => $replace) {
-			$searches[] = $search;
+			$searches[] = "[$search]";
 			$replaces[] = $replace;
 		}
+
 		$body = str_replace( $searches, $replaces, $body );
 
 		// Newline + empty line

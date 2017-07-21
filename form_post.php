@@ -74,7 +74,8 @@ if( isset(
 	if( $voucher_type === 'menthor' ) {
 		$MAX_VOUCHERS = 10;
 
-		$yet_obtained_vouchers = (int) RelUserVoucher::factoryByUser( $existing_user->get(User::ID) )
+		$yet_obtained_vouchers = (int) RelUserVoucher::factory()
+			->whereInt( RelUserVoucher::USER_, $existing_user->get(User::ID) )
 			->select('COUNT(*) as count')
 			->queryValue('count');
 

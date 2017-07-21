@@ -20,6 +20,13 @@ trait UserTrait {
 	function updateUser( $cols ) {
 		return User::update( $this->get(User::ID), $cols );
 	}
+
+	function normalizeUser() {
+		$this->integers(
+			User::ID,
+			User::ACTIVE
+		);
+	}
 }
 
 class User extends Queried {
@@ -27,14 +34,20 @@ class User extends Queried {
 
 	const T = 'user';
 
-	const ID      = 'user_ID';
-	const NAME    = 'user_name';
-	const SURNAME = 'user_surname';
-	const UID     = 'user_uid';
-	const TYPE    = 'user_type';
-	const ROLE    = 'user_role';
+	const ID       = 'user_ID';
+	const NAME     = 'user_name';
+	const SURNAME  = 'user_surname';
+	const UID      = 'user_uid';
+	const TYPE     = 'user_type';
+	const ROLE     = 'user_role';
+	const ACTIVE   = 'user_active';
+	const PASSWORD = 'user_password';
 
 	const ID_     = self::T . DOT . self::ID;
+
+	function __construct() {
+		$this->normalizeUser();
+	}
 
 	/**
 	 * User factory.
@@ -75,7 +88,7 @@ class User extends Queried {
 	}
 
 	static function update( $user_ID, $cols = [] ) {
-		query_update(self::User, $cols, sprintf(
+		query_update(self::T, $cols, sprintf(
 			'%s = %d',
 			self::ID,
 			$user_ID

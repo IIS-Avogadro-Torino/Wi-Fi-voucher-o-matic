@@ -28,7 +28,7 @@ CREATE TABLE `registrazioni_user` (
   `user_type` enum('god','ata','menthor','student','alien') NOT NULL DEFAULT 'alien',
   `user_name` varchar(32) NOT NULL,
   `user_surname` varchar(32) NOT NULL,
-  `user_role` enum('guest','admin') NOT NULL DEFAULT 'guest',
+  `user_role` enum('guest','admin','superadmin') NOT NULL DEFAULT 'guest',
   `user_password` varchar(40) DEFAULT NULL,
   `user_active` tinyint(1) NOT NULL DEFAULT '0',
   PRIMARY KEY (`user_ID`),
@@ -116,4 +116,4 @@ CREATE TABLE `registrazioni_rel_user_activationcode` (
 /*!40101 SET COLLATION_CONNECTION=@OLD_COLLATION_CONNECTION */;
 /*!40111 SET SQL_NOTES=@OLD_SQL_NOTES */;
 
--- Dump completed on 2017-07-21  7:20:43
+-- Dump completed on 2017-07-21  7:54:58

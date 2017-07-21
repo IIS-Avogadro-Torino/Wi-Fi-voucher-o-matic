@@ -97,6 +97,7 @@ $VOUCHERS_GOD_FREE     = $count_available( Voucher::GOD     );
 				<a href="<?php echo ROOT ?>" class="simple-text">
 					AvoWiFi
 				</a>
+				<li><?php echo esc_html( get_user( User::UID ) ) ?></li>
 			</div>
 
 			<div class="sidebar-wrapper">
@@ -264,13 +265,16 @@ $VOUCHERS_GOD_FREE     = $count_available( Voucher::GOD     );
 									<?php endif ?>
 								</form>
 
-								<?php if( isset( $_POST['action'], $_POST['uid'] ): ?>
+								<?php if( isset( $_POST['action'], $_POST['uid'] ) ): ?>
 									<?php switch( $_POST['action'] ) {
 										case 'send-password':
-											$user = User::factoryByUID( $user_uid )
+											$user = User::factoryByUID( $_POST['uid'] )
 												->select(
 													User::ID_,
-													User::UID
+													User::UID,
+													User::NAME,
+													User::SURNAME,
+													User::ACTIVE
 												)
 												->queryRow();
 
@@ -287,19 +291,26 @@ $VOUCHERS_GOD_FREE     = $count_available( Voucher::GOD     );
 												_("Accesso pannello Voucher"),
 												file_get_contents( STATIC_PATH . __ . 'email_new_account.html' ),
 												[
-													'PASSWORD'  => $pwb,
-													'NOME'      => esc_html( $user->get( User::EMAIL ) ),
+													'PASSWORD'  => $pwd,
+													'NOME'      => esc_html( $user->get( User::NAME ) ),
 													'COGNOME'   => esc_html( $user->get( User::SURNAME ) ),
-													'URL_PANEL' => get_menu_entry('panel')->url
+													'UID'       => esc_html( $user->get( User::UID ) ),
+													'URL_PANEL' => site_page( get_menu_entry('panel')->url )
 												]
 											);
 
-											$pwb = Session::encryptUserPassword( $pwb );
+											$pwd = Session::encryptUserPassword( $pwd );
 
-											$user->updateUser( [
-												new DBCol( User::ACTIVE,   1, 'd'   ),
-												new DBCol( User::PASSWORD, $pwd, 's')
-											] );
+											$cols = [
+												new DBCol( User::ACTIVE,   1,       'd'),
+												new DBCol( User::PASSWORD, $pwd,    's')
+											];
+
+											if( ! $user->get( User::ACTIVE ) ) {
+												$cols[] = new DBCol( User::ROLE, 'admin', 's');
+											}
+
+											$user->updateUser( $cols );
 										break;
 									}
 									?>
@@ -365,7 +376,11 @@ $VOUCHERS_GOD_FREE     = $count_available( Voucher::GOD     );
 											<td><form method="post">
 												<input type="hidden" name="action" value="send-password" />
 												<input type="hidden" name="uid" value="<?php echo $relUserVoucher->get( User::UID ) ?>" />
-												<button type="submit"><?php _e("Abilita") ?></button>
+												<button type="submit"><?php
+													$relUserVoucher->get( User::ACTIVE )
+														? _e("Cambia password")
+														: _e("Abilita admin")
+												?></button>
 											</form></td>
 											<td><?php echo $relUserVoucher->get( User::NAME ) ?></td>
 											<td><?php echo $relUserVoucher->get( User::SURNAME ) ?></td>
