@@ -83,6 +83,7 @@ Header::spawn('studente');
 					User::UID
 				)
 				->whereStr( User::IS_PUBLIC, 1 )
+				->orderBy( User::NAME )
 				->queryResults();
 			?>
 
