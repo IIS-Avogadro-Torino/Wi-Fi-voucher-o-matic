@@ -408,10 +408,10 @@ $VOUCHERS_GOD_FREE     = $count_available( Voucher::GOD     );
 											<td><form method="post">
 												<input type="hidden" name="action" value="send-password" />
 												<input type="hidden" name="uid" value="<?php echo $relUserVoucher->get( User::UID ) ?>" />
-												<button type="submit"><?php
+												<button class="btn waves-effect waves-light" type="submit"> <i class="material-icons">account_circle</i><?php
 													$relUserVoucher->get( User::ACTIVE )
-														? _e("Cambia password")
-														: _e("Abilita admin")
+														? _e("Pwd Reset")
+														: _e("Abilita")
 												?></button>
 											</form></td>
 											<td>
@@ -419,10 +419,8 @@ $VOUCHERS_GOD_FREE     = $count_available( Voucher::GOD     );
 												<form method="post">
 													<input type="hidden" name="action" value="disable-user" />
 													<input type="hidden" name="uid" value="<?php echo $relUserVoucher->get( User::UID ) ?>" />
-													<button type="submit"><?php _e("Disabilita") ?></button>
+													<button class="btn waves-effect waves-light" type="submit"> <i class="material-icons">check_circle</i><?php _e("Turn OFF") ?></button>
 												</form>
-												<?php else: ?>
-													//
 												<?php endif ?>
 											</td>
 											<td><form method="post">
@@ -433,10 +431,10 @@ $VOUCHERS_GOD_FREE     = $count_available( Voucher::GOD     );
 														? 0
 														: 1
 												?>" />
-												<button type="submit"><?php
+												<button class="btn waves-effect waves-light" type="submit"> <i class="material-icons">language</i> <?php
 													$relUserVoucher->get( User::IS_PUBLIC )
-														? _e("nascondi")
-														: _e("pubblica")
+														? _e("Turn Site OFF")
+														: _e("Turn Site ON")
 												?></button>
 											</form></td>
 											<td><?php echo $relUserVoucher->get( User::NAME ) ?></td>
