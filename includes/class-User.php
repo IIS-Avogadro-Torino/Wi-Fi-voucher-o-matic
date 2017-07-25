@@ -24,7 +24,8 @@ trait UserTrait {
 	function normalizeUser() {
 		$this->integers(
 			User::ID,
-			User::ACTIVE
+			User::ACTIVE,
+			User::PUBLIC
 		);
 	}
 }
@@ -41,6 +42,7 @@ class User extends Queried {
 	const TYPE     = 'user_type';
 	const ROLE     = 'user_role';
 	const ACTIVE   = 'user_active';
+	const PUBLIC   = 'user_public';
 	const PASSWORD = 'user_password';
 
 	const ID_     = self::T . DOT . self::ID;

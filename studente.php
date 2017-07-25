@@ -42,7 +42,7 @@ Header::spawn('studente');
 
     <div class="container">
         <div class="row">
-            <div class="col-xs-12 lead"><p>Potete chiedere da subito le vostre credenziali personalizzate per navigare per tutto l'anno scolastico.</p><p>Usate bene quello che vi offriamo, noi ce la mettiamo tutta per darvi tutti i servizi possibili, vi chiediamo solo di usarli per crescere .</p></div>
+            <div class="col-xs-12 lead"><p>In questa pagina trovate l'elenco dei docenti e del personale della scuola che possono crearvi un account.<br>Contattatene uno e chiedetegli di poter avere l'accesso per un anno.</p><p>Usate bene quello che vi offriamo, noi ce la mettiamo tutta per darvi tutti i servizi possibili, vi chiediamo solo di usarli per crescere .</p></div>
         </div>
     </div>
 
@@ -54,8 +54,8 @@ Header::spawn('studente');
         <div class="container">
             <div class="row">
                 <div class="col-xs-12 text-xs-center">
-                    <h3 class="mbr-section-title display-2">Richiesta account studente</h3>
-                    <small class="mbr-section-subtitle">Il codice di attivazione lo trovate in centralino&nbsp;</small>
+                    <h3 class="mbr-section-title display-2">Elenco personale abilitato</h3>
+                    <small class="mbr-section-subtitle">Elenco in continuo aggiornamento</small>
                 </div>
             </div>
         </div>
@@ -66,48 +66,41 @@ Header::spawn('studente');
                 <div class="col-xs-12 col-lg-10 col-lg-offset-1" data-form-type="formoid">
 
 
-                    <div data-form-alert="true">
-                        <div hidden="" data-form-alert-success="true" class="alert alert-form alert-success text-xs-center">Thanks for filling out form!</div>
-                    </div>
+	<table class="table table-hover">
+		<thead>
+			<tr>
+				<th><?php _e("Nome") ?></th>
+				<th><?php _e("Cognome") ?></th>
+				<th><?php _e("E-mail") ?></th>
+			</tr>
+		</thead>
+		<tbody>
+			<?php
+			$users = User::factory()
+				->select(
+					User::NAME,
+					User::SURNAME,
+					User::UID
+				)
+				->whereStr( User::PUBLIC, 1 )
+				->queryResults();
+			?>
+
+			<?php foreach($users as $user): ?>
+			<tr>
+				<td><?php echo $user->get( User::NAME    ) ?></td>
+				<td><?php echo $user->get( User::SURNAME ) ?></td>
+				<td><?php echo $user->get( User::UID     ) ?></td>
+			</tr>
+			<?php endforeach ?>
+		</tbody>
+	</table>
 
 
-                    <form action="<?php echo get_menu_entry('form_post')->url ?>" method="post" data-form-title="Richiesta account studente">
 
-                        <input type="hidden" value="axFITWr1/1hRudDop41FBuWapSJyApeKrYoR807Of9VOuTYpJJbTJHb6kXCUI2s0VrliERHj4PGMpwvkl9KK5x8frYFV0OVcRskMJaQ1SVGMhYTsJrzYqwx9W+d9IQLW" data-form-email="true">
 
-                        <div class="row row-sm-offset">
 
-                            <div class="col-xs-12 col-md-4">
-                                <div class="form-group">
-                                    <label class="form-control-label" for="form1-1d-name">Name<span class="form-asterisk">*</span></label>
-                                    <input type="text" class="form-control" name="name" required="" data-form-field="Name" id="form1-1d-name">
-                                </div>
-                            </div>
 
-                            <div class="col-xs-12 col-md-4">
-                                <div class="form-group">
-                                    <label class="form-control-label" for="form1-1d-email">Email<span class="form-asterisk">*</span></label>
-                                    <input type="email" class="form-control" name="email" required="" data-form-field="Email" id="form1-1d-email">
-                                </div>
-                            </div>
-
-                            <div class="col-xs-12 col-md-4">
-                                <div class="form-group">
-                                    <label class="form-control-label" for="form1-1d-phone">Phone</label>
-                                    <input type="tel" class="form-control" name="phone" data-form-field="Phone" id="form1-1d-phone">
-                                </div>
-                            </div>
-
-                        </div>
-
-                        <div class="form-group">
-                            <label class="form-control-label" for="form1-1d-message">Message</label>
-                            <textarea class="form-control" name="message" rows="7" data-form-field="Message" id="form1-1d-message"></textarea>
-                        </div>
-
-                        <div><button type="submit" class="btn btn-primary">CONTACT US</button></div>
-
-                    </form>
                 </div>
             </div>
         </div>

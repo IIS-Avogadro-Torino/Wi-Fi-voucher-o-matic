@@ -31,8 +31,10 @@ CREATE TABLE `registrazioni_user` (
   `user_role` enum('guest','admin','superadmin') NOT NULL DEFAULT 'guest',
   `user_password` varchar(40) DEFAULT NULL,
   `user_active` tinyint(1) NOT NULL DEFAULT '0',
+  `user_public` tinyint(1) DEFAULT '0',
   PRIMARY KEY (`user_ID`),
-  UNIQUE KEY `user_uid` (`user_uid`)
+  UNIQUE KEY `user_uid` (`user_uid`),
+  KEY `user_public` (`user_public`)
 ) ENGINE=InnoDB DEFAULT CHARSET=utf8;
 /*!40101 SET character_set_client = @saved_cs_client */;
 
@@ -116,4 +118,4 @@ CREATE TABLE `registrazioni_rel_user_activationcode` (
 /*!40101 SET COLLATION_CONNECTION=@OLD_COLLATION_CONNECTION */;
 /*!40111 SET SQL_NOTES=@OLD_SQL_NOTES */;
 
--- Dump completed on 2017-07-21  7:54:58
+-- Dump completed on 2017-07-25  3:52:52

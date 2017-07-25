@@ -318,7 +318,19 @@ $VOUCHERS_GOD_FREE     = $count_available( Voucher::GOD     );
 											}
 
 											$user->updateUser( $cols );
-										break;
+											break;
+										case 'publish-user':
+											$user = User::factoryByUID( $_POST['uid'] )
+												->select( User::ID_ )
+												->queryRow();
+
+											$user or error_die("Unexisting user");
+
+											$user->updateUser( [
+												new DBCol(User::PUBLIC, $_POST['value'], 'd')
+											] );
+
+											break;
 									}
 									?>
 								<?php endif ?>
@@ -327,6 +339,8 @@ $VOUCHERS_GOD_FREE     = $count_available( Voucher::GOD     );
 								<table class="table table-hover">
 									<thead>
 										<tr>
+											<th></th>
+											<th></th>
 											<th></th>
 											<th><a href="?sort=name">Nome</a></th>
 											<th><a href="?sort=surname">Cognome</a></th>
@@ -339,15 +353,16 @@ $VOUCHERS_GOD_FREE     = $count_available( Voucher::GOD     );
 									<tbody>
 										<?php
 										$relUserVouchers = RelUserVoucher::factoryUserVoucher()
-											->select(
+											->select( [
 												User::NAME,
 												User::SURNAME,
 												User::UID,
 												User::ACTIVE,
+												User::PUBLIC,
 												Voucher::TYPE,
 												Voucher::CODE,
 												RelUserVoucher::CREATION_DATE
-											);
+											] );
 
 										switch( @ $_GET['sort'] ) {
 											case 'name';
@@ -387,6 +402,20 @@ $VOUCHERS_GOD_FREE     = $count_available( Voucher::GOD     );
 													$relUserVoucher->get( User::ACTIVE )
 														? _e("Cambia password")
 														: _e("Abilita admin")
+												?></button>
+											</form></td>
+											<td><form method="post">
+												<input type="hidden" name="action" value="publish-user" />
+												<input type="hidden" name="uid" value="<?php echo $relUserVoucher->get( User::UID ) ?>" />
+												<input type="hidden" name="value" value="<?php
+													echo $relUserVoucher->get( User::PUBLIC )
+														? 0
+														: 1
+												?>" />
+												<button type="submit"><?php
+													$relUserVoucher->get( User::PUBLIC )
+														? _e("nascondi")
+														: _e("pubblica")
 												?></button>
 											</form></td>
 											<td><?php echo $relUserVoucher->get( User::NAME ) ?></td>
