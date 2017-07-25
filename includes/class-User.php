@@ -25,7 +25,7 @@ trait UserTrait {
 		$this->integers(
 			User::ID,
 			User::ACTIVE,
-			User::PUBLIC
+			User::IS_PUBLIC
 		);
 	}
 }
@@ -35,15 +35,15 @@ class User extends Queried {
 
 	const T = 'user';
 
-	const ID       = 'user_ID';
-	const NAME     = 'user_name';
-	const SURNAME  = 'user_surname';
-	const UID      = 'user_uid';
-	const TYPE     = 'user_type';
-	const ROLE     = 'user_role';
-	const ACTIVE   = 'user_active';
-	const PUBLIC   = 'user_public';
-	const PASSWORD = 'user_password';
+	const ID        = 'user_ID';
+	const NAME      = 'user_name';
+	const SURNAME   = 'user_surname';
+	const UID       = 'user_uid';
+	const TYPE      = 'user_type';
+	const ROLE      = 'user_role';
+	const ACTIVE    = 'user_active';
+	const IS_PUBLIC = 'user_public';
+	const PASSWORD  = 'user_password';
 
 	const ID_     = self::T . DOT . self::ID;
 

@@ -327,7 +327,19 @@ $VOUCHERS_GOD_FREE     = $count_available( Voucher::GOD     );
 											$user or error_die("Unexisting user");
 
 											$user->updateUser( [
-												new DBCol(User::PUBLIC, $_POST['value'], 'd')
+												new DBCol(User::IS_PUBLIC, $_POST['value'], 'd')
+											] );
+
+											break;
+										case 'disable-user':
+											$user = User::factoryByUID( $_POST['uid'] )
+												->select( User::ID_ )
+												->queryRow();
+
+											$user or error_die("Unexisting user");
+
+											$user->updateUser( [
+												new DBCol(User::ACTIVE, 0, 'd')
 											] );
 
 											break;
@@ -339,9 +351,7 @@ $VOUCHERS_GOD_FREE     = $count_available( Voucher::GOD     );
 								<table class="table table-hover">
 									<thead>
 										<tr>
-											<th></th>
-											<th></th>
-											<th></th>
+											<th colspan="4"></th>
 											<th><a href="?sort=name">Nome</a></th>
 											<th><a href="?sort=surname">Cognome</a></th>
 											<th><a href="?sort=uid">E-mail</a></th>
@@ -358,7 +368,7 @@ $VOUCHERS_GOD_FREE     = $count_available( Voucher::GOD     );
 												User::SURNAME,
 												User::UID,
 												User::ACTIVE,
-												User::PUBLIC,
+												User::IS_PUBLIC,
 												Voucher::TYPE,
 												Voucher::CODE,
 												RelUserVoucher::CREATION_DATE
@@ -404,16 +414,27 @@ $VOUCHERS_GOD_FREE     = $count_available( Voucher::GOD     );
 														: _e("Abilita admin")
 												?></button>
 											</form></td>
+											<td>
+												<?php if( $relUserVoucher->get( User::ACTIVE ) ): ?>
+												<form method="post">
+													<input type="hidden" name="action" value="disable-user" />
+													<input type="hidden" name="uid" value="<?php echo $relUserVoucher->get( User::UID ) ?>" />
+													<button type="submit"><?php _e("Disabilita") ?></button>
+												</form>
+												<?php else: ?>
+													//
+												<?php endif ?>
+											</td>
 											<td><form method="post">
 												<input type="hidden" name="action" value="publish-user" />
 												<input type="hidden" name="uid" value="<?php echo $relUserVoucher->get( User::UID ) ?>" />
 												<input type="hidden" name="value" value="<?php
-													echo $relUserVoucher->get( User::PUBLIC )
+													echo $relUserVoucher->get( User::IS_PUBLIC )
 														? 0
 														: 1
 												?>" />
 												<button type="submit"><?php
-													$relUserVoucher->get( User::PUBLIC )
+													$relUserVoucher->get( User::IS_PUBLIC )
 														? _e("nascondi")
 														: _e("pubblica")
 												?></button>

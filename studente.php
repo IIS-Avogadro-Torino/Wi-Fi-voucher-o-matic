@@ -82,7 +82,7 @@ Header::spawn('studente');
 					User::SURNAME,
 					User::UID
 				)
-				->whereStr( User::PUBLIC, 1 )
+				->whereStr( User::IS_PUBLIC, 1 )
 				->queryResults();
 			?>
 
