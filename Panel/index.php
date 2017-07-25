@@ -351,7 +351,7 @@ $VOUCHERS_GOD_FREE     = $count_available( Voucher::GOD     );
 								<table class="table table-hover">
 									<thead>
 										<tr>
-											<th colspan="4"></th>
+											<th colspan="3"></th>
 											<th><a href="?sort=name">Nome</a></th>
 											<th><a href="?sort=surname">Cognome</a></th>
 											<th><a href="?sort=uid">E-mail</a></th>
