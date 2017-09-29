@@ -42,7 +42,27 @@ Header::spawn('studente');
 
     <div class="container">
         <div class="row">
-            <div class="col-xs-12 lead"><p>In questa pagina trovate l'elenco dei docenti e del personale della scuola che possono crearvi un account.<br>Contattatene uno e chiedetegli di poter avere l'accesso per un anno.</p><p>Usate bene quello che vi offriamo, noi ce la mettiamo tutta per darvi tutti i servizi possibili, vi chiediamo solo di usarli per crescere .</p></div>
+            <div class="col-xs-12 lead"><p>In questa pagina trovate l'elenco dei docenti e del personale della scuola che possono crearvi un account.<br>Contattate quello di competenza per la vostra area tramite una mail avente come oggetto "Richiesta accesso WiFi" (Scrivete essattamente così altrimenti la mail non viene processata) uno e chiedetegli di poter avere l'accesso per un anno, indicando : <br> <b>Cognome, Nome e-mail, classe di appartenenza.
+            
+            <h3> &nbsp; </h3>
+            
+            <h4> Docenti per area: </h4>
+            
+            
+            </b></p>
+            <p>
+            <ul>
+            <li><b>Biennio ITT</b> &nbsp; Paolo Nesi , Ivan Bertotto , Enrica Bricchetto </li>
+            <li><b>Triennio Mecc + Ele</b> &nbsp; Nicola Noviello , Paolo Bilewski </li>
+            <li><b>Triennio Inf:</b> &nbsp; Emanuela Mormile , Massimo Papa </li>
+            <li><b>Liceo</b> &nbsp; Gianpietro Rausa </li>
+            <li><b>Serale</b> &nbsp; Lorenzo Nazario, Vittorio Ferreri </li>
+            </ul>       
+            </p>  <br>                                       
+            
+            
+            
+            <p>Usate bene quello che vi offriamo, noi ce la mettiamo tutta per darvi tutti i servizi possibili, vi chiediamo solo di usarli per crescere .</p></div>
         </div>
     </div>
 
