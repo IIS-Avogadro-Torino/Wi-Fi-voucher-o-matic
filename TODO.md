@@ -5,3 +5,5 @@
 * [ ] Accesso ospite
 * [X] Creare utente admin dal pannello ed invio di password per mail
 * [X] Group By di Boz-PHP che mancava e fa esplodere tutto
+* [ ] Recupero password
+* [ ] Paginazione utenti
