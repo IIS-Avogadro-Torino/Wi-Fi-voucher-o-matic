@@ -7,3 +7,4 @@
 * [X] Group By di Boz-PHP che mancava e fa esplodere tutto
 * [ ] Recupero password
 * [ ] Paginazione utenti
+* [ ] CSS e roba in locale
