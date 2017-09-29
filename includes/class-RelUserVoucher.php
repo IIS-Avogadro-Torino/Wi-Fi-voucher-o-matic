@@ -23,12 +23,11 @@ trait RelUserVoucherTrait {
 	}
 }
 
+class_exists('User');
+
 class RelUserVoucher extends Queried {
 	use RelUserVoucherTrait;
-
-	function __construct() {
-		$this->datetimes( self::CREATION_DATE );
-	}
+	use UserTrait;
 
 	const T = 'rel_user_voucher';
 
@@ -39,6 +38,13 @@ class RelUserVoucher extends Queried {
 
 	const USER_         = self::T . DOT . self::USER;
 	const VOUCHER_      = self::T . DOT . self::VOUCHER;
+
+	function __construct() {
+		$this->integers ( self::CREATION_USER );
+		$this->datetimes( self::CREATION_DATE );
+
+		$this->normalizeUser();
+	}
 
 	/**
 	 * RelUserVoucher factory.

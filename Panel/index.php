@@ -168,7 +168,7 @@ $VOUCHERS_GOD_FREE     = $count_available( Voucher::GOD     );
 								</div>
 								<div class="card-content">
 									<p class="category"><b>Ospiti:</b></p>
-									<p class="category"><?php $a_on_b( $VOUCHERS_STUDENT, $VOUCHERS_STUDENT_FREE ) ?></p>
+									<p class="category"><?php $a_on_b( $VOUCHERS_ALIEN, $VOUCHERS_ALIEN_FREE ) ?></p>
 								</div>
 								<?php /*
 								<div class="card-footer">
@@ -352,18 +352,22 @@ $VOUCHERS_GOD_FREE     = $count_available( Voucher::GOD     );
 									<thead>
 										<tr>
 											<th colspan="3"></th>
-											<th><a href="?sort=name">Nome</a></th>
-											<th><a href="?sort=surname">Cognome</a></th>
-											<th><a href="?sort=uid">E-mail</a></th>
-											<th><a href="?sort=date">Data</a></th>
-											<th><a href="?sort=voucher">Voucher</a></th>
-											<th><a href="?sort=type">Tipo</a></th>
+											<th><a href="?sort=name"><?php _e("Nome") ?></a></th>
+											<th><a href="?sort=surname"><?php _e("Cognome") ?></a></th>
+											<th><a href="?sort=uid"><?php _e("E-mail") ?></a></th>
+											<th><a href="?sort=date"><?php _e("Data") ?></a></th>
+											<th><a href="?sort=type"><?php _e("Tipo voucher") ?></a></th>
 										</tr>
 									</thead>
 									<tbody>
 										<?php
+										$N_ROWS = (int) RelUserVoucher::factoryUserVoucher()
+											->select('COUNT(*) as count')
+											->queryRow()->count;
+
 										$relUserVouchers = RelUserVoucher::factoryUserVoucher()
 											->select( [
+												User::ID_,
 												User::NAME,
 												User::SURNAME,
 												User::UID,
@@ -371,7 +375,8 @@ $VOUCHERS_GOD_FREE     = $count_available( Voucher::GOD     );
 												User::IS_PUBLIC,
 												Voucher::TYPE,
 												Voucher::CODE,
-												RelUserVoucher::CREATION_DATE
+												RelUserVoucher::CREATION_DATE,
+												RelUserVoucher::CREATION_USER
 											] );
 
 										switch( @ $_GET['sort'] ) {
@@ -387,9 +392,6 @@ $VOUCHERS_GOD_FREE     = $count_available( Voucher::GOD     );
 											case 'date':
 												$relUserVouchers->orderBy( RelUserVoucher::CREATION_DATE . ' DESC' );
 												break;
-											case 'voucher':
-												$relUserVouchers->orderBy( Voucher::CODE );
-												break;
 											case 'type':
 												$relUserVouchers->orderBy( Voucher::TYPE );
 												break;
@@ -400,26 +402,27 @@ $VOUCHERS_GOD_FREE     = $count_available( Voucher::GOD     );
 										}
 
 										$relUserVouchers = $relUserVouchers->queryResults();
-
 										?>
 
 										<?php foreach($relUserVouchers as $relUserVoucher): ?>
 										<tr>
-											<td><form method="post">
-												<input type="hidden" name="action" value="send-password" />
-												<input type="hidden" name="uid" value="<?php echo $relUserVoucher->get( User::UID ) ?>" />
-												<button class="btn waves-effect waves-light" type="submit"> <i class="material-icons">account_circle</i><?php
-													$relUserVoucher->get( User::ACTIVE )
-														? _e("Pwd Reset")
-														: _e("Abilita")
-												?></button>
-											</form></td>
+											<td>
+												<form method="post">
+													<input type="hidden" name="action" value="send-password" />
+													<input type="hidden" name="uid" value="<?php echo $relUserVoucher->get( User::UID ) ?>" />
+													<button class="btn waves-effect waves-light" type="submit" title="<?php
+														$relUserVoucher->get( User::ACTIVE )
+															? _e("Pwd Reset")
+															: _e("Abilita")
+													?>"><i class="material-icons">account_circle</i></button>
+												</form>
+											</td>
 											<td>
 												<?php if( $relUserVoucher->get( User::ACTIVE ) ): ?>
 												<form method="post">
 													<input type="hidden" name="action" value="disable-user" />
 													<input type="hidden" name="uid" value="<?php echo $relUserVoucher->get( User::UID ) ?>" />
-													<button class="btn waves-effect waves-light" type="submit"> <i class="material-icons">check_circle</i><?php _e("Turn OFF") ?></button>
+													<button class="btn waves-effect waves-light" type="submit" title="<?php _e("Turn OFF") ?>"> <i class="material-icons">check_circle</i></button>
 												</form>
 												<?php endif ?>
 											</td>
@@ -431,18 +434,47 @@ $VOUCHERS_GOD_FREE     = $count_available( Voucher::GOD     );
 														? 0
 														: 1
 												?>" />
-												<button class="btn waves-effect waves-light" type="submit"> <i class="material-icons">language</i> <?php
+												<button class="btn waves-effect waves-light" type="submit" title="<?php
 													$relUserVoucher->get( User::IS_PUBLIC )
 														? _e("Turn Site OFF")
 														: _e("Turn Site ON")
-												?></button>
+												?>"><i class="material-icons">language</i></button>
 											</form></td>
-											<td><?php echo $relUserVoucher->get( User::NAME ) ?></td>
+											<td><?php echo $relUserVoucher->get( User::NAME    ) ?></td>
 											<td><?php echo $relUserVoucher->get( User::SURNAME ) ?></td>
-											<td><?php echo $relUserVoucher->get( User::UID ) ?></td>
-											<td><?php echo $relUserVoucher->formatRelUserVoucherDate('Y/m/d') ?></td>
-											<td><?php echo $relUserVoucher->get( Voucher::CODE ) ?></td>
-											<td><?php echo $relUserVoucher->get( Voucher::TYPE ) ?></td>
+											<td><?php echo $relUserVoucher->get( User::UID     ) ?></td>
+											<td><?php echo $relUserVoucher->formatRelUserVoucherDate( _('Y/m/d') ) ?></td>
+											<td><?php
+												echo $relUserVoucher->get( Voucher::CODE );
+
+												echo "<br />";
+
+												echo $relUserVoucher->get( Voucher::TYPE );
+
+												echo "<br />";
+
+												$creation_user_ID = $relUserVoucher->get( RelUserVoucher::CREATION_USER );
+
+												if( $creation_user_ID !== $relUserVoucher->get( User::ID ) ) {
+													$created_by = User::factoryByID( $creation_user_ID )
+														->select( [
+															User::ID_,
+															User::UID,
+															User::NAME,
+															User::SURNAME
+														] )
+														->queryRow();
+
+													echo "<small>";
+													printf(
+														_("da %s %s"),
+														esc_html( $created_by->get( User::NAME    ) ),
+														esc_html( $created_by->get( User::SURNAME ) )
+													);
+													echo "</small>";
+												}
+											?>
+											</td>
 										</tr>
 										<?php endforeach ?>
 									</tbody>
