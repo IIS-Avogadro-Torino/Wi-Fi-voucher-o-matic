@@ -276,13 +276,13 @@ $VOUCHERS_GOD_FREE     = $count_available( Voucher::GOD     );
 									<?php switch( $_POST['action'] ) {
 										case 'send-password':
 											$user = User::factoryByUID( $_POST['uid'] )
-												->select(
+												->select( [
 													User::ID_,
 													User::UID,
 													User::NAME,
 													User::SURNAME,
 													User::ACTIVE
-												)
+												] )
 												->queryRow();
 
 											$user or error_die("Unexisting user");
@@ -347,7 +347,40 @@ $VOUCHERS_GOD_FREE     = $count_available( Voucher::GOD     );
 									?>
 								<?php endif ?>
 							</div>
-							<div class="card-content table-responsive">
+
+							<?php
+								// Pagination
+
+								$N_PER_PAGE = 50;
+
+								$N_ROWS = (int) RelUserVoucher::factoryUserVoucher()
+									->select('COUNT(*) as count')
+									->queryRow()->count;
+
+								$PAGE = $_GET['p'] ?? 0;
+								if( $PAGE < 0 ) {
+									$PAGE = 0;
+								}
+
+								$GET = $_GET;
+							?>
+
+							<div class="card-content table-responsive" id="actived-users">
+
+								<p>
+									<?php if( $PAGE > 0 ): ?>
+										<?php $GET['p'] = $PAGE - 1; ?>
+										<a href="<?php echo ROOT . '/Panel/?' . http_build_query($GET) ?>#actived-users"><?php _e("Indietro") ?></a>
+									<?php endif ?>
+
+									|
+
+									<?php if( $PAGE * $N_PER_PAGE < $N_ROWS ): ?>
+										<?php $GET['p'] = $PAGE + 1; ?>
+										<a href="<?php echo ROOT . '/Panel/?' . http_build_query($GET) ?>#actived-users"><?php _e("Avanti") ?></a>
+									<?php endif ?>
+								</p>
+
 								<table class="table table-hover">
 									<thead>
 										<tr>
@@ -361,10 +394,6 @@ $VOUCHERS_GOD_FREE     = $count_available( Voucher::GOD     );
 									</thead>
 									<tbody>
 										<?php
-										$N_ROWS = (int) RelUserVoucher::factoryUserVoucher()
-											->select('COUNT(*) as count')
-											->queryRow()->count;
-
 										$relUserVouchers = RelUserVoucher::factoryUserVoucher()
 											->select( [
 												User::ID_,
@@ -400,6 +429,11 @@ $VOUCHERS_GOD_FREE     = $count_available( Voucher::GOD     );
 										if( isset( $_GET['unique_name'] ) ) {
 											$relUserVouchers->groupBy( User::UID );
 										}
+
+										$relUserVouchers->limit(
+											$N_PER_PAGE,
+											$N_PER_PAGE * $PAGE
+										);
 
 										$relUserVouchers = $relUserVouchers->queryResults();
 										?>
