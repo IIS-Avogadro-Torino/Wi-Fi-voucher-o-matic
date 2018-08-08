@@ -27,6 +27,7 @@ trait UserTrait {
 			User::ACTIVE,
 			User::IS_PUBLIC
 		);
+		$this->datetimes( User::RECOVERY_DATE );
 	}
 }
 
@@ -44,6 +45,8 @@ class User extends Queried {
 	const ACTIVE    = 'user_active';
 	const IS_PUBLIC = 'user_public';
 	const PASSWORD  = 'user_password';
+	const RECOVERY_TOKEN = 'user_recovery_token';
+	const RECOVERY_DATE  = 'user_recovery_date';
 
 	const ID_     = self::T . DOT . self::ID;
 
