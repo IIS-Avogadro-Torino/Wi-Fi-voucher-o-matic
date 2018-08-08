@@ -236,8 +236,8 @@ $VOUCHERS_GOD_FREE     = $count_available( Voucher::GOD     );
 										<select name="user_type" class="form-control">
   											<option value="<?php echo Voucher::MENTHOR ?>">Docente</option>
   											<option value="<?php echo Voucher::ATA ?>">ATA</option>
-  											<option value="<?php echo Voucher::STUDENT ?>">Studente</option>
-  											<option value="<?php echo Voucher::ALIEN ?>">Ospite</option>
+  											<!--<option value="<?php echo Voucher::STUDENT ?>">Studente</option>-->
+  											<!--<option value="<?php echo Voucher::ALIEN ?>">Ospite</option>-->
   											<option value="<?php echo Voucher::GOD ?>"<?php
 												if( ! has_permission('register_god') ) {
 													echo ' disabled="disabled"';
