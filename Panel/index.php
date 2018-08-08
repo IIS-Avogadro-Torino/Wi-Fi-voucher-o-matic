@@ -320,7 +320,7 @@ $VOUCHERS_GOD_FREE     = $count_available( Voucher::GOD     );
 											$user->updateUser( $cols );
 											break;
 										case 'publish-user':
-											$user = User::factoryByUID( $_POST['uid'] )
+											$user = User::factoryFromUID( $_POST['uid'] )
 												->select( User::ID_ )
 												->queryRow();
 
@@ -332,7 +332,7 @@ $VOUCHERS_GOD_FREE     = $count_available( Voucher::GOD     );
 
 											break;
 										case 'disable-user':
-											$user = User::factoryByUID( $_POST['uid'] )
+											$user = User::factoryFromUID( $_POST['uid'] )
 												->select( User::ID_ )
 												->queryRow();
 

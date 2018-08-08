@@ -33,7 +33,7 @@ if( isset(
 
 	$type = $_POST['user_type'];
 
-	$existing_user = User::factoryByUID( $_POST['user_uid'] )
+	$existing_user = User::factoryFromUID( $_POST['user_uid'] )
 		->queryRow();
 
 	if( ! $existing_user ) {
@@ -56,7 +56,7 @@ if( isset(
 			new DBCol('user_type',    $type,                  's')
 		] );
 
-		$existing_user = User::factoryByID( last_inserted_ID() )
+		$existing_user = User::factoryFromID( last_inserted_ID() )
 			->queryRow();
 
 		if( ! $existing_user ) {
