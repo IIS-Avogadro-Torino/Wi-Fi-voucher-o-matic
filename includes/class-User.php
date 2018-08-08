@@ -1,7 +1,7 @@
 <?php
 ######################################################################
 # Wi-Fi-voucher-o-matic - Wi-Fi voucher manager
-# Copyright (C) 2017 Valerio Bozzolan, Ivan Bertotto, ITIS Avogadro
+# Copyright (C) 2017, 2018 Valerio Bozzolan, Ivan Bertotto, IIS Avogadro
 #
 # This program is free software: you can redistribute it and/or modify
 # it under the terms of the GNU General Public License as published by
@@ -13,7 +13,7 @@
 # GNU General Public License for more details.
 #
 # You should have received a copy of the GNU General Public License
-# along with this program.If not, see <http://www.gnu.org/licenses/>.
+# along with this program. If not, see <http://www.gnu.org/licenses/>.
 ######################################################################
 
 trait UserTrait {
@@ -52,33 +52,6 @@ class User extends Queried {
 
 	function __construct() {
 		$this->normalizeUser();
-	}
-
-	/**
-	 * User factory.
-	 *
-	 * @return Query
-	 */
-	static function factory() {
-		return Query::factory( __CLASS__ )->from( self::T );
-	}
-
-	static function factoryByID( $user_ID ) {
-		return self::factory()
-			->whereInt( self::ID, $user_ID );
-	}
-
-	/**
-	 * User factory.
-	 *
-	 * @param string $user_uid User::UID
-	 * @return Query
-	 */
-	static function factoryByUID($user_uid) {
-		$user_uid = luser_input($user_uid, 128);
-
-		return self::factory()
-			->whereStr(self::UID, $user_uid);
 	}
 
 	static function filterType( $user_type ) {

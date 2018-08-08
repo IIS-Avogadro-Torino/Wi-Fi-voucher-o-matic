@@ -275,7 +275,7 @@ $VOUCHERS_GOD_FREE     = $count_available( Voucher::GOD     );
 								<?php if( isset( $_POST['action'], $_POST['uid'] ) ): ?>
 									<?php switch( $_POST['action'] ) {
 										case 'send-password':
-											$user = User::factoryByUID( $_POST['uid'] )
+											$user = User::factoryFromUID( $_POST['uid'] )
 												->select( [
 													User::ID_,
 													User::UID,

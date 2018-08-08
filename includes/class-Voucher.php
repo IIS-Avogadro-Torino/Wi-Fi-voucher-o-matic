@@ -37,16 +37,6 @@ class Voucher extends Queried {
 		$this->integers(self::ID);
 	}
 
-	/**
-	 * RelUserVoucher factory.
-	 *
-	 * @return Query
-	 */
-	static function factory() {
-		return Query::factory( __CLASS__ )
-			->from( self::T );
-	}
-
 	static function insert($code, $type, $duration) {
 		insert_row(self::T, [
 			new DBCol(self::CODE,     $code,     's'),

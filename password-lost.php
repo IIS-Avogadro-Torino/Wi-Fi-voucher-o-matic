@@ -73,7 +73,7 @@ $password_recovery = function ($user) {
 
 if( isset( $_POST['action'] ) {
 
-	$user = User::factoryByUID( $_POST['user_uid'] )
+	$user = User::factoryFromUID( $_POST['user_uid'] )
 		->select( [
 			User::ID_,
 			User::UID,

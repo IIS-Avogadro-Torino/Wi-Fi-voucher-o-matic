@@ -46,16 +46,6 @@ class RelUserVoucher extends Queried {
 		$this->normalizeUser();
 	}
 
-	/**
-	 * RelUserVoucher factory.
-	 *
-	 * @return Query
-	 */
-	static function factory() {
-		return Query::factory( __CLASS__ )
-			->from( self::T );
-	}
-
 	static function factoryUser() {
 		return self::factory()
 			->from( User::T )

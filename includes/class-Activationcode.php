@@ -24,16 +24,6 @@ class Activationcode extends Queried {
 	const CODE          = 'activationcode_code';
 	const TYPE          = 'activationcode_type';
 
-	/**
-	 * RelUserActivationcode factory.
-	 *
-	 * @return Query
-	 */
-	static function factory() {
-		return Query::factory( __CLASS__ )
-			->from( self::T );
-	}
-
 	static function insert($code, $type) {
 		insert_row(self::T, [
 			new DBCol(self::CODE, $code, 's'),
