@@ -74,3 +74,5 @@ register_permissions('superadmin', [
 	'register_whatever_ata_mail',
 	'register_god'
 ] );
+
+require ABSPATH . __ . INCLUDES . __ . 'functions.php';
