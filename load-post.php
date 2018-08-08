@@ -1,7 +1,7 @@
 <?php
 ######################################################################
 # Wi-Fi-voucher-o-matic - Wi-Fi voucher manager
-# Copyright (C) 2017 Valerio Bozzolan, Ivan Bertotto, ITIS Avogadro
+# Copyright (C) 2017, 2018 Valerio Bozzolan, Ivan Bertotto, IIS Avogadro
 #
 # This program is free software: you can redistribute it and/or modify
 # it under the terms of the GNU General Public License as published by
@@ -13,7 +13,7 @@
 # GNU General Public License for more details.
 #
 # You should have received a copy of the GNU General Public License
-# along with this program.If not, see <http://www.gnu.org/licenses/>.
+# along with this program. If not, see <http://www.gnu.org/licenses/>.
 ######################################################################
 
 // Default voucher duration
@@ -60,7 +60,8 @@ add_menu_entries( [
 	new MenuEntry('ospite',          ROOT . '/ospite.php',          _("Ospite"),           'hidden'),
 	new MenuEntry('dispositivo',     ROOT . '/dispositivo.php',     _("Dispositivo"),      'hidden'),
 	new MenuEntry('form_post',       ROOT . '/form_post.php',       _("Invio dati"),       'hidden'),
-	new MenuEntry('logout',          ROOT . '/login.php?logout=1',  _("Esci"),             'hidden')
+	new MenuEntry('logout',          ROOT . '/login.php?logout=1',  _("Esci"),             'hidden'),
+	new MenuEntry('password-lost',   ROOT . '/password-lost.php',   _("Password dimenticata"), 'hidden')
 ] );
 
 register_permissions('admin', [
