@@ -42,13 +42,37 @@ class User extends Queried {
 	const UID       = 'user_uid';
 	const TYPE      = 'user_type';
 	const ROLE      = 'user_role';
+	const NOTE      = 'user_note';
 	const ACTIVE    = 'user_active';
 	const IS_PUBLIC = 'user_public';
 	const PASSWORD  = 'user_password';
+	const CLASS_NAME = 'user_class';
+	const SECTION    = 'user_section';
+	const DAYTYPE    = 'user_daytype';
+	const SPECIALIZATION = 'user_specialization';
 	const RECOVERY_TOKEN = 'user_recovery_token';
 	const RECOVERY_DATE  = 'user_recovery_date';
 
 	const ID_     = self::T . DOT . self::ID;
+
+	/**
+	 * All the registered user specializations
+	 */
+	public static $SPECIALIZATIONS = [
+		'biennio',
+		'liceo',
+		'elettrotecnica',
+		'informatica',
+		'meccanica',
+	];
+
+	/**
+	 * All the day types
+	 */
+	public static $DAYTYPES = [
+		'diurno',
+		'serale',
+	];
 
 	function __construct() {
 		$this->normalizeUser();

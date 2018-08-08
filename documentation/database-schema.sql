@@ -58,6 +58,7 @@ DROP TABLE IF EXISTS `registrazioni_rel_user_voucher`;
 CREATE TABLE `registrazioni_rel_user_voucher` (
   `user_ID` int(10) unsigned NOT NULL,
   `voucher_ID` int(10) unsigned NOT NULL,
+  `rel_user_voucher_device` varchar(16) DEFAULT NULL,
   `rel_user_voucher_creation_date` datetime NOT NULL,
   `rel_user_voucher_creation_user` int(10) unsigned NOT NULL,
   PRIMARY KEY (`user_ID`,`voucher_ID`),
@@ -83,6 +84,10 @@ CREATE TABLE `registrazioni_user` (
   `user_name` varchar(32) NOT NULL,
   `user_surname` varchar(32) NOT NULL,
   `user_role` enum('guest','admin','superadmin') NOT NULL DEFAULT 'guest',
+  `user_class` varchar(1) DEFAULT NULL,
+  `user_section` varchar(1) DEFAULT NULL,
+  `user_specialization` enum('biennio','liceo','elettrotecnica','informatica','meccanica') DEFAULT NULL,
+  `user_daytype` enum('diurno','serale') DEFAULT NULL,
   `user_note` text NOT NULL,
   `user_password` varchar(40) DEFAULT NULL,
   `user_active` tinyint(1) NOT NULL DEFAULT '0',
@@ -121,4 +126,4 @@ CREATE TABLE `registrazioni_voucher` (
 /*!40101 SET COLLATION_CONNECTION=@OLD_COLLATION_CONNECTION */;
 /*!40111 SET SQL_NOTES=@OLD_SQL_NOTES */;
 
--- Dump completed on 2018-08-08  3:35:01
+-- Dump completed on 2018-08-08  3:37:06

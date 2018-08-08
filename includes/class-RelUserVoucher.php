@@ -33,6 +33,7 @@ class RelUserVoucher extends Queried {
 
 	const USER          = 'user_ID';
 	const VOUCHER       = 'voucher_ID';
+	const DEVICE_NAME   = 'rel_user_voucher_device';
 	const CREATION_DATE = 'rel_user_voucher_creation_date';
 	const CREATION_USER = 'rel_user_voucher_creation_user';
 
