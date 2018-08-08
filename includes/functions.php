@@ -24,9 +24,7 @@
 function require_permission( $permission  ) {
 	if( ! has_permission( $permission ) ) {
 		if( ! is_logged() ) {
-			http_redirect( site_page(
-				$redirect . urlencode( site_page( $_SERVER['REQUEST_URI'] ) )
-			) );
+			http_redirect( URL . '/login.php' );
 		}
 		die( __( "permesso negato" ) );
 	}
