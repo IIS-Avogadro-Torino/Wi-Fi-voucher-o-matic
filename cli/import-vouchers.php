@@ -1,7 +1,8 @@
+#!/usr/bin/php
 <?php
 ######################################################################
 # Wi-Fi-voucher-o-matic - Wi-Fi voucher manager
-# Copyright (C) 2017 Valerio Bozzolan, Ivan Bertotto, ITIS Avogadro
+# Copyright (C) 2017, 2018 Valerio Bozzolan, Ivan Bertotto, IIS Avogadro
 #
 # This program is free software: you can redistribute it and/or modify
 # it under the terms of the GNU General Public License as published by
@@ -13,64 +14,93 @@
 # GNU General Public License for more details.
 #
 # You should have received a copy of the GNU General Public License
-# along with this program.If not, see <http://www.gnu.org/licenses/>.
+# along with this program. If not, see <http://www.gnu.org/licenses/>.
 ######################################################################
 
-// Only CLI allowed
+##
+# Import vouchers exported from Ubiquiti
+##
+
+// only CLI allowed
 empty( $argv )
 	and exit;
 
-empty( $argv[1] )
-	and die("RTFM");
+// must specify the first argument (that is the CSV filename)
+empty( $argv[ 1 ] )
+	and die( "RTFM" );
 
 require '..' . DIRECTORY_SEPARATOR . 'load.php';
 
+// association between Ubiquiti voucher note and user roles
 $NOTE_2_TYPE = [
 	'God_AVO'          => 'god',
 	'Prof_AVO'         => 'menthor',
 	'Studenti_AVO'     => 'student',
-	'Guest_Access_AVO' => 'alien'
+	'Voucher studenti' => 'student',
+	'Guest_Access_AVO' => 'alien',
 ];
 
-$handle = fopen( $argv[1] , 'r');
+$handle = fopen( $argv[ 1 ] , 'r' );
 
 $first = true;
-$i = 0;
-while( $voucher = fgetcsv($handle) ) {
+$i = 0; // imported
+$j = 0; // skippeds
+while( $voucher = fgetcsv( $handle ) ) {
 
 	if( $first ) {
 		$first = false;
 		continue;
 	}
 
-	// "_id","admin_name","code","create_time","duration","for_hotspot","note"
-	list(   ,            ,$code ,             ,$duration,              , $note) = $voucher;
+	list(
+		         , // _id
+		         , // admin_name
+		$code    , // code
+		         , // creation_time
+		$duration, // duration
+		         , // for_hotspot
+		$note    , // note
+		         , // qos_overwrite
+		         , // qos_rate_max_down
+		         , // qos_rate_max_up
+		         , // qos_usage_quota
+	 	         , // quota
+	 	         , // site_id
+	 	$used      // used
+	) = $voucher;
 
 	if( ! isset( $code, $duration ) ) {
 		echo "Error importing:\n";
-		var_dump($voucher);
-		sleep(1);
+		print_r( $voucher );
+		exit( 1 );
 	}
 
 	if( ! $NOTE_2_TYPE[ $note ] ) {
-		error_die( sprintf("Wrong note '%s'", $note) );
+		printf( "Unknown note '%s'\n", $note );
+		$j++;
+		continue;
 	}
 
 	$type = $NOTE_2_TYPE[ $note ];
 
 	$voucher_exists = Voucher::factory()
-		->select(1)
-		->whereStr(Voucher::CODE, $code)
+		->select( 1 )
+		->whereStr( Voucher::CODE, $code )
 		->queryRow();
 
 	if( $voucher_exists ) {
-		printf("Duplicated: '%s'\n", $code);
+		printf( "Skip duplicated: '%s'\n", $code );
+		$j++;
+		continue;
+	} elseif( $used ) {
+		printf( "Skip used: '%s'\n", $code );
+		$j++;
+		continue;
 	}
 
-	Voucher::insert($code, $type, $duration);
+	Voucher::insert( $code, $type, $duration );
 
 	$i++;
 }
 
 printf( "Imported %d vouchers.\n", $i );
-

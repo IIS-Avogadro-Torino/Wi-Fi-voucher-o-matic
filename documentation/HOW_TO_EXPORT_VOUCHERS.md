@@ -1,13 +1,11 @@
 # How to export vouchers from Ubiquiti
 
-Run this from your local Ubiquiti controller machine to obtain a `vouchers.csv` file:
+To create a `vouchers.csv` file from the Ubiquiti machine:
 
-	mongoexport \
-		--host localhost:27117 \
-		--db ace \
-		--collection voucher \
-		--out vouchers.csv \
-		--csv \
-		--fields _id,admin_name,code,create_time,duration,for_hotspot,note,qos_overwrite,qos_rate_max_down,qos_rate_max_up,qos_usage_quota,quota,site_id,used
-  
-Then you can import these vouchers using the `cli/import-vouchers.php` import script.
+	cli/export-vouchers.php
+
+# How to import vouchers
+
+To import a `vouchers.csv` file into the IIS-Avogadro-Torino/Wi-Fi-voucher-o-matic system:
+
+	cli/import-vouchers.php vouchers.csv
