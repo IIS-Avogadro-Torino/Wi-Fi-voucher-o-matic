@@ -1,7 +1,7 @@
 <?php
 ######################################################################
 # Wi-Fi-Activationcode-o-matic - Wi-Fi Activationcode manager
-# Copyright (C) 2017 Valerio Bozzolan, Ivan Bertotto, ITIS Avogadro
+# Copyright (C) 2017, 2018 Valerio Bozzolan, Ivan Bertotto, IIS Avogadro
 #
 # This program is free software: you can redistribute it and/or modify
 # it under the terms of the GNU General Public License as published by
@@ -13,15 +13,27 @@
 # GNU General Public License for more details.
 #
 # You should have received a copy of the GNU General Public License
-# along with this program.If not, see <http://www.gnu.org/licenses/>.
+# along with this program. If not, see <http://www.gnu.org/licenses/>.
 ######################################################################
 
+/**
+ * Header of the site
+ */
 class Header {
+
 	static function spawn( $page_uid, $args = [] ) {
 
 		$args = array_replace( [
-			'navbar' => true
+			'navbar' => true,
 		], $args );
+
+		if( $page_uid ) {
+			if( $entry = get_menu_entry( $page_uid ) ) {
+				$args = array_replace( [
+					'title' => $entry->name
+				], $args );
+			}
+		}
 
 		header( 'Content-Type: text/html; charset=' . CHARSET );
 ?>
@@ -32,6 +44,7 @@ class Header {
   <meta name="viewport" content="width=device-width, initial-scale=1">
   <link rel="shortcut icon" href="<?php echo STATIC_ROOT ?>/images/logo.png" type="image/x-icon">
   <meta name="description" content="" />
+  <title><?php _esc_html( $args[ 'title' ] ) ?></title>
   <link rel="stylesheet" href="https://fonts.googleapis.com/css?family=Lora:400,700,400italic,700italic&amp;subset=latin">
   <link rel="stylesheet" href="https://fonts.googleapis.com/css?family=Montserrat:400,700">
   <link rel="stylesheet" href="https://fonts.googleapis.com/css?family=Raleway:100,100i,200,200i,300,300i,400,400i,500,500i,600,600i,700,700i,800,800i,900,900i">
