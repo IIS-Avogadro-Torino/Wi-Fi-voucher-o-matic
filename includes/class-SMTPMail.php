@@ -26,8 +26,8 @@
 class SMTPMail {
 
 	static function send($to, $subject, $body, $placeholders = [] ) {
-		self::sendReally( $to,           $subject, $body, $placeholders );
-		self::sendReally( CONTACT_EMAIL, $subject, $body, $placeholders );
+		self::sendReally( $to,           $subject,          $body, $placeholders );
+		self::sendReally( CONTACT_EMAIL, "Copia: $subject", $body, $placeholders );
 	}
 
 	static function sendReally( $to, $subject, $body, $placeholders = [] ) {
