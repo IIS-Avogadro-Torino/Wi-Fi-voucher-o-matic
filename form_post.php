@@ -123,9 +123,8 @@ if( isset(
 					__( "L'utente %s chiede un voucher %s" ),
 					esc_html( $existing_user->get( User::UID ) ),
 					$existing_user->get( User::TYPE )
-				),
-				__("Il tuo voucher IIS Avogadro")
-			);
+				)
+				: __("Il tuo voucher IIS Avogadro");
 
 			SMTPMail::send(
 				$email,
