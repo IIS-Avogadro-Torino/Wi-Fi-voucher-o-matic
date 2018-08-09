@@ -45,7 +45,8 @@ class Printmenu {
 						$menuEntry->url,
 						$menuEntry->name,
 						$menuEntry->get('title'),
-						'nav-link link'
+						'nav-link link',
+						$menuEntry->getExtra( 'intag' )
 					) ?>
 
 					<?php self::spawn( $menuEntry->uid, $level + 1, $args ) ?>

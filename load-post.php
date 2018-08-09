@@ -61,7 +61,11 @@ add_menu_entries( [
 	new MenuEntry('dispositivo',     ROOT . '/dispositivo.php',     _("Dispositivo"),      'hidden'),
 	new MenuEntry('form_post',       ROOT . '/form_post.php',       _("Invio dati"),       'hidden'),
 	new MenuEntry('logout',          ROOT . '/login.php?logout=1',  _("Esci"),             'hidden'),
-	new MenuEntry('password-lost',   ROOT . '/password-lost.php',   _("Password dimenticata"), 'hidden')
+	new MenuEntry('password-lost',   ROOT . '/password-lost.php',   _("Password dimenticata"), 'hidden'),
+	new MenuEntry('privacy',   'http://privacy.itisavogadro.org',   _("Privacy"),          null    , [
+		'intag' => 'target="_blank"',
+	] ),
+
 ] );
 
 register_permissions('admin', [
