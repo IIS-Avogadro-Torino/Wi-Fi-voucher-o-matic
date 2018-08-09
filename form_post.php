@@ -46,7 +46,7 @@ if( isset(
 	if( ! $existing_user ) {
 
 		$create = true;
-		if( $type === 'ata' || $type === 'menthor' ) {
+		if( $type === User::TYPE_ATA || $type === User::TYPE_MENTHOR ) {
 			if( ! has_permission('register_whatever_ata_mail') ) {
 				$email = $_POST['user_uid'];
 				if( false === strpos( $email, '@itisavogadro.it' ) ) {
@@ -76,7 +76,7 @@ if( isset(
 		$yet_obtained_vouchers = 0;
 		$MAX_VOUCHERS          = 5;
 
-		if( $voucher_type === 'menthor' ) {
+		if( $voucher_type === User::TYPE_MENTHOR ) {
 			$MAX_VOUCHERS = 10;
 		}
 
