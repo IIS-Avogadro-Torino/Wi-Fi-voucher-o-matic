@@ -33,13 +33,13 @@ class Printmenu {
 		?>
 
 		<?php if($level === 0): ?>
-			<div class="nav-dropdown collapse pull-xs-right nav navbar-nav navbar-toggleable-sm" id="exCollapsingNavbar">
+		<div class="nav-dropdown collapse pull-xs-right nav navbar-nav navbar-toggleable-sm" id="exCollapsingNavbar">
 		<?php else: ?>
-			<div>
+		<div>
 		<?php endif ?>
 
-			<?php foreach($menuEntries as $menuEntry): ?>
-
+			<ul class="navbar-nav nav-dropdown">
+				<?php foreach($menuEntries as $menuEntry): ?>
 				<li class="nav-item">
 					<?php echo HTML::a(
 						$menuEntry->url,
@@ -52,11 +52,10 @@ class Printmenu {
 					<?php self::spawn( $menuEntry->uid, $level + 1, $args ) ?>
 
 				</li>
-
 				<?php endforeach ?>
-
 			</ul>
-		<?php
+		</div>
+		<!-- /.navbar --><?php
 	}
 
 }
