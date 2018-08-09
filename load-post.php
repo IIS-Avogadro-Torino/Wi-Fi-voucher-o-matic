@@ -38,7 +38,12 @@ spl_autoload_register( function($c) {
 
 // site identity
 define_default( 'SITE_NAME', _("Gruppo rete Avogadro") );
-define_default( 'COMPANY_DOMAIN', 'itisavogadro.it' );
+
+// allowed student/ATA e-mail domains
+define_default( 'COMPANY_DOMAINS', [
+	'itisavogadro.it',
+	'studenti.itisavogadro.it',
+] );
 
 // burocratic administrator
 define_default( 'RAUSA_EMAIL', 'prausa@itisavogadro.it' );
