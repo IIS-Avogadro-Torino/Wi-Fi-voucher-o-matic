@@ -48,6 +48,9 @@ defined('COMPANY_DOMAIN')
 defined('RAUSA_EMAIL')
 	or define('RAUSA_EMAIL', 'prausa@itisavogadro.it');
 
+defined('RAUSA_NAME')
+	or define('RAUSA_NAME', 'Prof. Pietro Rausa');
+
 defined('NET_SMTP_PATH')
 	or define('NET_SMTP_PATH', '/usr/share/php/Net/SMTP.php');
 

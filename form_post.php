@@ -37,7 +37,7 @@ if( isset(
 	$_POST['user_name']    = luser_input(      $_POST['user_name'],    32  );
 	$_POST['user_surname'] = luser_input(      $_POST['user_surname'], 32  );
 	$_POST['user_uid']     = luser_input(      $_POST['user_uid'],     128 );
-	$_POST['user_type']    = User::filterType( $_POST['user_type']         );
+	$type                  = User::filterType( $_POST['user_type']         );
 
 	$existing_user = User::factoryFromUID( $_POST['user_uid'] )
 		->queryRow();
@@ -115,13 +115,12 @@ if( isset(
 			->limit( 1 )
 			->queryRow();
 
-		$yet_obtained_vouchers++;
-
 		if( $voucher ) {
 			RelUserVoucher::insertUserVoucher(
 				$existing_user->get( User::ID    ),
 				$voucher      ->get( Voucher::ID )
 			);
+			$yet_obtained_vouchers++;
 
 			$email = $rausa_must_send_voucher
 				? RAUSA_EMAIL
@@ -148,7 +147,18 @@ if( isset(
 				]
 			);
 
-			$done = true;
+			if( $rausa_must_send_voucher ) {
+				MessageBox::info( sprintf(
+					__(
+						"Una e-mail è stata inviata a %s (%s) che ti contatterà privatamente. ".
+						"Se non ricevi comunicazioni, contattalo."
+					),
+					RAUSA_NAME,
+					RAUSA_EMAIL
+				) );
+			} else {
+				$done = true;
+			}
 		} else {
 			MessageBox::error( __( "Voucher terminati. Contattare Ivan." ) );
 		}
