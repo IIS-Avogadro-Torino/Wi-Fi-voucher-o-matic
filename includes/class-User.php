@@ -46,8 +46,8 @@ class User extends Queried {
 	const ACTIVE    = 'user_active';
 	const IS_PUBLIC = 'user_public';
 	const PASSWORD  = 'user_password';
-	const CLASS_NAME = 'user_class';
-	const SECTION    = 'user_section';
+	const CLASS_NUMBER  = 'user_class';
+	const CLASS_SECTION = 'user_section';
 	const DAYTYPE    = 'user_daytype';
 	const SPECIALIZATION = 'user_specialization';
 	const RECOVERY_TOKEN = 'user_recovery_token';
@@ -111,5 +111,45 @@ class User extends Queried {
 	 */
 	public static function filterCompanyEmail( $email ) {
 		return false === strpos( $email, '@' . COMPANY_DOMAIN );
+	}
+
+	/**
+	 * Filter a specialization
+	 *
+	 * @param $specialization string
+	 */
+	public static function filterSpecialization( $specialization ) {
+		if( in_array( self::$SPECIALIZATIONS, $specialization, true ) ) {
+			return $specialization;
+		}
+		return null;
+	}
+
+	/**
+	 * Filter a daytype
+	 *
+	 * @param $daytype string
+	 */
+	public static function filterDaytype( $daytype ) {
+		if( in_array( self::$DAYTYPES, $daytype, true ) ) {
+			return $daytype;
+		}
+		return false;
+	}
+
+	public static function filterClassNumber( $number ) {
+		$number = (int) $number;
+		if( $number > 0 && $number < 6 ) {
+			return $number;
+		}
+		return false;
+	}
+
+	public static function filterClassSection( $section ) {
+		$section = (string) $section;
+		if( $section ) {
+			return substr( $section, 0, 1 );
+		}
+		return null;
 	}
 }

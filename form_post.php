@@ -62,11 +62,20 @@ if( isset(
 			}
 		}
 		if( $create ) {
+			$class_name     = User::filterClassNumber(    @ $_POST[ 'class_number'        ] );
+			$section        = User::filterClassSection(   @ $_POST[ 'class_section'       ] );
+			$daytype        = User::filterDaytype(        @ $_POST[ 'user_daytype'        ] );
+			$specialization = User::filterSpecialization( @ $_POST[ 'user_specialization' ] );
+
 			insert_row( User::T, [
-				new DBCol( User::NAME,    $_POST['user_name'],    's' ),
-				new DBCol( User::SURNAME, $_POST['user_surname'], 's' ),
-				new DBCol( User::UID,     $_POST['user_uid'],     's' ),
-				new DBCol( User::TYPE,    $type,                  's' ),
+				new DBCol( User::NAME,           $_POST['user_name'],    's'     ),
+				new DBCol( User::SURNAME,        $_POST['user_surname'], 's'     ),
+				new DBCol( User::UID,            $_POST['user_uid'],     's'     ),
+				new DBCol( User::TYPE,           $type,                  's'     ),
+				new DBCol( User::CLASS_NUMBER,   $class_number,          'snull' ),
+				new DBCol( User::CLASS_SECTION,  $class_section,         'snull' ),
+				new DBCol( User::DAYTYPE,        $daytype,               'snull' ),
+				new DBCol( User::SPECIALIZATION, $specialization,        'snull' ),
 			] );
 
 			$existing_user = User::factoryFromID( last_inserted_ID() )
@@ -132,10 +141,10 @@ if( isset(
 				file_get_contents( STATIC_PATH . __ . 'email.html' ),
 				[
 					'CODICE'  => esc_html( $voucher->get(Voucher::CODE) ),
-					'Nome'    => esc_html( $_POST['user_name'] ),
-					'Cognome' => esc_html( $_POST['user_surname'] ),
-					'numero'  => $yet_obtained_vouchers,
-					'numeri'  => $MAX_VOUCHERS
+					'NOME'    => esc_html( $_POST['user_name'] ),
+					'COGNOME' => esc_html( $_POST['user_surname'] ),
+					'NUMERO'  => $yet_obtained_vouchers,
+					'NUMERI'  => $MAX_VOUCHERS
 				]
 			);
 
