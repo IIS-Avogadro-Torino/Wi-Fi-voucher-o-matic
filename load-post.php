@@ -72,11 +72,10 @@ register_permissions('admin', [
 	'administrate'
 ] );
 
-inherit_permissions('superadmin', 'admin');
-register_permissions('superadmin', [
+inherit_permissions('superadmin', 'admin', [
 	'view-all-users',
 	'register_whatever_ata_mail',
-	'register_god'
+	'register_god',
 ] );
 
 require ABSPATH . __ . INCLUDES . __ . 'functions.php';
