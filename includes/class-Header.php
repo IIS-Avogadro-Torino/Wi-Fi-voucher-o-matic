@@ -61,30 +61,21 @@ class Header {
 
 <?php if( $args['navbar'] ): ?>
 <section id="ext_menu-2g">
-
     <nav class="navbar navbar-dropdown navbar-fixed-top">
         <div class="container">
-
             <div class="mbr-table">
-
                 <div class="mbr-table-cell">
-
-                    <button class="navbar-toggler pull-xs-right hidden-md-up" type="button" data-toggle="collapse" data-target="#exCollapsingNavbar">
-                        <div class="hamburger-icon"></div>
-                    </button>
-
-		<?php Printmenu::spawn() ?>
-
-                    <button hidden="" class="navbar-toggler navbar-close" type="button" data-toggle="collapse" data-target="#exCollapsingNavbar">
-                        <div class="close-icon"></div>
-                    </button>
-
+			<div class="navbar-toggler pull-xs-right hidden-md-up" data-toggle="collapse" data-target="#exCollapsingNavbar">
+				<div class="hamburger-icon"></div>
+			</div>
+			<?php Printmenu::spawn() ?>
+			<div hidden="" class="navbar-toggler navbar-close" data-toggle="collapse" data-target="#exCollapsingNavbar">
+				<div class="close-icon"></div>
+			</div>
                 </div>
             </div>
-
         </div>
     </nav>
-
 </section>
 <?php endif ?>
 
