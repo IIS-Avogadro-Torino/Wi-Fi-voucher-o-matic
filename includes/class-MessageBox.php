@@ -21,8 +21,8 @@
  */
 class MessageBox {
 
-	const SUCCESS = 'primary';
-	const INFO    = 'primary';
+	const SUCCESS = 'info';
+	const INFO    = 'info';
 	const WARNING = 'warning';
 	const ERROR   = 'danger';
 
