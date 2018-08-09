@@ -1,8 +1,16 @@
 # WI-Fi voucher-o-matic
 
-This project serves the Wi-Fi vouchers for the ITIS Avogadro of Turin (Italy).
+![Wi-Fi voucher-o-matic IIS Avogadro](static/avowifiok600.png)
+
+This project serves the Wi-Fi vouchers in the IIS Avogadro of Turin (Italy).
+
+Get a voucher!
+
+* https://grupporete.itisavogadro.org/avo-wifi/
 
 ## Installation
+
+From a Debian GNU/Linux environment:
 
     apt install php-mysql apache2 php-mysql
 
@@ -31,8 +39,8 @@ Then:
 * Have fun!
 
 ## License
-Copyright (C) 2017 Valerio Bozzolan, Ivan Bertotto, IIS Avogadro
+Copyright (C) 2017, 2018 Valerio Bozzolan, Ivan Bertotto, IIS Avogadro
 
 This program is free software: you can redistribute it and/or modify it under the terms of the GNU General Public License as published by the Free Software Foundation, either version 3 of the License, or (at your option) any later version. This program is distributed in the hope that it will be useful, but WITHOUT ANY WARRANTY; without even the implied warranty of MERCHANTABILITY or FITNESS FOR A PARTICULAR PURPOSE. See the [GNU General Public License](LICENSE.md) for more details.
 
-You should have received a copy of the GNU General Public License along with this program.If not, see <http://www.gnu.org/licenses/>.
+You should have received a copy of the GNU General Public License along with this program. If not, see <http://www.gnu.org/licenses/>.
