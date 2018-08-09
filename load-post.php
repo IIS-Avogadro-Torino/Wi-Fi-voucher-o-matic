@@ -42,6 +42,9 @@ spl_autoload_register( function($c) {
 defined('SITE_NAME')
 	or define('SITE_NAME', _("Gruppo rete Avogadro") );
 
+defined('RAUSA_EMAIL')
+	or define('RAUSA_EMAIL', 'prausa@itisavogadro.it');
+
 defined('NET_SMTP_PATH')
 	or define('NET_SMTP_PATH', '/usr/share/php/Net/SMTP.php');
 

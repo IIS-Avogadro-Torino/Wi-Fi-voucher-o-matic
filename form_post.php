@@ -42,6 +42,9 @@ if( isset(
 	$existing_user = User::factoryFromUID( $_POST['user_uid'] )
 		->queryRow();
 
+	// An administrator should send manually a voucher to the registered user?
+	$rausa_must_send_voucher = false;
+
 	// create if not exists
 	if( ! $existing_user ) {
 
@@ -52,6 +55,12 @@ if( isset(
 				if( false === strpos( $email, '@itisavogadro.it' ) ) {
 					$create = false;
 				}
+			}
+		} elseif( $type === User::TYPE_STUDENT ) {
+			$email = $_POST['user_uid'];
+			if( false === strpos( $email, '@itisavogadro.it' ) ) {
+				// It's OK to create this user, but it's not OK to send directly the voucher
+				$rausa_must_send_voucher = true;
 			}
 		}
 		if( $create ) {
@@ -107,17 +116,22 @@ if( isset(
 				$voucher      ->get( Voucher::ID )
 			);
 
-			// Email generation
+			$email = $rausa_must_send_voucher
+				? RAUSA_EMAIL
+				: $existing_user->get( User::UID );
 
-			$search = [];
-			$sobstitute = [];
-
-			$mail_content = file_get_contents( STATIC_PATH . __ . 'email.html' );
-			$mail_content = str_replace( $search, $sobstitute, $mail_content );
+			$subject = $rausa_must_send_voucher
+				? sprintf(
+					__( "L'utente %s chiede un voucher %s" ),
+					esc_html( $existing_user->get( User::UID ) ),
+					$existing_user->get( User::TYPE )
+				),
+				__("Il tuo voucher IIS Avogadro")
+			);
 
 			SMTPMail::send(
-				$existing_user->get( User::UID ),
-				__("Il tuo voucher ITI Avogadro"),
+				$email,
+				$subject,
 				file_get_contents( STATIC_PATH . __ . 'email.html' ),
 				[
 					'CODICE'  => esc_html( $voucher->get(Voucher::CODE) ),
