@@ -53,6 +53,12 @@ class User extends Queried {
 	const RECOVERY_TOKEN = 'user_recovery_token';
 	const RECOVERY_DATE  = 'user_recovery_date';
 
+	const TYPE_GOD     = 'god';
+	const TYPE_ATA     = 'ata';
+	const TYPE_MENTHOR = 'menthor';
+	const TYPE_STUDENT = 'student';
+	const TYPE_ALIEN   = 'alien';
+
 	const ID_     = self::T . DOT . self::ID;
 
 	/**
@@ -79,14 +85,14 @@ class User extends Queried {
 	}
 
 	static function filterType( $user_type ) {
-		$types = ['ata', 'menthor', 'student'];
+		$types = [ self::TYPE_ATA, self::TYPE_MENTHOR, self::TYPE_STUDENT ];
 		if( in_array( $user_type, $types, true ) ) {
 			return $user_type;
 		}
 		if( $user_type === 'god' && has_permission('register_god') ) {
-			return 'god';
+			return self::TYPE_GOD;
 		}
-		return 'alien';
+		return self::TYPE_ALIEN;
 	}
 
 	static function update( $user_ID, $cols = [] ) {
