@@ -110,7 +110,7 @@ class User extends Queried {
 	 * @return bool
 	 */
 	public static function filterCompanyEmail( $email ) {
-		return false === strpos( $email, '@' . COMPANY_DOMAIN );
+		return false !== strpos( $email, '@' . COMPANY_DOMAIN );
 	}
 
 	/**
