@@ -51,14 +51,12 @@ if( isset(
 		$create = true;
 		if( $type === User::TYPE_ATA || $type === User::TYPE_MENTHOR ) {
 			if( ! has_permission('register_whatever_ata_mail') ) {
-				$email = $_POST['user_uid'];
-				if( false === strpos( $email, '@itisavogadro.it' ) ) {
+				if( ! User::filterCompanyEmail( $_POST['user_uid'] ) ) {
 					$create = false;
 				}
 			}
 		} elseif( $type === User::TYPE_STUDENT ) {
-			$email = $_POST['user_uid'];
-			if( false === strpos( $email, '@itisavogadro.it' ) ) {
+			if( ! User::filterCompanyEmail( $_POST['user_uid'] ) ) {
 				// It's OK to create this user, but it's not OK to send directly the voucher
 				$rausa_must_send_voucher = true;
 			}

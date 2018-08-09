@@ -42,6 +42,9 @@ spl_autoload_register( function($c) {
 defined('SITE_NAME')
 	or define('SITE_NAME', _("Gruppo rete Avogadro") );
 
+defined('COMPANY_DOMAIN')
+	or define('COMPANY_DOMAIN', 'itisavogadro.it');
+
 defined('RAUSA_EMAIL')
 	or define('RAUSA_EMAIL', 'prausa@itisavogadro.it');
 

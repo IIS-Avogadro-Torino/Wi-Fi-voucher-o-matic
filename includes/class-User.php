@@ -102,4 +102,14 @@ class User extends Queried {
 			$user_ID
 		) );
 	}
+
+	/**
+	 * Check if an e-mail belongs to this company
+	 *
+	 * @param $email string
+	 * @return bool
+	 */
+	public static function filterCompanyEmail( $email ) {
+		return false === strpos( $email, '@' . COMPANY_DOMAIN );
+	}
 }
