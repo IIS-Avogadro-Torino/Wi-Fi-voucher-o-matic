@@ -1,7 +1,7 @@
 <?php
 ######################################################################
 # Wi-Fi-voucher-o-matic - Wi-Fi voucher manager
-# Copyright (C) 2017 Valerio Bozzolan, Ivan Bertotto, ITIS Avogadro
+# Copyright (C) 2017, 2018 Valerio Bozzolan, Ivan Bertotto, IIS Avogadro
 #
 # This program is free software: you can redistribute it and/or modify
 # it under the terms of the GNU General Public License as published by
@@ -13,7 +13,7 @@
 # GNU General Public License for more details.
 #
 # You should have received a copy of the GNU General Public License
-# along with this program.If not, see <http://www.gnu.org/licenses/>.
+# along with this program. If not, see <http://www.gnu.org/licenses/>.
 ######################################################################
 
 require '../load.php';
@@ -263,8 +263,7 @@ $VOUCHERS_GOD_FREE     = $count_available( Voucher::GOD     );
 					<div class="col-md-12">
 						<div class="card card-plain">
 							<div class="card-header" data-background-color="blue">
-								<h4 class="title">Utenti Attivati</h4>
-								<p class="category">Intestazione della tabella sortable</p>
+								<h4 class="title"><?php _e( "Utenti Attivati" ) ?></h4>
 								<form method="get">
 									<button type="submit" name="unique_name" class="btn btn-primary"><?php _e("Solo utenti") ?></button>
 									<?php if( isset( $_GET['type'] ) ): ?>
@@ -349,35 +348,24 @@ $VOUCHERS_GOD_FREE     = $count_available( Voucher::GOD     );
 							</div>
 
 							<?php
-								// Pagination
-
-								$N_PER_PAGE = 50;
-
-								$N_ROWS = (int) RelUserVoucher::factoryUserVoucher()
-									->select('COUNT(*) as count')
-									->queryRow()->count;
-
-								$PAGE = $_GET['p'] ?? 0;
-								if( $PAGE < 0 ) {
-									$PAGE = 0;
-								}
-
-								$GET = $_GET;
+							$pager = new UsersPager();
+							$pager->setDefaultOrderBy( UsersPager::ARG_NAME );
+							$page  = $pager->getPage();
+							$pages = $pager->countPages();
 							?>
-
 							<div class="card-content table-responsive" id="actived-users">
 
 								<p>
-									<?php if( $PAGE > 0 ): ?>
-										<?php $GET['p'] = $PAGE - 1; ?>
-										<a href="<?php echo ROOT . '/Panel/?' . http_build_query($GET) ?>#actived-users"><?php _e("Indietro") ?></a>
+									<?php if( ! $pager->isFirstPage() ): ?>
+										<a href="<?php echo $pager->getSpecificPageURL( $page - 1 ) ?>#actived-users"><?php _e("Indietro") ?></a>
 									<?php endif ?>
 
-									|
+									<?php if( ! $pager->isFirstPage() && ! $pager->isLastPage() ): ?>
+										|
+									<?php endif ?>
 
-									<?php if( $PAGE * $N_PER_PAGE < $N_ROWS ): ?>
-										<?php $GET['p'] = $PAGE + 1; ?>
-										<a href="<?php echo ROOT . '/Panel/?' . http_build_query($GET) ?>#actived-users"><?php _e("Avanti") ?></a>
+									<?php if( ! $pager->isLastPage() ): ?>
+										<a href="<?php echo $pager->getSpecificPageURL( $page + 1 ) ?>#actived-users"><?php _e("Avanti") ?></a>
 									<?php endif ?>
 								</p>
 
@@ -385,16 +373,14 @@ $VOUCHERS_GOD_FREE     = $count_available( Voucher::GOD     );
 									<thead>
 										<tr>
 											<th colspan="3"></th>
-											<th><a href="?sort=name"><?php _e("Nome") ?></a></th>
-											<th><a href="?sort=surname"><?php _e("Cognome") ?></a></th>
-											<th><a href="?sort=uid"><?php _e("E-mail") ?></a></th>
-											<th><a href="?sort=date"><?php _e("Data") ?></a></th>
-											<th><a href="?sort=type"><?php _e("Tipo voucher") ?></a></th>
+											<th><?php $pager->printOrderToggler( __( "Nome"    ), UsersPager::ARG_NAME    ) ?></th>
+											<th><?php $pager->printOrderToggler( __( "Cognome" ), UsersPager::ARG_SURNAME ) ?></th>
+											<th><?php $pager->printOrderToggler( __( "E-mail"  ), UsersPager::ARG_UID     ) ?></th>
 										</tr>
 									</thead>
 									<tbody>
-										<?php
-										$relUserVouchers = RelUserVoucher::factoryUserVoucher()
+										<?php $usersGenerator =	$pager
+											->createPagedQuery()
 											->select( [
 												User::ID_,
 												User::NAME,
@@ -402,94 +388,63 @@ $VOUCHERS_GOD_FREE     = $count_available( Voucher::GOD     );
 												User::UID,
 												User::ACTIVE,
 												User::IS_PUBLIC,
-												Voucher::TYPE,
-												Voucher::CODE,
-												RelUserVoucher::CREATION_DATE,
-												RelUserVoucher::CREATION_USER
-											] );
-
-										switch( @ $_GET['sort'] ) {
-											case 'name';
-												$relUserVouchers->orderBy( User::NAME );
-												break;
-											case 'surname':
-												$relUserVouchers->orderBy( User::SURNAME );
-												break;
-											case 'uid':
-												$relUserVouchers->orderBy( User::UID );
-												break;
-											case 'date':
-												$relUserVouchers->orderBy( RelUserVoucher::CREATION_DATE . ' DESC' );
-												break;
-											case 'type':
-												$relUserVouchers->orderBy( Voucher::TYPE );
-												break;
-										}
-
-										if( isset( $_GET['unique_name'] ) ) {
-											$relUserVouchers->groupBy( User::UID );
-										}
-
-										$relUserVouchers->limit(
-											$N_PER_PAGE,
-											$N_PER_PAGE * $PAGE
-										);
-
-										$relUserVouchers = $relUserVouchers->queryResults();
+											] )
+											->queryGenerator();
 										?>
-
-										<?php foreach($relUserVouchers as $relUserVoucher): ?>
+										<?php foreach( $usersGenerator as $user ): ?>
 										<tr>
 											<td>
 												<form method="post">
 													<input type="hidden" name="action" value="send-password" />
-													<input type="hidden" name="uid" value="<?php echo $relUserVoucher->get( User::UID ) ?>" />
+													<input type="hidden" name="uid" value="<?php echo $user->get( User::UID ) ?>" />
 													<button class="btn waves-effect waves-light" type="submit" title="<?php
-														$relUserVoucher->get( User::ACTIVE )
+														$user->get( User::ACTIVE )
 															? _e("Pwd Reset")
 															: _e("Abilita")
 													?>"><i class="material-icons">account_circle</i></button>
 												</form>
 											</td>
 											<td>
-												<?php if( $relUserVoucher->get( User::ACTIVE ) ): ?>
+												<?php if( $user->get( User::ACTIVE ) ): ?>
 												<form method="post">
 													<input type="hidden" name="action" value="disable-user" />
-													<input type="hidden" name="uid" value="<?php echo $relUserVoucher->get( User::UID ) ?>" />
+													<input type="hidden" name="uid" value="<?php echo $user->get( User::UID ) ?>" />
 													<button class="btn waves-effect waves-light" type="submit" title="<?php _e("Turn OFF") ?>"> <i class="material-icons">check_circle</i></button>
 												</form>
 												<?php endif ?>
 											</td>
 											<td><form method="post">
 												<input type="hidden" name="action" value="publish-user" />
-												<input type="hidden" name="uid" value="<?php echo $relUserVoucher->get( User::UID ) ?>" />
+												<input type="hidden" name="uid" value="<?php echo $user->get( User::UID ) ?>" />
 												<input type="hidden" name="value" value="<?php
-													echo $relUserVoucher->get( User::IS_PUBLIC )
+													echo $user->get( User::IS_PUBLIC )
 														? 0
 														: 1
 												?>" />
 												<button class="btn waves-effect waves-light" type="submit" title="<?php
-													$relUserVoucher->get( User::IS_PUBLIC )
+													$user->get( User::IS_PUBLIC )
 														? _e("Turn Site OFF")
 														: _e("Turn Site ON")
 												?>"><i class="material-icons">language</i></button>
 											</form></td>
-											<td><?php echo $relUserVoucher->get( User::NAME    ) ?></td>
-											<td><?php echo $relUserVoucher->get( User::SURNAME ) ?></td>
-											<td><?php echo $relUserVoucher->get( User::UID     ) ?></td>
-											<td><?php echo $relUserVoucher->formatRelUserVoucherDate( _('Y/m/d') ) ?></td>
+											<td><?php _esc_html( $user->get( User::NAME    ) ) ?></td>
+											<td><?php _esc_html( $user->get( User::SURNAME ) ) ?></td>
+											<td><?php _esc_html( $user->get( User::UID     ) ) ?></td>
 											<td><?php
-												echo $relUserVoucher->get( Voucher::CODE );
+											$vouchers = new Vouchers();
+											$vouchers->whereUserID( $user->get( User::ID ) );
 
+											foreach( $vouchers->queryGenerator( 'RelUserVoucher' ) as $voucher ) {
+
+												echo $voucher->formatRelUserVoucherDate( _('Y/m/d') );
+												echo $voucher->get( Voucher::CODE );
+												echo "<br />";
+												echo $voucher->get( Voucher::TYPE );
 												echo "<br />";
 
-												echo $relUserVoucher->get( Voucher::TYPE );
+												$creation_user_ID = $voucher->get( RelUserVoucher::CREATION_USER );
 
-												echo "<br />";
-
-												$creation_user_ID = $relUserVoucher->get( RelUserVoucher::CREATION_USER );
-
-												if( $creation_user_ID !== $relUserVoucher->get( User::ID ) ) {
+												if( $creation_user_ID !== $voucher->get( User::ID ) ) {
 													$created_by = User::factoryByID( $creation_user_ID )
 														->select( [
 															User::ID_,
@@ -507,6 +462,8 @@ $VOUCHERS_GOD_FREE     = $count_available( Voucher::GOD     );
 													);
 													echo "</small>";
 												}
+												echo "<hr />";
+											}
 											?>
 											</td>
 										</tr>
