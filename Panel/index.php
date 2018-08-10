@@ -480,7 +480,7 @@ $VOUCHERS_GOD_FREE     = $count_available( Voucher::GOD     );
 												esc_html( $user->get( User::UID ) ),
 												$pager->getArg( UsersPager::ARG_UID )
 											) ?></td>
-											<td><?php
+											<td><div style="max-height:300px; overflow-y:auto;"><?php
 											$vouchers = new Vouchers();
 											$vouchers->whereUserID( $user->get( User::ID ) );
 
@@ -519,7 +519,7 @@ $VOUCHERS_GOD_FREE     = $count_available( Voucher::GOD     );
 												echo "<hr />";
 											}
 											?>
-											</td>
+											</div></td>
 										</tr>
 										<?php endforeach ?>
 									</tbody>
