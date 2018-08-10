@@ -1,7 +1,7 @@
 <?php
 ######################################################################
 # Wi-Fi-voucher-o-matic - Wi-Fi voucher manager
-# Copyright (C) 2017 Valerio Bozzolan, Ivan Bertotto, ITIS Avogadro
+# Copyright (C) 2017, 2018 Valerio Bozzolan, Ivan Bertotto, IIS Avogadro
 #
 # This program is free software: you can redistribute it and/or modify
 # it under the terms of the GNU General Public License as published by
@@ -13,13 +13,12 @@
 # GNU General Public License for more details.
 #
 # You should have received a copy of the GNU General Public License
-# along with this program.If not, see <http://www.gnu.org/licenses/>.
+# along with this program. If not, see <http://www.gnu.org/licenses/>.
 ######################################################################
 
 require 'load.php';
 
-Header::spawn('docente');
-
+Header::spawn('studente');
 ?>
 
 <section class="mbr-section article mbr-parallax-background mbr-after-navbar" id="msg-box8-s" style="background-image: url(<?php echo STATIC_ROOT ?>/images/william-iven-2000x1328.jpg); padding-top: 120px; padding-bottom: 120px;">
@@ -28,8 +27,8 @@ Header::spawn('docente');
 	<div class="container">
 		<div class="row">
 			<div class="col-md-8 col-md-offset-2 text-xs-center">
-				<h3 class="mbr-section-title display-2">Richiesta account Studente</h3>
-				<div class="lead"><p>Per un anno di accesso a internet dai tuoi dispositivi.</p></div>
+				<h3 class="mbr-section-title display-2"><?php _e( "Richiesta account Studente" ) ?></h3>
+				<div class="lead"><p><?php _e( "Per un anno di accesso ad Internet dai tuoi dispositivi." ) ?></p></div>
 			</div>
 		</div>
 	</div>
@@ -39,8 +38,21 @@ Header::spawn('docente');
 	<div class="container">
 		<div class="row">
 			<div class="col-xs-12 lead">
-				<p>Puoi richieder subito un voucher da utilizzare per navigare un anno dal tuo dispositivo all' interno della scuola alla velocità di 8 megabit.</p>
-				<p>Se hai una casella di posta @itisavogadro.it oppure hai già avuto in passato voucher associati alla tua mail , basta compilae il form per avere un nuovo accesso.<br> Se sei nuovo al servizio, il tuo voucher verrà inviato al Prof Pietro Rausa (prausa@itisavogadro.it) docente di matematica, rivolgiti a lui per averlo. .</p>
+				<p><?php printf(
+					__( "Puoi richieder subito un voucher da utilizzare per navigare un anno dal tuo dispositivo all'interno della scuola alla velocità di %d megabit." ),
+					8
+				) ?></p>
+				<p><?php printf(
+					__(
+						"Se hai una casella di posta %s, oppure hai già avuto in passato voucher associati alla tua mail, ".
+						"basta compilare il form per avere un nuovo accesso.<br /> ".
+						"Se sei nuovo al servizio, il tuo voucher verrà inviato a %s (%s). " .
+						"Rivolgiti a lui per averlo."
+					),
+					'@' . COMPANY_DOMAINS[ 0 ],
+					RAUSA_NAME,
+					RAUSA_EMAIL
+				) ?></p>
 			</div>
 		</div>
 	</div>
@@ -51,7 +63,7 @@ Header::spawn('docente');
 		<div class="container">
 			<div class="row">
 				<div class="col-xs-12 text-xs-center">
-					<h3 class="mbr-section-title display-2">Richiesta account Studente</h3>
+					<h3 class="mbr-section-title display-2"><?php _e( "Richiesta account Studente" ) ?></h3>
 					<small class="mbr-section-subtitle"></small>
 				</div>
 			</div>
@@ -131,26 +143,27 @@ Header::spawn('docente');
 					<div class="col-xs-12 col-md-2">
 						<div class="form-group">
 							<label class="form-control-label" for="form1-t-corso"><?php _e("Corso") ?><span class="form-asterisk">*</span></label>
-							<select class="form-control" name="user_daytype" id="form1-t-corso">
+							<select class="form-control" name="<?php echo User::DAYTYPE ?>" id="form1-t-corso">
 								<option disabled="disabled" selected="selected"><?php _e("...") ?></option>
-								<option value="diurno"><?php _e("biennio") ?></option>
-								<option value="serale"><?php _e("liceo") ?></option>
+								<?php foreach( User::$DAYTYPES as $daytype ): ?>
+									<option value="<?php _esc_attr( $daytype ) ?>"><?php _esc_html( $daytype ) ?></option>
+								<?php endforeach ?>
 							</select>
 						</div>
 					</div>
 					<div class="col-xs-12 col-md-4">
 						<div class="form-group">
 							<label class="form-control-label" for="form1-t-dispositivo"><?php _e("Dispositivo") ?><span class="form-asterisk">*</span></label>
-							<select class="form-control" name="dispositivo_type" id="form1-t-dispositivo">
+							<select class="form-control" name="<?php echo RelUserVoucher::DEVICE_NAME ?>" id="form1-t-dispositivo">
 								<option disabled="disabled" selected="selected"><?php _e("...") ?></option>
-								<option value="PC / tablet Microsoft Windows"><?php _e("PC / tablet Microsoft Windows") ?></option>
-								<option value="PC GNU/Linux"><?php _e("PC GNU/Linux") ?></option>
+								<option value="Microsoft Windows"><?php _e("Microsoft Windows") ?></option>
+								<option value="GNU/Linux"><?php _e( "GNU/Linux") ?></option>
+								<option value="smartphone Android"><?php _e("smartphone Android") ?></option>
+								<option value="tablet Android"><?php _e("tablet Android") ?></option>
+								<option value="iPhone"><?php _e("iPhone") ?></option>
 								<option value="mac"><?php _e("Mac") ?></option>
 								<option value="iPad"><?php _e("iPad") ?></option>
-								<option value="iPhone"><?php _e("iPhone") ?></option>
-								<option value="tablet Android"><?php _e("tablet Android") ?></option>		
-								<option value="smartphone Android"><?php _e("smartphone Android") ?></option>	
-								<option value="altro"><?php _e("altro") ?></option>
+								<option value="unknown"><?php _e("altro") ?></option>
 							</select>
 						</div>
 					</div>
@@ -162,7 +175,6 @@ Header::spawn('docente');
 	</div>
 	<!-- /.mbr-section -->
 </section>
-
 
 <?php
 Footer::spawn();
