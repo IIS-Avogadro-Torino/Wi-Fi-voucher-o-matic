@@ -483,6 +483,7 @@ $VOUCHERS_GOD_FREE     = $count_available( Voucher::GOD     );
 											<td><div style="max-height:300px; overflow-y:auto;"><?php
 											$vouchers = new Vouchers();
 											$vouchers->whereUserID( $user->get( User::ID ) );
+											$vouchers->orderBy( RelUserVoucher::CREATION_DATE, 'DESC' );
 
 											foreach( $vouchers->queryGenerator( 'RelUserVoucher' ) as $voucher ) {
 
