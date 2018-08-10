@@ -261,9 +261,8 @@ $VOUCHERS_GOD_FREE     = $count_available( Voucher::GOD     );
 
 				<?php
 				$pager = new UsersPager();
+				$pager->setElementsPerPage( 50 );
 				$pager->setDefaultOrderBy( UsersPager::ARG_NAME );
-				$page  = $pager->getPage();
-				$pages = $pager->countPages();
 				?>
 
 						<div class="card">
@@ -392,19 +391,24 @@ $VOUCHERS_GOD_FREE     = $count_available( Voucher::GOD     );
 
 							<div class="table-responsive" id="actived-users">
 
-								<p>
-									<?php if( ! $pager->isFirstPage() ): ?>
-										<a href="<?php echo $pager->getSpecificPageURL( $page - 1 ) ?>#actived-users"><?php _e("Indietro") ?></a>
-									<?php endif ?>
+								<?php $pagination = function ( $pager ) { ?>
+									<?php $page  = $pager->getPage() ?>
+									<p>
+										<?php if( ! $pager->isFirstPage() ): ?>
+											<a href="<?php echo $pager->getSpecificPageURL( $page - 1 ) ?>#actived-users"><?php _e("Indietro") ?></a>
+										<?php endif ?>
 
-									<?php if( ! $pager->isFirstPage() && ! $pager->isLastPage() ): ?>
-										|
-									<?php endif ?>
+										<?php if( ! $pager->isFirstPage() && ! $pager->isLastPage() ): ?>
+											|
+										<?php endif ?>
 
-									<?php if( ! $pager->isLastPage() ): ?>
-										<a href="<?php echo $pager->getSpecificPageURL( $page + 1 ) ?>#actived-users"><?php _e("Avanti") ?></a>
-									<?php endif ?>
-								</p>
+										<?php if( ! $pager->isLastPage() ): ?>
+											<a href="<?php echo $pager->getSpecificPageURL( $page + 1 ) ?>#actived-users"><?php _e("Avanti") ?></a>
+										<?php endif ?>
+									</p>
+								<?php } ?>
+
+								<?php $pagination( $pager ) ?>
 
 								<table class="table table-hover">
 									<thead>
@@ -520,6 +524,9 @@ $VOUCHERS_GOD_FREE     = $count_available( Voucher::GOD     );
 										<?php endforeach ?>
 									</tbody>
 								</table>
+
+								<?php $pagination( $pager ) ?>
+
 							</div>
 							<!-- end .card-content -->
 						</div>
