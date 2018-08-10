@@ -259,16 +259,60 @@ $VOUCHERS_GOD_FREE     = $count_available( Voucher::GOD     );
 
 				<?php if( has_permission('view-all-users') ): ?>
 
-				<div class="row">
-					<div class="col-md-12">
-						<div class="card card-plain">
-							<div class="card-header" data-background-color="blue">
+				<?php
+				$pager = new UsersPager();
+				$pager->setDefaultOrderBy( UsersPager::ARG_NAME );
+				$page  = $pager->getPage();
+				$pages = $pager->countPages();
+				?>
+
+						<div class="card">
+							<div class="card-header">
 								<h4 class="title"><?php _e( "Utenti Attivati" ) ?></h4>
+							</div>
+							<div class="card-content">
 								<form method="get">
-									<button type="submit" name="unique_name" class="btn btn-primary"><?php _e("Solo utenti") ?></button>
-									<?php if( isset( $_GET['type'] ) ): ?>
-										<input type="hidden" name="sort" value="<?php _esc_attr( $_GET['type'] ) ?>" />
-									<?php endif ?>
+									<p><?php _e( "Cerca per:" ) ?></p>
+									<div class="row">
+										<div class="col-md-4">
+											<div class="form-group">
+												<label class="control-label" for="by-name"><?php _e( "Nome" ) ?></label>
+												<input type="text" class="form-control" name="<?php echo UsersPager::ARG_NAME ?>" id="by-name"<?php
+													_value( $pager->getArg( UsersPager::ARG_NAME ) )
+												?> />
+											</div>
+										</div>
+										<div class="col-md-4">
+											<div class="form-group">
+												<label class="control-label" for="by-surname"><?php _e( "Cognome" ) ?></label>
+												<input type="text" class="form-control" name="<?php echo UsersPager::ARG_SURNAME ?>" id="by-surname"<?php
+													_value( $pager->getArg( UsersPager::ARG_SURNAME ) )
+												?> />
+											</div>
+										</div>
+										<div class="col-md-4">
+											<div class="form-group">
+												<label class="control-label" for="by-uid"><?php _e( "e-mail" ) ?></label>
+												<input type="text" class="form-control" name="<?php echo UsersPager::ARG_UID ?>" id="by-uid"<?php
+													_value( $pager->getArg( UsersPager::ARG_UID ) )
+												?> />
+											</div>
+										</div>
+										<div class="col-md-4">
+											<div class="form-group">
+												<label class="control-label" for="by-voucher"><?php _e( "Voucher" ) ?></label>
+												<input type="text" class="form-control" name="<?php echo UsersPager::ARG_VOUCHER ?>" id="by-voucher"<?php
+													_value( $pager->getArg( UsersPager::ARG_VOUCHER ) )
+												?> />
+											</div>
+										</div>
+										<div class="col-md-4">
+											<div class="form-group">
+												<button type="submit" class="btn"><?php _e( "Filtra" ) ?></button>
+											</div>
+										</div>
+									</div>
+									<!-- /.row -->
 								</form>
 
 								<?php if( isset( $_POST['action'], $_POST['uid'] ) ): ?>
@@ -345,15 +389,8 @@ $VOUCHERS_GOD_FREE     = $count_available( Voucher::GOD     );
 									}
 									?>
 								<?php endif ?>
-							</div>
 
-							<?php
-							$pager = new UsersPager();
-							$pager->setDefaultOrderBy( UsersPager::ARG_NAME );
-							$page  = $pager->getPage();
-							$pages = $pager->countPages();
-							?>
-							<div class="card-content table-responsive" id="actived-users">
+							<div class="table-responsive" id="actived-users">
 
 								<p>
 									<?php if( ! $pager->isFirstPage() ): ?>
@@ -427,9 +464,18 @@ $VOUCHERS_GOD_FREE     = $count_available( Voucher::GOD     );
 														: _e("Turn Site ON")
 												?>"><i class="material-icons">language</i></button>
 											</form></td>
-											<td><?php _esc_html( $user->get( User::NAME    ) ) ?></td>
-											<td><?php _esc_html( $user->get( User::SURNAME ) ) ?></td>
-											<td><?php _esc_html( $user->get( User::UID     ) ) ?></td>
+											<td><?php echo enfatize_substr(
+												esc_html( $user->get( User::NAME ) ),
+												$pager->getArg( UsersPager::ARG_NAME )
+											) ?></td>
+											<td><?php echo enfatize_substr(
+												esc_html( $user->get( User::SURNAME ) ),
+												$pager->getArg( UsersPager::ARG_SURNAME )
+											) ?></td>
+											<td><?php echo enfatize_substr(
+												esc_html( $user->get( User::UID ) ),
+												$pager->getArg( UsersPager::ARG_UID )
+											) ?></td>
 											<td><?php
 											$vouchers = new Vouchers();
 											$vouchers->whereUserID( $user->get( User::ID ) );
@@ -437,7 +483,11 @@ $VOUCHERS_GOD_FREE     = $count_available( Voucher::GOD     );
 											foreach( $vouchers->queryGenerator( 'RelUserVoucher' ) as $voucher ) {
 
 												echo $voucher->formatRelUserVoucherDate( _('Y/m/d') );
-												echo $voucher->get( Voucher::CODE );
+												echo "<br />";
+												echo "<code>" . enfatize_substr(
+													$voucher->get( Voucher::CODE ),
+													$pager->getArg( UsersPager::ARG_VOUCHER )
+												) . "</code>";
 												echo "<br />";
 												echo $voucher->get( Voucher::TYPE );
 												echo "<br />";
@@ -474,10 +524,7 @@ $VOUCHERS_GOD_FREE     = $count_available( Voucher::GOD     );
 							<!-- end .card-content -->
 						</div>
 						<!-- end .card -->
-					</div>
-					<!-- end .col -->
-				</div>
-				<!-- end .row -->
+
 				<?php endif ?>
 			</div>
 			<!-- end .content -->
