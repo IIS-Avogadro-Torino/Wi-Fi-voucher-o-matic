@@ -87,4 +87,16 @@ class UsersPager extends QueryPager {
 		return true;
 	}
 
+	/**
+	 * Get an URL for an URL toggler
+	 *
+	 * @param $order_by string Order by field
+	 * @param $default_direction string Default order direction ASC|DESC
+	 * @return string Relative URL
+	 * @override QueryPager#getOrderTogglerURL()
+	 */
+	public function getOrderTogglerURL( $order_by, $default_direction = null ) {
+		return parent::getOrderTogglerURL( $order_by, $default_direction ) . '#actived-users';
+	}
+
 }
