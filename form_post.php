@@ -62,10 +62,10 @@ if( isset(
 			}
 		}
 		if( $create ) {
-			$class_name     = User::filterClassNumber(    @ $_POST[ 'class_number'        ] );
-			$section        = User::filterClassSection(   @ $_POST[ 'class_section'       ] );
-			$daytype        = User::filterDaytype(        @ $_POST[ 'user_daytype'        ] );
-			$specialization = User::filterSpecialization( @ $_POST[ 'user_specialization' ] );
+			$class_name     = User::filterClassNumber(    @ $_POST[ User::CLASS_NUMBER   ] );
+			$section        = User::filterClassSection(   @ $_POST[ User::CLASS_SECTION  ] );
+			$daytype        = User::filterDaytype(        @ $_POST[ User::DAYTYPE        ] );
+			$specialization = User::filterSpecialization( @ $_POST[ User::SPECIALIZATION ] );
 
 			insert_row( User::T, [
 				new DBCol( User::NAME,           $_POST['user_name'],    's'     ),
