@@ -487,8 +487,6 @@ $VOUCHERS_GOD_FREE     = $count_available( Voucher::GOD     );
 
 											foreach( $vouchers->queryGenerator( 'RelUserVoucher' ) as $voucher ) {
 
-												echo $voucher->formatRelUserVoucherDate( _('Y/m/d') );
-												echo "<br />";
 												echo "<code>" . enfatize_substr(
 													$voucher->get( Voucher::CODE ),
 													$pager->getArg( UsersPager::ARG_VOUCHER )
@@ -517,6 +515,8 @@ $VOUCHERS_GOD_FREE     = $count_available( Voucher::GOD     );
 													);
 													echo "</small>";
 												}
+												echo "<br />";
+												echo $voucher->formatRelUserVoucherDate( _('Y/m/d') );
 												echo "<hr />";
 											}
 											?>
